@@ -7,11 +7,11 @@
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">
                     <li>
-                    	<li><a href="<?php echo base_url()."admin/makeAnnouncement"?>">Make Announcement</a></li>
+                    	<li><a href="<?php echo base_url()."patient/Explore"?>">Explore </a></li>
                     </li>
                     <li><span class="element-divider"></span></li>
                     <li>
-                        <a class="dropdown-toggle"  href="#">Manage Users</a>
+                        <a class="dropdown-toggle"  href="#">Manage </a>
                         <ul class="dropdown-menu" data-role="dropdown">
                             <li><a href="<?php echo base_url()."add_user"?>">Add User</a></li>
                             <li><a href="<?php echo base_url()."admin/view_user"?>">View User</a></li>   

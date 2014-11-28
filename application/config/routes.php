@@ -37,15 +37,20 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-
+$route['404_override'] = '';
+$route['default_controller'] = "main";
 $route['login'] = 'main/login';
 $route['new_user/signup'] = 'main/signup';
-$route['admin'] = 'main/admin';
-$route['manage_user'] = 'main/manage_user';
-$route['members'] = 'main/members';
-$route['default_controller'] = "main";
-$route['makeAnnouncement'] = 'main/makeAnnouncement';
-$route['404_override'] = '';
+
+$route['explore'] = 'patient/explore';
+
+
+
+
+
+$route['makeAnnouncement'] = 'admin/makeAnnouncement';
+$route['add_user'] = 'admin/add_user';
+$route['manage_user'] = 'admin/manage_user';
 
 
 /* End of file routes.php */
