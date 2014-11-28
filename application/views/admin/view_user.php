@@ -22,7 +22,7 @@ $( document ).ready(function() {
 	 oTable = $('#dataTables-1').dataTable( {
 		"bProcessing": true,
 		"bServerSide": true,
-		"sAjaxSource": '<?php echo base_url('main/datatable'); ?>',
+		"sAjaxSource": '<?php echo base_url('admin/datatable'); ?>',
                 
                 "sPaginationType": "full_numbers",
            
@@ -68,7 +68,7 @@ $(document).on('click','.editInfo', function(){
 		width: 500,
         padding: 10,
         onShow: function(_dialog){
-            var content = '<form action="<?php echo base_url('main/editUserInfo'); ?>" method="POST" id="editform">' +
+            var content = '<form action="<?php echo base_url('admin/editUserInfo'); ?>" method="POST" id="editform">' +
                 '<label>id</label>' +
                 '<div class="input-control text"><input type="text" name="id" value="'+id+'" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
@@ -175,7 +175,7 @@ $(document).on('submit','#editform', function(e){
 function  confirmDeleteFunc(id){
 $.ajax({
 		type: "POST",
-		url: "<?php echo base_url('main/deleteUser/')?>/"+id,
+		url: "<?php echo base_url('admin/deleteUser/')?>/"+id,
 			
 	}).done(function(msg){
 		if(msg=="success"){
