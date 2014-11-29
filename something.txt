@@ -1,4 +1,8 @@
 dsfdfsd sdfsd
 
 
+<<<<<<< HEAD
 junjunjun
+=======
+blabla
+>>>>>>> origin/master
