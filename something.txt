@@ -1,12 +1,2 @@
 dsfdfsd sdfsd
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD <<feet
-=======
-<<<<<<< HEAD <<head
->>>>>>> origin/master
-junjunjun
-=======
-blabla
->>>>>>> origin/master
+<<reid
