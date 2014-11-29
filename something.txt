@@ -1,7 +1,7 @@
 dsfdfsd sdfsd
 
 
-<<<<<<< HEAD
+<<<<<<< HEAD <<head
 junjunjun
 =======
 blabla
