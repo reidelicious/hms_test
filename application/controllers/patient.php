@@ -2,7 +2,7 @@
 
 class Patient extends CI_Controller {
 	
-	//marjun git test part 2
+	//marjun git test part 2 nsdfsdfsdf
 	
 	
 	
