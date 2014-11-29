@@ -1,10 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Patient extends CI_Controller {
-	
-	//marjun git test part 2 nsdfsdfsdf
-	
-	
+		
 	
 	
 	public function explore(){
