@@ -1,2 +1,6 @@
 dsfdfsd sdfsd
+<<<<<<< HEAD
 <<marjhun
+=======
+<<reid
+>>>>>>> origin/master
