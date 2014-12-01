@@ -2,27 +2,18 @@
     <header class="bg-dark">
         <div class="navbar fixed-top ">
             <div class="navbar-content">
-                <a href="#" class="element"><span class="icon-grid-view"></span> hospital management system <sup>2.0</sup></a>
+                <a href="#" class="element"><span class="icon-grid-view"></span> Hospital Management System <sup>Alpha v1.0</sup></a>
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">
                     <li>
+                        <li><a href="<?php echo base_url()."patient/Explore"?>">Home </a></li>
+                    </li>
+                    <li>
+                        <li><a href="<?php echo base_url()."patient/Explore"?>">Appointment </a></li>
+                    </li>
+                    <li>
                     	<li><a href="<?php echo base_url()."patient/Explore"?>">Explore </a></li>
-                    </li>
-                    <li><span class="element-divider"></span></li>
-                    <li>
-                        <a class="dropdown-toggle"  href="#">Manage </a>
-                        <ul class="dropdown-menu" data-role="dropdown">
-                            <li><a href="<?php echo base_url()."add_user"?>">Add User</a></li>
-                            <li><a href="<?php echo base_url()."admin/view_user"?>">View User</a></li>   
-                        </ul>
-                	</li>
-                   
-                    <li>
-                    	<li><a class="element brand" href="#"><span class="icon-spin"></span></a></li>
-                    </li>
-                    <li>
-                    	<li><a class="element brand" href="#"><span class="icon-printer"></span></a></li>
                     </li>
                     <li>
                         <div class="element input-element">
