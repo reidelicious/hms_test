@@ -6,7 +6,7 @@
 <?php
 $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
 
- echo form_open('admin/addUser_validation',$attributes); ?>
+ echo form_open('main/addUser_validation',$attributes); ?>
     <fieldset>
     
     <legend>Add User</legend>

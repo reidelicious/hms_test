@@ -28,7 +28,7 @@ class Main extends CI_Controller {
 	
 		if($this->session->userdata('is_logged_in') == 1){
 			if($this->session->userdata('usertype') == "USER"){
-				redirect('explore');
+				redirect('home');
 			}else if($this->session->userdata('usertype') == "ADMIN"){
 				redirect('add_user');
 			}
@@ -52,9 +52,11 @@ class Main extends CI_Controller {
 	}
 	
 	// patient
-	public function members(){
+	public function home(){
 		if($this->session->userdata('is_logged_in')){
-			$this->load->view('user/members');
+			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_patient');
+			$this->load->view('patient/home');
 		}else{
 			redirect('main/restricted');
 		}	
@@ -89,7 +91,7 @@ class Main extends CI_Controller {
 			$this->session->set_userdata($data);
 			
 			if($row->utype == "USER"){
-				redirect('explore');	
+				redirect('home');	
 			}else if($row->utype == "ADMIN"){
 				redirect('add_user');	
 			}
