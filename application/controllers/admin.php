@@ -34,6 +34,8 @@ $data['success'] = '';
 	}
 	
 	public function datatable(){
+		
+		$this->datatables->where('email !=',$this->session->userdata('email'));
         $this->datatables->select('id,email,fname,lname,utype')
 			->add_column('action', get_buttons('$1'), 'id')
             ->from('users');
