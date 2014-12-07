@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-a
-=======
-b
->>>>>>> origin/master
