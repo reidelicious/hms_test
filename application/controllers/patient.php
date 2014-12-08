@@ -17,11 +17,17 @@ class Patient extends CI_Controller {
 	
 	public function explore(){
 		
+	
+		
 		$this->load->view('templates/header/header_all');
 		$this->load->view('templates/header/header_patient');
-		$this->load->view('patient/explore');
+		$this->load->view('patient/explore',$data);
 	}
 	
+	
+	public function explore_doctors(){
+		
+	}
 	
 	
 	

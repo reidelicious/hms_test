@@ -2,7 +2,6 @@
 	  echo link_tag('assets/css/dimmer.min.css');
  ?>
  <script src="<?php echo base_url('assets/js/dimmer.min.js')?>"></script>
- <script src="<?php echo base_url('assets/js/l&g.js')?>"></script>
 
 <div class="container">
     <div class="grid fluid">
@@ -28,15 +27,14 @@
                     	 <div class="ui dimmer">
                           	<div class="content">
                              	<div class="center">
-                               		<div class="ui primary button">Add</div>
-                               		<div class="ui button">View</div>
+                               <div class="ui primary button">View Profile</div>
                              	</div>
                             </div>
                          </div>
                           
                         <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>Marjhun Christopher Galanido</h3>                      
+                            <div class="thumb">  <?php echo  img('assets/images/marjun.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
                         </section>
                         <section class="right">
                             <span class="price">Family Doctor</span>
@@ -44,36 +42,109 @@
                     </li>
                     
                     <!-- row 2 -->
-                    <li class="clearfix">
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
                         <section class="left">
-                              <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>Angel James Torayno</h3>
-                        
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
                         </section>
-                        
                         <section class="right">
                             <span class="price">Family Doctor</span>
-                            <span class="darkview">
-                            
-                            <a href="javascript:void(0);"  class="firstbtn btn btn-warning" data-toggle="modal" data-target="#myModal">View Profile</a> 
-                            </span>
                         </section>
                     </li>
                     
                     <!-- row 3 -->
-                    <li class="clearfix">
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
                         <section class="left">
-                              <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>Angel James Torayno</h3>
-                        
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
                         </section>
-                        
                         <section class="right">
                             <span class="price">Family Doctor</span>
-                            <span class="darkview">
-                            
-                            <a href="javascript:void(0);"  class="firstbtn btn btn-warning" data-toggle="modal" data-target="#myModal">View Profile</a> 
-                            </span>
+                        </section>
+                    </li>
+                    
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
                         </section>
                     </li>
                     
@@ -112,6 +183,14 @@
   
 
 <script type="text/javascript">
+$.ajax({
+    url: 'test.html',
+    dataType: 'html',
+    success: function(html) {
+        var div = $('#sourceDiv', $(html)).addClass('done');
+        $('#targetDiv').html(div);
+    }
+});
 
 $('.dims')
   .dimmer({
