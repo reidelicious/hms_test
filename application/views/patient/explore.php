@@ -24,7 +24,16 @@
 			
             	    <ul id="products" class="grid clearfix">
               	      <!-- row 1 -->
-                    <li class="clearfix">
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               		<div class="ui primary button">Add</div>
+                               		<div class="ui button">View</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
                         <section class="left">
                             <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
                             <h3>Angel James Torayno</h3>                      
@@ -104,10 +113,14 @@
 
 <script type="text/javascript">
 
-$('')
+$('.dims')
   .dimmer({
     on: 'hover'
-  });
+  })
+  duration    : {
+  show : 500,
+  hide : 500
+};
 </script>
 
 
