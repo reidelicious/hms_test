@@ -36,7 +36,7 @@
                           
                         <section class="left">
                             <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>Angel James Torayno</h3>                      
+                            <h3>Marjhun Christopher Galanido</h3>                      
                         </section>
                         <section class="right">
                             <span class="price">Family Doctor</span>
@@ -115,12 +115,12 @@
 
 $('.dims')
   .dimmer({
-    on: 'hover'
-  })
-  duration    : {
-  show : 500,
-  hide : 500
-};
+    on: 'hover',
+	duration    : {
+  	show : 0,
+	 hide : 10
+	}
+  });
 </script>
 
 

@@ -19,7 +19,7 @@
 
 /** grid view **/
 .lg ul.grid { list-style: none; margin: 0 auto; padding-left: 25px; }
-.lg ul.grid li { position: relative; display: block; float: left; width: 220px; height: 200px; padding: 5px 22px; margin-bottom: 20px; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+.lg ul.grid li { position: relative; display: block; float: left; width: 220px; max-height: 200px; padding: 5px 22px; margin-bottom: 20px; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
 .lg ul.grid li.third { border: 0; }
 
 .lg ul.grid li section.left { position: relative;margin-left:14px; }
@@ -30,7 +30,7 @@
 .lg ul.grid li section.left .thumb img.scale{height:auto;width:130px;}
 .lg ul.grid li section.left img.featured-banner { position: absolute; top: 0; }
 
-.lg ul.grid li section.left h3 { font-family: "Trebuchet MS", Arial, sans-serif; font-weight: bold; text-transform: uppercase; color: #707375; font-size: 1.0em; line-height: 0.1em;margin-top: 13px; margin-bottom: 10px; } 
+.lg ul.grid li section.left h3 { font-weight: bold; text-transform: uppercase; color: #707375; font-size: 1.0em; line-height: 0.1em;margin-top: 13px; margin-bottom: 10px; } 
 .lg ul.grid li section.left span.meta { display: block; color: #93989b; font-weight: normal; font-size: 1.1em; margin-bottom: 7px; }
 
 .lg ul.grid li section.right span.price { font-weight: bold; display: block; margin-bottom: 5px; color: #ad3939; }
