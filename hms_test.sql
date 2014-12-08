@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2014 at 03:13 PM
+-- Generation Time: Dec 08, 2014 at 11:22 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `temp_users` (
   `utype` enum('USER','DOCTOR','ADMIN') NOT NULL,
   `key` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `temp_users`
@@ -111,7 +111,8 @@ CREATE TABLE IF NOT EXISTS `temp_users` (
 INSERT INTO `temp_users` (`id`, `email`, `password`, `fname`, `lname`, `age`, `gender`, `address`, `utype`, `key`) VALUES
 (1, 'zzzzzzzzz123.cb@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Christine Grace', 'Bacatan', 1, 'FEMALE', '123', 'USER', 'd0d73fcc93c6d535a3f301db13d97aa2'),
 (2, 'zz1z123.cb@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 'Christine Grace', 'Bacatan', 1, 'FEMALE', '1', 'USER', '95a749bc521519cb2e6c52d8ab1f1fdb'),
-(3, 'zz11z123.cb@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 'Christine Grace', 'Bacatan', 1, 'FEMALE', '1', 'USER', 'a62ebe76343ce14f183263e91e15ddad');
+(3, 'zz11z123.cb@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 'Christine Grace', 'Bacatan', 1, 'FEMALE', '1', 'USER', 'a62ebe76343ce14f183263e91e15ddad'),
+(4, 'ivan.torayno@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', '1234', '213', 12, 'MALE', '123', 'USER', 'a59739fb7186aee27289e28189bb2099');
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,7 @@ INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `uty
 (1, 'james_naruto2000@yahoo.com', '202cb962ac59075b964b07152d234b70', 'Angel James', 'Torayno', 'assets/images/icon-user-default.png', 'ADMIN'),
 (3, 'merricklance@yahoo.com', 'f830f69d23b8224b512a0dc2f5aec974', 'Merrick Lance', 'Noel', 'assets/images/icon-user-default.png', 'USER'),
 (4, 'dummyemail@gmail.com', '60da11eb799d6a8da47e5cd6e4aa2273', 'Ernest Cesar', 'Cueva', 'assets/images/icon-user-default.png', 'USER'),
-(8, 'zzz123.cb@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Erwin Gail', 'Sarmiento', 'assets/images/icon-user-default.png', 'USER');
+(8, 'zzz123.cb@gmail.com', '202cb962ac59075b964b07152d234b70', 'Erwin Gail', 'Sarmiento', 'assets/images/icon-user-default.png', 'USER');
 
 --
 -- Constraints for dumped tables

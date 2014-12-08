@@ -7,13 +7,13 @@
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">
                     <li>
-                        <li><a href="<?php echo base_url()."patient/Explore"?>">Home </a></li>
+                        <li><a href="<?php echo base_url()."home"?>">Home </a></li>
                     </li>
                     <li>
-                        <li><a href="<?php echo base_url()."patient/Explore"?>">Appointment </a></li>
+                        <li><a href="<?php echo base_url()."appointment"?>">Appointment </a></li>
                     </li>
                     <li>
-                    	<li><a href="<?php echo base_url()."patient/Explore"?>">Explore </a></li>
+                    	<li><a href="<?php echo base_url()."explore"?>">Explore </a></li>
                     </li>
                     <li>
                         <div class="element input-element">
