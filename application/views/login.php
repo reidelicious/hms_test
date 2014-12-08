@@ -29,7 +29,7 @@ width: 100%;
 <body class="metro">
 
 <div class=" bg-lightBlue fg-white">
-  <?php $data = array( 'src' => 'assets/images/Icon/hms-logo.png', 'width' => '100','height' => '100'); echo img($data); ?>
+  <?php $data = array( 'src' => 'assets/images/hms-logo.png', 'width' => '100','height' => '100'); echo img($data); ?>
 </div>
   <div class="container">
     <div class="grid fluid">
@@ -40,7 +40,7 @@ width: 100%;
               <p>Make and Schedule your appointment to a Doctor -- Know your doctor and many more.</p>
             </div>
             <div class="span4 offset1">
-              <center><img src = "<?php echo base_url('assets/images/Icon/hms-logo.png'); ?>" style="width:120px; height: 120px; border-radius:10px;"></center>
+              <center><img src = "<?php echo base_url('assets/images/hms-logo.png'); ?>" style="width:120px; height: 120px; border-radius:10px;"></center>
               <?php
                 echo form_open('main/login_validation'); 
                 echo validation_errors();
