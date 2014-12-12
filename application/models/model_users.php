@@ -178,6 +178,42 @@ public function admin_addUser(){
 	
 }
 
+
+public function admin_addDoctor(){
+	
+		$data1 = array(
+			'email' => $this->input->post('email'),
+			'password' => md5($this->input->post('password')),
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+			'utype' => $this->input->post('utype'),	
+
+		);	
+		$did_add_user = $this->db->insert('users', $data1);
+	
+	$last_id = $this->db->insert_id();	
+	$data2 = array(	
+		'specialization' => $this->input->post('Specialization'),
+		'contact_num' => $this->input->post('C_num'),
+		'room_num' => $this->input->post('R_num'),
+		'u_id' => $last_id
+			
+		);
+		
+		$did_add_user2 = $this->db->insert('doctors', $data2);
+
+				if($did_add_user && $did_add_user2){
+			
+					return true;
+				}else{ 
+
+					return false;
+				}
+	
+}
+
+
+
 public function admin_addAdmin(){
 	$data1 = array(
 			'email' => $this->input->post('email'),
@@ -219,7 +255,26 @@ public function addAnnouncement(){
 	
 	
 	
+public function doctor_count(){
+	return $this->db->count_all('doctors');
+}	
+
+public function fetch_doctors($limit,$start){
 	
+	$this->db->limit($limit,$start);
+	$this->db->select('*');
+	$this->db->from('users');
+	$this->db->join('doctors','users.id = doctors.u_id');
+	$query = $this->db->get();	
+	
+	if($query->num_rows() > 0 ){
+		foreach($query->result() as $row){
+				$data[] = $row;
+			}
+			return $data;	
+		}
+		return false;
+}
 	
 	
 	

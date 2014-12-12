@@ -152,6 +152,27 @@ $data['success'] = '';
 			}else {}//do nothing //**}
 	
 		}else if($this->input->post('utype') == 2){//doctor
+			if($this->form_validation->run('user_doctor')){
+				$this->email->from('hms_administrator@gmail.com',"Administrator");
+				$this->email->to($this->input->post('email'));
+				$this->email->subject("Your Account");
+				$message  = "Hello ".$this->input->post('fname')." ".$this->input->post('lname')."!";
+				$message .= "<p>The credentials for your account is ".$this->input->post('email') ."</p>";
+				$message .= "<p> and the password is ".$this->input->post('password') ."</p>";	
+				$this->email->message($message);
+				
+				//send mail to the user
+				if($this->model_users->admin_addDoctor()){
+					$data['success'] = $this->ret_success_notif();
+					if (!$this->email->send()){
+						$data['mail'] = $this->ret_failmail_notif();
+					}
+					else 
+						$data['mail'] = $this->ret_succmail_notif(); 		
+				}else
+					$data['success'] = $this->ret_fail_notif();
+					
+			}else {}//do nothing //**}
 	
 		}else if($this->input->post('utype') == 3){//admin
 			if($this->form_validation->run('users')){		

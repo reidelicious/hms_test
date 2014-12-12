@@ -23,7 +23,10 @@
 			
             	    <ul id="products" class="grid clearfix">
               	      <!-- row 1 -->
-                    <li class="clearfix dims">
+                      <?php
+				foreach($results as $data) {
+    			?>
+				<li class="clearfix dims">
                     	 <div class="ui dimmer">
                           	<div class="content">
                              	<div class="center">
@@ -33,141 +36,30 @@
                          </div>
                           
                         <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/marjun.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
+						<div class="thumb"> <?php echo img($data->avatar);?> </div>
+              <?php echo '             <h3>'.$data->fname.'</h3>                      
                         </section>
                         <section class="right">
-                            <span class="price">Family Doctor</span>
+                       <span class="price">'.$data->specialization.' </span>
                         </section>
-                    </li>
+                    </li>';
+			
+				}
+?>
                     
-                    <!-- row 2 -->
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
                     
-                    <!-- row 3 -->
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    
-            
+               
                     
          
                 </ul>
                 
                 <footer>   
                 <br />
+               
                   <div class="pagination small">
-                    <ul>
-                        <li class="first"><a><i class="icon-first-2"></i></a></li>
-                        <li class="prev"><a><i class="icon-previous"></i></a></li>
-                        <li><a>1</a></li>
-                        <li><a>2</a></li>
-                        <li class="active"><a>3</a></li>
-                        <li class="spaces"><a>...</a></li>
-                        <li class="disabled"><a>4</a></li>
-                        <li><a>500</a></li>
-                        <li class="next"><a><i class="icon-next"></i></a></li>
-                        <li class="last"><a><i class="icon-last-2"></i></a></li>
-                    </ul>
+                  
+                   <?php echo $links; ?>
+                
                 </div>
                 </footer>
                     
@@ -203,3 +95,111 @@ $('.dims')
 </script>
 
 
+     <!-- row 2 
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    
+                
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    <li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                               <div class="ui primary button">View Profile</div>
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
+                            <h3>FAMILY NAME</h3>                      
+                        </section>
+                        <section class="right">
+                            <span class="price">Family Doctor</span>
+                        </section>
+                    </li>
+                    
+            -->

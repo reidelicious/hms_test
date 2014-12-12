@@ -74,7 +74,7 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
 
 
 <div id="1" style="visibility:hidden;">
- <label>Age </label>
+ 		<label>Age </label>
     	<div class="input-control text" data-role="input-control">
         	<?php $data = array( 'name'=> 'age', 'placeholder'=>'enter your Age','required'=>'required');?>
          	<?php echo form_input($data, $this->input->post('age')); ?>
@@ -95,7 +95,29 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
             </select>
         </div>
 </div>
-<div id="2" style="visibility:hidden;"></div>
+<div id="2" style="visibility:hidden;">
+
+		<label>Specialization  </label>
+    	<div class="input-control text" data-role="input-control">
+        	<?php $data = array( 'name'=> 'Specialization', 'placeholder'=>'enter Specialization ','required'=>'required');?>
+         	<?php echo form_input($data, $this->input->post('Specialization')); ?>
+    		<button class="btn-clear" tabindex="-1"></button>
+    	</div>
+ 		<label>Contact Number </label>
+    	<div class="input-control text" data-role="input-control">
+        	<?php $data = array( 'name'=> 'C_num', 'placeholder'=>'enter room number','required'=>'required');?>
+         	<?php echo form_input($data, $this->input->post('C_num')); ?>
+    		<button class="btn-clear" tabindex="-1"></button>
+    	</div>
+        	<label>Room Number </label>
+    	<div class="input-control text" data-role="input-control">
+        	<?php $data = array( 'name'=> 'R_num', 'placeholder'=>'enter room number','required'=>'required');?>
+         	<?php echo form_input($data, $this->input->post('R_num')); ?>
+    		<button class="btn-clear" tabindex="-1"></button>
+    	</div>
+
+
+</div>
 <div id="3" style="visibility:hidden;"></div>
 
 <script type="text/javascript">

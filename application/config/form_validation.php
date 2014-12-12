@@ -46,11 +46,29 @@ $config = array(
 											'label' => 'Address',
 											'rules' => 'required|trim'
 										 )
-                                    )                          
+                                    ),
+				 'doctors' => array(
+                                    array(
+											'field' => 'Specialization',
+											'label' => 'Specialization',
+											'rules' => 'required|trim'
+										 ),
+									array(
+											'field' => 'C_num',
+											'label' => 'Gender',
+											'rules' => 'C_num|trim'
+										 ),
+									array(
+											'field' => 'R_num',
+											'label' => 'R_num',
+											'rules' => 'required|trim'
+										 )
+                                    )                                
                );
 			   
 			   
 $config["user_patient"] = array_merge($config['users'], $config['patients']);
+$config["user_doctor"] = array_merge($config['users'], $config['doctors']);
 
 
 

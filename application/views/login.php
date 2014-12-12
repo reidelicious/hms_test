@@ -41,8 +41,9 @@ width: 100%;
             </div>
             <div class="span4 offset1">
               <center><img src = "<?php echo base_url('assets/images/hms-logo.png'); ?>" style="width:120px; height: 120px; border-radius:10px;"></center>
+             <form action="<?php echo base_url('main/login_validation') ?>" method="post">
               <?php
-                echo form_open('main/login_validation'); 
+               // echo form_open('main/login_validation'); 
                 echo validation_errors();
 			 ?>  
              </fieldset>
@@ -62,7 +63,9 @@ width: 100%;
                    </div>
                   <?php echo form_submit('login_submit','Sign In','class="large info btn-block"'); ?>
                </fieldset>
-              <?php echo form_close(); ?>
+               
+               </form>
+              <?php //echo form_close(); ?>
               <hr class="style-eight">
               <a href="<?php echo base_url('new_user/signup ')?>"><button  class="large default btn-block">Create New Account</button></a>
             </div>
