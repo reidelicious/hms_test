@@ -98,11 +98,14 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
 <div id="2" style="visibility:hidden;">
 
 		<label>Specialization  </label>
-    	<div class="input-control text" data-role="input-control">
-        	<?php $data = array( 'name'=> 'Specialization', 'placeholder'=>'enter Specialization ','required'=>'required');?>
-         	<?php echo form_input($data, $this->input->post('Specialization')); ?>
-    		<button class="btn-clear" tabindex="-1"></button>
-    	</div>
+    	<div class="input-control select">
+            <select name="Specialization" id="Specialization"  required>
+                <option value=''<?php echo set_select('utype', '', TRUE); ?> disabled="disabled"> Select Specialist</option>
+            	<?php foreach($specialists as $row): ?>
+					<option value="<?php echo $row->specialist_id; ?>"> <?php echo $row->specialist; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
  		<label>Contact Number </label>
     	<div class="input-control text" data-role="input-control">
         	<?php $data = array( 'name'=> 'C_num', 'placeholder'=>'enter room number','required'=>'required');?>

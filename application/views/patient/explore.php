@@ -1,7 +1,17 @@
 <?php echo link_tag('assets/css/l&g.css');
 	  echo link_tag('assets/css/dimmer.min.css');
+	    echo link_tag('assets/css/bootstrap.css');
+	  
  ?>
- <script src="<?php echo base_url('assets/js/dimmer.min.js')?>"></script>
+ <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js');?>"></script>
+  <script src="<?php echo base_url('assets/js/dimmer.min.js')?>"></script>
+ <style type="text/css">
+ div.thumb {  min-height:200px; max-height:200px; min-width:200px; max-width:200px; overflow:hidden; }
+
+.thumb img.scale{height:200px;width:auto;}
+.thumb img.scale{height:auto;width:200px;}
+ </style>
+
 
 <div class="container">
     <div class="grid fluid">
@@ -30,7 +40,16 @@
                     	 <div class="ui dimmer">
                           	<div class="content">
                              	<div class="center">
-                               <div class="ui primary button">View Profile</div>
+                              		 <div class="viewProfile ui primary button">View Profile</div>
+                                     <input  type="hidden" id="id" value="<?php echo $data->id; ?>"/>
+                                     <input  type="hidden" id="fname" value="<?php echo $data->fname; ?>"/>
+                                     <input  type="hidden" id="lname" value="<?php echo $data->lname;?>"/>
+                                     <input  type="hidden" id="avatar" value="<?php echo $data->avatar; ?>"/>
+                                     <input  type="hidden" id="specialization" value="<?php echo $data->specialist; ?>"/>
+                                     <input  type="hidden" id="room_num" value="<?php echo $data->contact_num; ?>"/>
+                                     <input  type="hidden" id="cont_num" value="<?php echo $data->room_num; ?>"/>
+                                    
+                                     
                              	</div>
                             </div>
                          </div>
@@ -40,7 +59,7 @@
               <?php echo '             <h3>'.$data->fname.'</h3>                      
                         </section>
                         <section class="right">
-                       <span class="price">'.$data->specialization.' </span>
+                       <span class="price">'.$data->specialist.' </span>
                         </section>
                     </li>';
 			
@@ -69,137 +88,161 @@
         </div>
 </div>
         
+   
+   
+   <div id="modal_cont"></div>
     
 </div>
 
-  
+
 
 <script type="text/javascript">
-$.ajax({
-    url: 'test.html',
-    dataType: 'html',
-    success: function(html) {
-        var div = $('#sourceDiv', $(html)).addClass('done');
-        $('#targetDiv').html(div);
-    }
-});
 
-$('.dims')
+
+$( document ).ready(function() {	
+				   
+ 	$('.dims')
   .dimmer({
     on: 'hover',
 	duration    : {
   	show : 0,
 	 hide : 10
 	}
-  });
+  });			
+		
+
+$(document).on('click','.viewProfile', function(){
+	var $bla = $(this).parents('td').prev();
+	
+	var lname = $(this).siblings('#lname').val();
+	var fname = $(this).siblings('#fname').val();
+	var email = $(this).siblings('#id').val();
+	var specialization = $(this).siblings('#specialization').val();
+	var Cnum = $(this).siblings('#room_num').val();
+	var Rnum = $(this).siblings('#cont_num').val();
+	var avatar = $(this).siblings('#avatar').val();
+	
+	var id = $(this).siblings('#id').val();
+	
+	var cont= '	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+				  '<div class="modal-dialog">'+
+					'<div class="modal-content">'+
+					 ' <div class="modal-header">'+
+						'<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
+						'<h4 class="modal-title" id="myModalLabel">Doctor </h4>'+
+					'  </div>'+
+					'  <div class="modal-body">'+
+							'<div class="thumb" style="margin: 0 auto;"><img  class="scale" src = "<?php echo base_url()?>'+avatar+'" ></div>'+
+
+							'<dl class="horizontal" style="margin: 0 auto;">'+
+								'<dt>Name:</dt>'+
+									'<dd>'+ fname+'  '+lname+'</dd>'+
+								'<dt>Specialization:</dt>'+
+									'<dd>'+specialization+'</dd>'+
+								'<dt>Contact num:</dt>'+
+									'<dd>'+Cnum+'</dd>'+
+								'<dt>Room num:</dt>'+
+									'<dd>'+Rnum+'</dd>'+
+								'<dt></dt>'+
+									'<dd><button class="default">Button</button></dd>'+
+							  '</dl>'+
+					 ' </div>'+
+					 ' <div class="modal-footer">'+
+						'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+						'<button type="button" class="btn btn-primary">Save changes</button>'+
+					 ' </div>'+
+					'</div>'+
+				  '</div>'+
+			'</div>';
+		$( "#modal_cont" ).html(cont);
+
+	
+	$('#myModal').modal('show');
+	
+	
+});	
+/*					
+$(document).on('click','.viewProfile', function(){
+	var $bla = $(this).parents('td').prev();
+	
+	var lname = $(this).siblings('#lname').val();
+	var fname = $(this).siblings('#fname').val();
+	var email = $(this).siblings('#id').val();
+	var specialization = $(this).siblings('#specialization').val();
+	var Cnum = $(this).siblings('#room_num').val();
+	var Rnum = $(this).siblings('#cont_num').val();
+	var avatar = $(this).siblings('#avatar').val();
+	
+	var id = $(this).siblings('#id').val();
+    $.Dialog({
+        overlay: true,
+        shadow: true,
+        flat: true,
+		draggable: true,
+        icon: '<img src="<?php echo base_url('assets/images/Windows-8-Logo.png')?>">',
+        title: 'Flat window',
+        content: '',
+		height: 300,
+		width: 500,
+        padding: 10,
+        onShow: function(_dialog){
+            var content = '<div class="thumb" style="margin: 0 auto;"><img  class="scale" src = "<?php echo base_url()?>'+avatar+'" ></div>'+
+
+							'<dl class="horizontal">'+
+								'<dt>Name:</dt>'+
+									'<dd>'+ fname+'  '+lname+'</dd>'+
+								'<dt>Specialization:</dt>'+
+									'<dd>'+specialization+'</dd>'+
+								'<dt>Contact num:</dt>'+
+									'<dd>'+Cnum+'</dd>'+
+								'<dt>Room num:</dt>'+
+									'<dd>'+Rnum+'</dd>'+
+								'<dt></dt>'+
+									'<dd><button class="default">Button</button></dd>'+
+							  '</dl>'+
+							  
+							  
+							  
+							  '<form action="<?php echo base_url('admin/editUserInfo'); ?>" method="POST" id="editform">' +
+                '<label>id</label>' +
+                '<div class="input-control text"><input type="text" name="id" value="" readOnly="true">'+
+               ' <button class="btn-clear"></button></div> ' +
+			     '<label>email</label>' +
+                '<div class="input-control text"><input type="email"  value= ""name="email" required>'+
+               ' <button class="btn-clear"></button></div> ' +
+			     '<label>first name</label>' +
+                '<div class="input-control text"><input type="text" value = "" name="fname"  required>'+
+               ' <button class="btn-clear"></button></div> ' +
+			      '<label>lastname</label>' +
+                '<div class="input-control text"><input type="text" name="lname" value = ""  required>'+
+               ' <button class="btn-clear"></button></div> ' +
+			   
+			   
+			  
+                '<div class="form-actions">' +
+                '<button class="button primary" onclick="$.Dialog.close();">EDIT</button> '+
+                '<button class="button" type="button" onclick="$.Dialog.close()">Cancel</button> '+
+                '</div>'+
+                '</form>'
+				
+				
+							  ;
+					
+	 
+            $.Dialog.title("User login");
+            $.Dialog.content(content);
+            $.Metro.initInputs();
+        }
+    });
+});					
+		
+
+*/
+			
+});//ready end
+					
+
+					
+
 </script>
-
-
-     <!-- row 2 
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    
-                
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    <li class="clearfix dims">
-                    	 <div class="ui dimmer">
-                          	<div class="content">
-                             	<div class="center">
-                               <div class="ui primary button">View Profile</div>
-                             	</div>
-                            </div>
-                         </div>
-                          
-                        <section class="left">
-                            <div class="thumb">  <?php echo  img('assets/images/red.jpg'); ?></div>
-                            <h3>FAMILY NAME</h3>                      
-                        </section>
-                        <section class="right">
-                            <span class="price">Family Doctor</span>
-                        </section>
-                    </li>
-                    
-            -->
+ 

@@ -125,6 +125,11 @@ class Model_users extends CI_Model{
 			//do nothing
 		}		
 	}//end of function
+	
+	public function get_Specialists(){
+		$query = $this->db->get('medical_specialist');	
+		return $query->result();
+	}
 		
 		
 public function edit_user(){
@@ -265,6 +270,7 @@ public function fetch_doctors($limit,$start){
 	$this->db->select('*');
 	$this->db->from('users');
 	$this->db->join('doctors','users.id = doctors.u_id');
+	$this->db->join('medical_specialist','medical_specialist.specialist_id =  doctors.specialization ');
 	$query = $this->db->get();	
 	
 	if($query->num_rows() > 0 ){

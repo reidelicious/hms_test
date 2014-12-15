@@ -15,8 +15,7 @@ header('Expires: 0');
 	
  
 
-
-	<link href="assets/css/metro-bootstrap.css" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/metro-bootstrap.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/metro-bootstrap-responsive.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/iconFont.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/docs.css')?>" rel="stylesheet">

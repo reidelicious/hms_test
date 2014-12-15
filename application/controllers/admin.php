@@ -6,10 +6,10 @@ class Admin extends CI_Controller {
 	
 
 public function add_user(){
-	
-$data['mail'] = '';
-$data['success'] = '';
-
+		$this->load->model('model_users');
+		$data['mail'] = '';
+		$data['success'] = '';
+		$data['specialists'] = $this->model_users->get_Specialists();
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$this->load->view('templates/header/header_all');
 			$this->load->view('templates/header/navbar_admin');

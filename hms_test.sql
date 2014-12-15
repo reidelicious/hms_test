@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2014 at 01:30 PM
+-- Generation Time: Dec 15, 2014 at 06:44 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -66,24 +66,41 @@ INSERT INTO `announcement` (`id`, `announcement_datetime_made`, `announcement_su
 
 CREATE TABLE IF NOT EXISTS `doctors` (
   `d_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `specialization` varchar(255) NOT NULL,
   `contact_num` int(11) NOT NULL,
   `room_num` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
+  `specialization` int(11) unsigned NOT NULL,
   PRIMARY KEY (`d_id`),
-  UNIQUE KEY `u_id` (`u_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  UNIQUE KEY `u_id` (`u_id`),
+  KEY `specialization` (`specialization`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`d_id`, `specialization`, `contact_num`, `room_num`, `u_id`) VALUES
-(1, 'sex', 123, 132, 9),
-(2, '111', 11, 11, 10),
-(3, '132', 321, 123, 11),
-(4, 'sex', 555, 555, 12),
-(5, '123', 123, 123, 13);
+INSERT INTO `doctors` (`d_id`, `contact_num`, `room_num`, `u_id`, `specialization`) VALUES
+(6, 123, 123, 14, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medical_specialist`
+--
+
+CREATE TABLE IF NOT EXISTS `medical_specialist` (
+  `specialist_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `specialist` varchar(45) NOT NULL,
+  PRIMARY KEY (`specialist_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `medical_specialist`
+--
+
+INSERT INTO `medical_specialist` (`specialist_id`, `specialist`) VALUES
+(1, 'Cardiologist'),
+(2, 'Dermatologist');
 
 -- --------------------------------------------------------
 
@@ -156,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `avatar` varchar(255) DEFAULT 'assets/images/icon-user-default.png',
   `utype` enum('USER','DOCTOR','ADMIN') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `users`
@@ -171,7 +188,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `uty
 (10, 'ivan.torayno@yahoo.com', '202cb962ac59075b964b07152d234b70', '11', '11', 'assets/images/icon-user-default.png', 'DOCTOR'),
 (11, 'nanana@yahoo.com', '202cb962ac59075b964b07152d234b70', '123', '123', 'assets/images/icon-user-default.png', 'DOCTOR'),
 (12, 'blabla@yahoo.com', '202cb962ac59075b964b07152d234b70', '555', '555', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(13, 'james_naruto211000@yahoo.com', '202cb962ac59075b964b07152d234b70', '123', '123', 'assets/images/icon-user-default.png', 'DOCTOR');
+(13, 'james_naruto211000@yahoo.com', '202cb962ac59075b964b07152d234b70', '123', '123', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(14, 'jaja@yahoo.com', '202cb962ac59075b964b07152d234b70', '123', '123', 'assets/images/icon-user-default.png', 'DOCTOR');
 
 --
 -- Constraints for dumped tables
@@ -181,6 +199,7 @@ INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `uty
 -- Constraints for table `doctors`
 --
 ALTER TABLE `doctors`
+  ADD CONSTRAINT `doctors_ibfk_2` FOREIGN KEY (`specialization`) REFERENCES `medical_specialist` (`specialist_id`),
   ADD CONSTRAINT `doctors_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
