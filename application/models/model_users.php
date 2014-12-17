@@ -286,7 +286,28 @@ public function fetch_doctors($limit,$start){
 	
 	
 	
+public function edit_account(){
+	//print_r($this->session->all_userdata());exit;
+	//$id = $this->input->post('id');
+	//echo $id;exit;
+	$data = array(
+			'email' => $this->input->post('email'),
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+			'password' => md5($this->input->post('password'))
+            );
+
+	$this->db->where('email', $this->session->userdata('email'));
+	$this->db->update('users', $data);
+
+	if($this->db->affected_rows()>0){
+		$this->session->set_userdata($data);
+		return true;
+	}
+	else
+	 	false;
 	
+}	
 	
 	
 	

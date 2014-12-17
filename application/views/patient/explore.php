@@ -1,16 +1,11 @@
 <?php echo link_tag('assets/css/l&g.css');
 	  echo link_tag('assets/css/dimmer.min.css');
-	    echo link_tag('assets/css/bootstrap.css');
+	
 	  
  ?>
- <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js');?>"></script>
-  <script src="<?php echo base_url('assets/js/dimmer.min.js')?>"></script>
- <style type="text/css">
- div.thumb {  min-height:200px; max-height:200px; min-width:200px; max-width:200px; overflow:hidden; }
 
-.thumb img.scale{height:200px;width:auto;}
-.thumb img.scale{height:auto;width:200px;}
- </style>
+  <script src="<?php echo base_url('assets/js/dimmer.min.js')?>"></script>
+
 
 
 <div class="container">
@@ -26,7 +21,7 @@
             	</nav>
             </div>
             <div class="span9">
-          	  <div class="lg">
+          	  <div class="lg"> 
                     <header>                 
                         <h1>Doctors</h1>       
                     </header>
