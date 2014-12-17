@@ -18,13 +18,7 @@ class Model_users extends CI_Model{
 	}
 	
 	
-	public function what_userType(){
-		$this->db->where('email', $this->input->post('email'));
-		$query = $this->db->get('users');
-		$row = $query->row();
-		 return $row;
-		
-	}
+
 	
 	public function add_temp_user($key){
 	
@@ -325,6 +319,34 @@ public function edit_account(){
 	
 }	
 	
+	public function what_userType(){
+		$this->db->select('id, utype');
+		$this->db->where('email', $this->input->post('email'));
+		$query = $this->db->get('users');
+		$row = $query->row();
+		 return $row;
+		
+	}
+	
+	public function getAdmin_sessions($id){
+		$this->db->where('id',$id);
+		$this->db->from('users');
+		$this->db->join('doctors','users.id = doctors.u_id');
+		$query = $this->db->get();
+		
+		return  $query->row();
+		
+		
+	}
+	public function getUser_sessions($id){
+
+		$this->db->where('id',$id);
+		$this->db->from('users');
+		$this->db->join('patients','users.id = patients.u_id');
+		$query = $this->db->get();
+		
+		return  $query->row();
+	}
 	
 	
 }//end of class

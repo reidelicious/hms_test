@@ -70,7 +70,22 @@ class Main extends CI_Controller {
 			$this->load->model('model_users');
 			
 			$row = $this->model_users->what_userType();
-			$data = array(
+			
+			if($row->utype == "ADMIN"){
+				$row =  $this->model_users->getAdmin_sessions($row->id);
+				
+			}else if($row->utype == "USER"){
+				$row =  $this->model_users->getUser_sessions($row->id);
+				
+				$data1 = array(
+					'address' => $row->p_address,
+					'gender' =>$row->p_gender,
+					'age' => $row->p_age
+				);
+				
+			}
+			
+			$data2 = array(
 				'email' => $this->input->post('email'),
 				'is_logged_in'=> 1,
 				'usertype'=> $row->utype,
@@ -79,6 +94,7 @@ class Main extends CI_Controller {
 				'avatar' => $row->avatar
 				 
 			);
+			$data = array_merge($data1, $data2);
 			$this->session->set_userdata($data);
 			
 			if($row->utype == "USER"){
