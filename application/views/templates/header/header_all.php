@@ -13,8 +13,8 @@ header('Expires: 0');
     <meta name="author" content="Angel James Torayno, ph, Reid">
 
 	
- 
-
+   
+	<?php   echo link_tag('assets/css/bootstrap.css'); ?>
    <link href="<?php echo base_url('assets/css/metro-bootstrap.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/metro-bootstrap-responsive.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/iconFont.css')?>" rel="stylesheet">
@@ -33,6 +33,15 @@ header('Expires: 0');
     <script src="<?php echo base_url('assets/js/metro.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/metro/metro-streamer.js')?>"></script>       
 <script src="<?php echo base_url('assets/js/jquery.validate.js')?>"></script> 
+
+
+ <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js');?>"></script>
+ <style type="text/css">
+ div.thumb {  min-height:200px; max-height:200px; min-width:200px; max-width:200px; overflow:hidden; }
+
+.thumb img.scale{height:200px;width:auto;}
+.thumb img.scale{height:auto;width:200px;}
+ </style>
 
         
 

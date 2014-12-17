@@ -130,7 +130,11 @@ class Model_users extends CI_Model{
 		$query = $this->db->get('medical_specialist');	
 		return $query->result();
 	}
-		
+	
+	public function get_Clinic(){
+		$query = $this->db->get('clinic');
+		return $query->result();
+	}	
 		
 public function edit_user(){
      $id = $this->input->post('id');
@@ -200,7 +204,7 @@ public function admin_addDoctor(){
 	$data2 = array(	
 		'specialization' => $this->input->post('Specialization'),
 		'contact_num' => $this->input->post('C_num'),
-		'room_num' => $this->input->post('R_num'),
+		'clinic' => $this->input->post('clinic'),
 		'u_id' => $last_id
 			
 		);
@@ -243,6 +247,18 @@ public function admin_addAdmin(){
 	
 }
 
+public function admin_addClinic(){
+	$data = array(
+			'clinic_name' => $this->input->post('clinicname'),
+			'clinic_category' => $this->input->post('Specialization')
+		);
+	$query = $this->db->insert('clinic', $data);
+	if($query)
+		return true;
+	else
+		return false;
+}
+
 public function addAnnouncement(){
 	$data = array(
 		'announcement_subject' => $this->input->post('subject'),
@@ -256,7 +272,7 @@ public function addAnnouncement(){
 		return false;
 }
 	
-	
+
 	
 	
 	
@@ -286,7 +302,28 @@ public function fetch_doctors($limit,$start){
 	
 	
 	
+public function edit_account(){
+	//print_r($this->session->all_userdata());exit;
+	//$id = $this->input->post('id');
+	//echo $id;exit;
+	$data = array(
+			'email' => $this->input->post('email'),
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+			'password' => md5($this->input->post('password'))
+            );
+
+	$this->db->where('email', $this->session->userdata('email'));
+	$this->db->update('users', $data);
+
+	if($this->db->affected_rows()>0){
+		$this->session->set_userdata($data);
+		return true;
+	}
+	else
+	 	false;
 	
+}	
 	
 	
 	
