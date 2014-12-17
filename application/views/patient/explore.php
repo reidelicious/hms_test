@@ -42,7 +42,7 @@
                                      <input  type="hidden" id="avatar" value="<?php echo $data->avatar; ?>"/>
                                      <input  type="hidden" id="specialization" value="<?php echo $data->specialist; ?>"/>
                                      <input  type="hidden" id="room_num" value="<?php echo $data->contact_num; ?>"/>
-                                     <input  type="hidden" id="cont_num" value="<?php echo $data->room_num; ?>"/>
+                                   
                                     
                                      
                              	</div>
