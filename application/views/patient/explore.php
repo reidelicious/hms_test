@@ -144,100 +144,44 @@ $(document).on('click','.viewProfile', function(){
 								'<dt>Room num:</dt>'+
 									'<dd>'+Rnum+'</dd>'+
 								'<dt></dt>'+
-									'<dd><button class="default">Button</button></dd>'+
+									'<dd><button class="default makeAppointment">lalala</button></dd>'+
 							  '</dl>'+
+							  
+							  '<form action="<?php echo base_url('admin/blabla'); ?>" method="POST"  class="appointmentForm" hidden="hidden">' +
+                '<label>id</label>' +
+                '<div class="input-control text"><input type="text" name="date" value="">'+
+               ' <button class="btn-clear"></button></div> ' +
+			     '<label>email</label>' +
+                '<div class="input-control text"><input type="email"  value= "" name="time" required>'+
+               ' <button class="btn-clear"></button></div> ' +
+			     '<label>first name</label>' +
+                '<div class="input-control text"><input type="text" value = "" name="message"  required>'+
+               ' <button class="btn-clear"></button></div> ' +
+                '</form>'+
 					 ' </div>'+
-					 ' <div class="modal-footer">'+
-						'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
-						'<button type="button" class="btn btn-primary">Save changes</button>'+
+					 ' <div class="modal-footer appointmentForm" hidden="hidden">'+
+						'<button type="button" class=" closemdl btn btn-default" data-dismiss="modal">Close</button>'+
+						'<button type="button" class=" closemdl btn btn-primary">Save changes</button>'+
 					 ' </div>'+
 					'</div>'+
 				  '</div>'+
 			'</div>';
-		$( "#modal_cont" ).html(cont);
-
-	
+	$( "#modal_cont" ).html(cont);
 	$('#myModal').modal('show');
 	
 	
 });	
-/*					
-$(document).on('click','.viewProfile', function(){
-	var $bla = $(this).parents('td').prev();
-	
-	var lname = $(this).siblings('#lname').val();
-	var fname = $(this).siblings('#fname').val();
-	var email = $(this).siblings('#id').val();
-	var specialization = $(this).siblings('#specialization').val();
-	var Cnum = $(this).siblings('#room_num').val();
-	var Rnum = $(this).siblings('#cont_num').val();
-	var avatar = $(this).siblings('#avatar').val();
-	
-	var id = $(this).siblings('#id').val();
-    $.Dialog({
-        overlay: true,
-        shadow: true,
-        flat: true,
-		draggable: true,
-        icon: '<img src="<?php echo base_url('assets/images/Windows-8-Logo.png')?>">',
-        title: 'Flat window',
-        content: '',
-		height: 300,
-		width: 500,
-        padding: 10,
-        onShow: function(_dialog){
-            var content = '<div class="thumb" style="margin: 0 auto;"><img  class="scale" src = "<?php echo base_url()?>'+avatar+'" ></div>'+
 
-							'<dl class="horizontal">'+
-								'<dt>Name:</dt>'+
-									'<dd>'+ fname+'  '+lname+'</dd>'+
-								'<dt>Specialization:</dt>'+
-									'<dd>'+specialization+'</dd>'+
-								'<dt>Contact num:</dt>'+
-									'<dd>'+Cnum+'</dd>'+
-								'<dt>Room num:</dt>'+
-									'<dd>'+Rnum+'</dd>'+
-								'<dt></dt>'+
-									'<dd><button class="default">Button</button></dd>'+
-							  '</dl>'+
-							  
-							  
-							  
-							  '<form action="<?php echo base_url('admin/editUserInfo'); ?>" method="POST" id="editform">' +
-                '<label>id</label>' +
-                '<div class="input-control text"><input type="text" name="id" value="" readOnly="true">'+
-               ' <button class="btn-clear"></button></div> ' +
-			     '<label>email</label>' +
-                '<div class="input-control text"><input type="email"  value= ""name="email" required>'+
-               ' <button class="btn-clear"></button></div> ' +
-			     '<label>first name</label>' +
-                '<div class="input-control text"><input type="text" value = "" name="fname"  required>'+
-               ' <button class="btn-clear"></button></div> ' +
-			      '<label>lastname</label>' +
-                '<div class="input-control text"><input type="text" name="lname" value = ""  required>'+
-               ' <button class="btn-clear"></button></div> ' +
-			   
-			   
-			  
-                '<div class="form-actions">' +
-                '<button class="button primary" onclick="$.Dialog.close();">EDIT</button> '+
-                '<button class="button" type="button" onclick="$.Dialog.close()">Cancel</button> '+
-                '</div>'+
-                '</form>'
-				
-				
-							  ;
-					
-	 
-            $.Dialog.title("User login");
-            $.Dialog.content(content);
-            $.Metro.initInputs();
-        }
-    });
-});					
-		
 
-*/
+$(document).on('click','.makeAppointment', function(){
+  $(".appointmentForm").show();
+});
+
+$(document).on('click','.closemdl', function(){
+  $(".appointmentForm").hide();
+});
+			
+			
 			
 });//ready end
 					
@@ -245,4 +189,4 @@ $(document).on('click','.viewProfile', function(){
 					
 
 </script>
- 
+     
