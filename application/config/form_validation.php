@@ -55,12 +55,12 @@ $config = array(
 										 ),
 									array(
 											'field' => 'C_num',
-											'label' => 'Gender',
+											'label' => 'Contact Number',
 											'rules' => 'C_num|trim'
 										 ),
 									array(
-											'field' => 'R_num',
-											'label' => 'R_num',
+											'field' => 'clinic',
+											'label' => 'Clinic',
 											'rules' => 'required|trim'
 										 )
                                     )                                

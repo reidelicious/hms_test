@@ -10,6 +10,7 @@ public function add_user(){
 		$data['mail'] = '';
 		$data['success'] = '';
 		$data['specialists'] = $this->model_users->get_Specialists();
+		$data['clinic'] = $this->model_users->get_Clinic();
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$this->load->view('templates/header/header_all');
 			$this->load->view('templates/header/navbar_admin');
@@ -31,6 +32,37 @@ public function add_user(){
 		}else{
 			show_404();
 		}		
+	}
+	//start addclinic
+	public function add_clinic(){
+		$this->load->model('model_users');
+		$data['specialists'] = $this->model_users->get_Specialists();
+		if($this->session->userdata('usertype') == "ADMIN"){
+			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/navbar_admin');
+			$this->load->view('admin/add_clinic',$data);
+		}else{
+			show_404();
+		}	
+	}
+	//end addclinic
+
+	public function addClinic_validation(){
+		$this->load->library('form_validation');		
+		$this->form_validation->set_rules('clinicname','Clinic Name','required|trim');
+		
+		if($this->form_validation->run()){
+			$this->load->model('model_users');
+			if($this->model_users->admin_addClinic()){
+				$data['success'] = $this->ret_success_notif();
+			}
+		}
+		else{
+			$data['success'] = $this->ret_fail_notif();
+		}
+		$this->load->view('templates/header/header_all');
+		$this->load->view('templates/header/navbar_admin');
+		$this->load->view('admin/add_clinic',$data);
 	}
 	
 	public function datatable(){

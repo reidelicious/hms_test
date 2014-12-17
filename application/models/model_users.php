@@ -130,7 +130,11 @@ class Model_users extends CI_Model{
 		$query = $this->db->get('medical_specialist');	
 		return $query->result();
 	}
-		
+	
+	public function get_Clinic(){
+		$query = $this->db->get('clinic');
+		return $query->result();
+	}	
 		
 public function edit_user(){
      $id = $this->input->post('id');
@@ -200,7 +204,7 @@ public function admin_addDoctor(){
 	$data2 = array(	
 		'specialization' => $this->input->post('Specialization'),
 		'contact_num' => $this->input->post('C_num'),
-		'room_num' => $this->input->post('R_num'),
+		'clinic' => $this->input->post('clinic'),
 		'u_id' => $last_id
 			
 		);
@@ -243,6 +247,18 @@ public function admin_addAdmin(){
 	
 }
 
+public function admin_addClinic(){
+	$data = array(
+			'clinic_name' => $this->input->post('clinicname'),
+			'clinic_category' => $this->input->post('Specialization')
+		);
+	$query = $this->db->insert('clinic', $data);
+	if($query)
+		return true;
+	else
+		return false;
+}
+
 public function addAnnouncement(){
 	$data = array(
 		'announcement_subject' => $this->input->post('subject'),
@@ -256,7 +272,7 @@ public function addAnnouncement(){
 		return false;
 }
 	
-	
+
 	
 	
 	

@@ -108,16 +108,20 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
         </div>
  		<label>Contact Number </label>
     	<div class="input-control text" data-role="input-control">
-        	<?php $data = array( 'name'=> 'C_num', 'placeholder'=>'enter room number','required'=>'required');?>
+        	<?php $data = array( 'name'=> 'C_num', 'placeholder'=>'enter contact number','required'=>'required');?>
          	<?php echo form_input($data, $this->input->post('C_num')); ?>
     		<button class="btn-clear" tabindex="-1"></button>
     	</div>
-        	<label>Room Number </label>
-    	<div class="input-control text" data-role="input-control">
-        	<?php $data = array( 'name'=> 'R_num', 'placeholder'=>'enter room number','required'=>'required');?>
-         	<?php echo form_input($data, $this->input->post('R_num')); ?>
-    		<button class="btn-clear" tabindex="-1"></button>
-    	</div>
+        	
+        <label>Clinic  </label>
+        <div class="input-control select">
+            <select name="clinic" id="clinic"  required>
+                <option value=''<?php echo set_select('utype', '', TRUE); ?> disabled="disabled"> Assigned Clinic</option>
+                <?php foreach($clinic as $row): ?>
+                    <option value="<?php echo $row->clinic_id; ?>"> <?php echo $row->clinic_name; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
 
 </div>
