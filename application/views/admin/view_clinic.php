@@ -62,15 +62,15 @@ $(document).on('click','.editInfo', function(){
 		width: 500,
         padding: 10,
         onShow: function(_dialog){
-            var content = '<form action="<?php echo base_url('admin/editUserInfo'); ?>" method="POST" id="editform">' +
+            var content = '<form action="<?php echo base_url('admin/editClinicInfo'); ?>" method="POST" id="editform">' +
                 '<label>ID</label>' +
                 '<div class="input-control text"><input type="text" name="id" value="'+id+'" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
 			     '<label>Clinic Name</label>' +
-                '<div class="input-control text"><input type="text"  value= "'+clinicname.text()+'" name="email" required>'+
+                '<div class="input-control text"><input type="text"  value= "'+clinicname.text()+'" name="clinicname" required>'+
                ' <button class="btn-clear"></button></div> ' +
 			     '<label>Specialization</label>' +
-                '<div class="input-control text"><input type="text" value = "'+specialization.text()+'" name="fname"  required>'+
+                '<div class="input-control text"><input type="text" value = "'+specialization.text()+'" name="specialization" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
 			   
 			  
@@ -80,7 +80,7 @@ $(document).on('click','.editInfo', function(){
                 '</div>'+
                 '</form>';
  
-            $.Dialog.title("User login");
+            $.Dialog.title("Modify Clinic");
             $.Dialog.content(content);
             $.Metro.initInputs();
         }
@@ -99,7 +99,7 @@ $(document).on('click','.deleteUser', function(){
         flat: true,
 		draggable: true,
         icon: '<img src="images/excel2013icon.png">',
-        title: 'Delete User',
+        title: 'Delete Clinic',
 		width: 300,
         content: '',
         padding: 10,
@@ -114,7 +114,7 @@ $(document).on('click','.deleteUser', function(){
 						'</div> ';
 						
  
-            $.Dialog.title("Delete User ");
+            $.Dialog.title("Delete Clinic ");
             $.Dialog.content(content);
             $.Metro.initInputs();
         }
@@ -166,7 +166,7 @@ $(document).on('submit','#editform', function(e){
 function  confirmDeleteFunc(id){
 $.ajax({
 		type: "POST",
-		url: "<?php echo base_url('admin/deleteUser/')?>/"+id,
+		url: "<?php echo base_url('admin/deleteClinic/')?>/"+id,
 			
 	}).done(function(msg){
 		if(msg=="success"){

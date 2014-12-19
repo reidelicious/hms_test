@@ -95,9 +95,10 @@ public function add_user(){
 
     public function datatable_clinic(){
 		
-        $this->datatables->select('clinic_id, clinic_name, clinic_category')
-			->add_column('action', get_buttons('$1'), 'clinic_id')
-            ->from('clinic');
+        $this->datatables->select('clinic.clinic_id, clinic.clinic_name, medical_specialist.specialist')
+			->add_column('action', get_buttons('$1'), 'clinic.clinic_id')
+            ->from('clinic')
+            ->join('medical_specialist', 'medical_specialist.specialist_id = clinic.clinic_category', 'inner');
  
         echo $this->datatables->generate();
     }
@@ -105,6 +106,16 @@ public function add_user(){
 	public function deleteUser($id){
 		$this->load->model('model_users');
 		if($this->model_users->deleteUserFromDB($id)){
+			
+				echo "success";
+		}else{
+			echo "invalid id";
+		}	
+	}
+
+	public function deleteClinic($id){
+		$this->load->model('model_users');
+		if($this->model_users->deleteClinicFromDB($id)){
 			
 				echo "success";
 		}else{
@@ -123,9 +134,22 @@ public function add_user(){
 			echo $this->input->post('uiD');
 			echo "error";
 		}	
-	
 	}
 	
+
+	public function editClinicInfo(){
+		
+		$this->load->model('model_users');
+		
+		if($this->model_users->edit_clinic()){
+					echo "success";
+					
+		}else{
+			echo $this->input->post('uiD');
+			echo "error";
+		}	
+	}
+
 	public function ret_success_notif(){
 		
 		return "<script>var not = $.Notify({
