@@ -64,30 +64,7 @@ $config = array(
 											'rules' => 'required|trim'
 										 )
                                     ),
-				 'edit_users' => array(
-                               
-                                    array(
-                                            'field' => 'password',
-                                            'label' => 'Password',
-                                            'rules' => 'required|trim'
-                                         ),
-                                    array(
-                                            'field' => 'cPassword',
-                                            'label' => 'Confirm Password',
-                                            'rules' => 'required|trim|matches[password]'
-                                         ),
-                                    array(
-                                            'field' => 'fname',
-                                            'label' => 'Fname',
-                                            'rules' => 'required|trim'
-                                         ),
-									array(
-											'field' => 'lname',
-											'label' => 'Lname',
-											'rules' => 'required|trim'
-										 )
-								
-                                    ),    
+				   
 				'edit_password' => array(
 									  array(
                                             'field' => 'oldPassword',

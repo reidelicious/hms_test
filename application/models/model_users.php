@@ -315,7 +315,7 @@ public function edit_account(){
 		return true;
 	}
 	else
-	false;
+	 return false;
 	
 }	
 	
@@ -385,6 +385,74 @@ $this->db->update('table as a, table2 as b');
 				
 			
 		}else{return false;}
+		
+	}
+	
+	public function edit_admininfo(){
+			$data = array(
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+			
+            );
+			
+		$this->db->where('id', $this->session->userdata('id'));
+		$this->db->update('users', $data);
+		
+		if($this->db->affected_rows()>0){
+		$this->session->set_userdata($data);
+			return true;
+		}
+		else
+		 return false;
+		
+	}
+	public function edit_userinfo(){
+		$data = array(
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+			'age' => $this->input->post('age'),
+			'gender' => $this->input->post('gender'),
+			'address' => $this->input->post('address'),
+
+		);
+		
+		$this->db->set('u.fname', $this->input->post('fname'));
+		$this->db->set('u.lname', $this->input->post('lname'));
+		$this->db->set('p.p_address', $this->input->post('address') );
+		$this->db->set('p.p_gender',$this->input->post('gender') );
+		$this->db->set('p.p_age', $this->input->post('age'));
+		
+		$this->db->where('u.id', $this->session->userdata('id'));
+		$this->db->where('u.id = p.u_id');
+		$this->db->update('users as u, patients as p');
+		
+		if($this->db->affected_rows()>0){
+			$this->session->set_userdata($data);
+			return true;
+		}
+		else
+		 return false;
+		
+		
+		
+	}
+	
+	public function updateAvatar($fn){
+	
+		$data = array(
+			'avatar' => $fn	
+            );	
+		$this->db->where('id', $this->session->userdata('id'));
+		$this->db->update('users', $data);
+		
+		if($this->db->affected_rows()>0){
+			$this->session->set_userdata($data);
+			return true;
+		}
+		else
+		 return false;
+		
+		
 		
 	}
 	
