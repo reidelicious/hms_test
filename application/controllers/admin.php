@@ -46,7 +46,22 @@ public function add_user(){
 		}	
 	}
 	//end addclinic
-
+	//start viewclinic
+	public function view_clinic(){
+		if($this->session->userdata('usertype') == "ADMIN"){
+			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
+			$this->table->set_template($tmpl);
+			$this->table->set_heading('id', 'Clinic Name', 'Specialization', 'Action');
+			
+			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/navbar_admin');
+			$this->load->view('admin/view_clinic');
+			$this->load->view('templates/footer/footer_admin');
+		}else{
+			show_404();
+		}		
+	}
+	//end viewclinic
 	public function addClinic_validation(){
 		$this->load->library('form_validation');		
 		$this->form_validation->set_rules('clinicname','Clinic Name','required|trim');
@@ -71,6 +86,15 @@ public function add_user(){
         $this->datatables->select('id,email,fname,lname,utype')
 			->add_column('action', get_buttons('$1'), 'id')
             ->from('users');
+ 
+        echo $this->datatables->generate();
+    }
+
+    public function datatable_clinic(){
+		
+        $this->datatables->select('clinic_id,clinic_name, clinic_category')
+			->add_column('action', get_buttons('$1'), 'id')
+            ->from('clinic');
  
         echo $this->datatables->generate();
     }

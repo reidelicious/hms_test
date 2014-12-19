@@ -53,6 +53,7 @@ $route['makeAnnouncement'] = 'admin/makeAnnouncement';
 $route['add_user'] = 'admin/add_user';
 $route['manage_user'] = 'admin/manage_user';
 $route['add_clinic'] = 'admin/add_clinic';
+$route['view_clinic'] = 'admin/view_clinic';
 
 
 /* End of file routes.php */
