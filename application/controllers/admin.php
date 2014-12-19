@@ -33,20 +33,8 @@ public function add_user(){
 			show_404();
 		}		
 	}
-	//start addclinic
-	public function add_clinic(){
-		$this->load->model('model_users');
-		$data['specialists'] = $this->model_users->get_Specialists();
-		if($this->session->userdata('usertype') == "ADMIN"){
-			$this->load->view('templates/header/header_all');
-			$this->load->view('templates/header/navbar_admin');
-			$this->load->view('admin/add_clinic',$data);
-		}else{
-			show_404();
-		}	
-	}
-	//end addclinic
-	//start viewclinic
+	
+		//start viewclinic
 	public function view_clinic(){
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
@@ -62,6 +50,21 @@ public function add_user(){
 		}		
 	}
 	//end viewclinic
+	
+	//start addclinic
+	public function add_clinic(){
+		$this->load->model('model_users');
+		$data['specialists'] = $this->model_users->get_Specialists();
+		if($this->session->userdata('usertype') == "ADMIN"){
+			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/navbar_admin');
+			$this->load->view('admin/add_clinic',$data);
+		}else{
+			show_404();
+		}	
+	}
+	//end addclinic
+
 	public function addClinic_validation(){
 		$this->load->library('form_validation');		
 		$this->form_validation->set_rules('clinicname','Clinic Name','required|trim');
@@ -92,8 +95,8 @@ public function add_user(){
 
     public function datatable_clinic(){
 		
-        $this->datatables->select('clinic_id,clinic_name, clinic_category')
-			->add_column('action', get_buttons('$1'), 'id')
+        $this->datatables->select('clinic_id, clinic_name, clinic_category')
+			->add_column('action', get_buttons('$1'), 'clinic_id')
             ->from('clinic');
  
         echo $this->datatables->generate();

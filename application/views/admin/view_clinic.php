@@ -47,9 +47,7 @@ $( document ).ready(function() {
 
 					
 $(document).on('click','.editInfo', function(){
-	var $bla = $(this).parents('td').prev();
-	
-	var specialization = $bla.prev();
+	var specialization = $(this).parents('td').prev();	
 	var clinicname = specialization.prev();
 	
 	var id = $(this).siblings('input').val()
@@ -69,7 +67,7 @@ $(document).on('click','.editInfo', function(){
                 '<div class="input-control text"><input type="text" name="id" value="'+id+'" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
 			     '<label>Clinic Name</label>' +
-                '<div class="input-control text"><input type="text"  value= "'+clinicname.text()+'"name="email" required>'+
+                '<div class="input-control text"><input type="text"  value= "'+clinicname.text()+'" name="email" required>'+
                ' <button class="btn-clear"></button></div> ' +
 			     '<label>Specialization</label>' +
                 '<div class="input-control text"><input type="text" value = "'+specialization.text()+'" name="fname"  required>'+
