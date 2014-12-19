@@ -34,6 +34,24 @@ public function add_user(){
 			show_404();
 		}		
 	}
+	
+		//start viewclinic
+	public function view_clinic(){
+		if($this->session->userdata('usertype') == "ADMIN"){
+			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
+			$this->table->set_template($tmpl);
+			$this->table->set_heading('id', 'Clinic Name', 'Specialization', 'Action');
+			
+			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/navbar_admin');
+			$this->load->view('admin/view_clinic');
+			$this->load->view('templates/footer/footer_admin');
+		}else{
+			show_404();
+		}		
+	}
+	//end viewclinic
+	
 	//start addclinic
 	public function add_clinic(){
 		$this->load->model('model_users');
@@ -75,10 +93,30 @@ public function add_user(){
  
         echo $this->datatables->generate();
     }
+
+    public function datatable_clinic(){
+		
+        $this->datatables->select('clinic.clinic_id, clinic.clinic_name, medical_specialist.specialist')
+			->add_column('action', get_buttons('$1'), 'clinic.clinic_id')
+            ->from('clinic')
+            ->join('medical_specialist', 'medical_specialist.specialist_id = clinic.clinic_category', 'inner');
+ 
+        echo $this->datatables->generate();
+    }
 	
 	public function deleteUser($id){
 		$this->load->model('model_users');
 		if($this->model_users->deleteUserFromDB($id)){
+			
+				echo "success";
+		}else{
+			echo "invalid id";
+		}	
+	}
+
+	public function deleteClinic($id){
+		$this->load->model('model_users');
+		if($this->model_users->deleteClinicFromDB($id)){
 			
 				echo "success";
 		}else{
@@ -97,9 +135,22 @@ public function add_user(){
 			echo $this->input->post('uiD');
 			echo "error";
 		}	
-	
 	}
 	
+
+	public function editClinicInfo(){
+		
+		$this->load->model('model_users');
+		
+		if($this->model_users->edit_clinic()){
+					echo "success";
+					
+		}else{
+			echo $this->input->post('uiD');
+			echo "error";
+		}	
+	}
+
 	public function ret_success_notif(){
 		
 		return "<script>var not = $.Notify({
