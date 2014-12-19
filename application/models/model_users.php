@@ -18,13 +18,7 @@ class Model_users extends CI_Model{
 	}
 	
 	
-	public function what_userType(){
-		$this->db->where('email', $this->input->post('email'));
-		$query = $this->db->get('users');
-		$row = $query->row();
-		 return $row;
-		
-	}
+
 	
 	public function add_temp_user($key){
 	
@@ -330,10 +324,146 @@ public function edit_account(){
 		return true;
 	}
 	else
-	 	false;
+	 return false;
 	
 }	
 	
+	public function what_userType(){
+		$this->db->select('id, utype');
+		$this->db->where('email', $this->input->post('email'));
+		$query = $this->db->get('users');
+		$row = $query->row();
+		 return $row;
+		
+	}
+	
+	public function getAdmin_sessions($id){
+		$this->db->where('id',$id);
+		$this->db->from('users');
+		$query = $this->db->get();
+		
+		return  $query->row();
+		
+		
+	}
+	public function getUser_sessions($id){
+
+		$this->db->where('id',$id);
+		$this->db->from('users');
+		$this->db->join('patients','users.id = patients.u_id');
+		$query = $this->db->get();
+		
+		return  $query->row();
+	}
+	
+	public function edit_password($id){
+		$data = array(
+             'password' =>  md5($this->input->post('password')),
+            );
+
+		$this->db->where('id', $id);
+		$this->db->update('users', $data); 
+			if($this->db->affected_rows()>0){
+				return true;
+			}
+		else
+			return false;
+		
+		/*
+$this->db->set('a.firstname', 'Pekka');
+$this->db->set('a.lastname', 'Kuronen');
+$this->db->set('b.companyname', 'Suomi Oy');
+$this->db->set('b.companyaddress', 'Mannerheimtie 123, Helsinki Suomi');
+
+$this->db->where('a.id', 1);
+$this->db->where('a.id = b.id');
+$this->db->update('table as a, table2 as b');
+		
+	*/	
+	}
+	
+	public function checkOldPass(){
+		$this->db->where('id', $this->session->userdata('id'));
+		$query = $this->db->get('users');
+		$row = $query ->row();
+		if($query->num_rows() > 0 ){
+			if($row->password == md5($this->input->post('oldPassword'))){
+				return true;
+				}
+			else return false;
+				
+			
+		}else{return false;}
+		
+	}
+	
+	public function edit_admininfo(){
+			$data = array(
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+			
+            );
+			
+		$this->db->where('id', $this->session->userdata('id'));
+		$this->db->update('users', $data);
+		
+		if($this->db->affected_rows()>0){
+		$this->session->set_userdata($data);
+			return true;
+		}
+		else
+		 return false;
+		
+	}
+	public function edit_userinfo(){
+		$data = array(
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+			'age' => $this->input->post('age'),
+			'gender' => $this->input->post('gender'),
+			'address' => $this->input->post('address'),
+
+		);
+		
+		$this->db->set('u.fname', $this->input->post('fname'));
+		$this->db->set('u.lname', $this->input->post('lname'));
+		$this->db->set('p.p_address', $this->input->post('address') );
+		$this->db->set('p.p_gender',$this->input->post('gender') );
+		$this->db->set('p.p_age', $this->input->post('age'));
+		
+		$this->db->where('u.id', $this->session->userdata('id'));
+		$this->db->where('u.id = p.u_id');
+		$this->db->update('users as u, patients as p');
+		
+		if($this->db->affected_rows()>0){
+			$this->session->set_userdata($data);
+			return true;
+		}
+		else
+		 return false;
+		
+		
+		
+	}
+	
+	public function updateAvatar($fn){
+	
+		$data = array(
+			'avatar' => $fn	
+            );	
+		$this->db->where('id', $this->session->userdata('id'));
+		$this->db->update('users', $data);
+		
+		if($this->db->affected_rows()>0){
+			$this->session->set_userdata($data);
+			return true;
+		}
+		else
+		 return false;
+		
+		
+		
+	}
 	
 	
 }//end of class

@@ -40,6 +40,7 @@
                  	<li>
                         <a class="dropdown-toggle" href="#"><span class="icon-cog"></span></a>
                         <ul class="dropdown-menu place-right" data-role="dropdown">
+                        	<li><a href="<?php echo base_url()."main/settings" ?>" id="editProfile">Edit Profile</a></li>
                             <li><a href="#">Products</a></li>
                             <li><a href="#">Download</a></li>
                             <li><a href="#">Support</a></li>

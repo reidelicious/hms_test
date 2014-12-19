@@ -22,6 +22,7 @@
             </div>
             <div class="span9">
           	  <div class="lg"> 
+
 	                    <header>                 
 	                        <h1>Doctors</h1>       
 	                    </header>
@@ -41,10 +42,7 @@
 	                                     <input  type="hidden" id="lname" value="<?php echo $data->lname;?>"/>
 	                                     <input  type="hidden" id="avatar" value="<?php echo $data->avatar; ?>"/>
 	                                     <input  type="hidden" id="specialization" value="<?php echo $data->specialist; ?>"/>
-	                                     <input  type="hidden" id="room_num" value="<?php echo $data->contact_num; ?>"/>
-	                                     <input  type="hidden" id="cont_num" value="<?php echo $data->room_num; ?>"/>
-	                                    
-	                                     
+	                                     <input  type="hidden" id="room_num" value="<?php echo $data->contact_num; ?>"/>                        
 	                             	</div>
 	                            </div>
 	                         </div>
@@ -60,10 +58,7 @@
 				
 					}
 	?>
-	                    
-	                    
-	               
-	                    
+	                                   
 	         
 	                </ul>
 	                
@@ -78,6 +73,64 @@
 	                </footer>
 	                    
 	            </div>
+
+                    <header>                 
+                        <h1>Doctors</h1>       
+                    </header>
+			
+            	    <ul id="products" class="grid clearfix">
+              	      <!-- row 1 -->
+                      <?php
+				foreach($results as $data) {
+    			?>
+				<li class="clearfix dims">
+                    	 <div class="ui dimmer">
+                          	<div class="content">
+                             	<div class="center">
+                              		 <div class="viewProfile ui primary button">View Profile</div>
+                                     <input  type="hidden" id="id" value="<?php echo $data->id; ?>"/>
+                                     <input  type="hidden" id="fname" value="<?php echo $data->fname; ?>"/>
+                                     <input  type="hidden" id="lname" value="<?php echo $data->lname;?>"/>
+                                     <input  type="hidden" id="avatar" value="<?php echo $data->avatar; ?>"/>
+                                     <input  type="hidden" id="specialization" value="<?php echo $data->specialist; ?>"/>
+                                     <input  type="hidden" id="room_num" value="<?php echo $data->contact_num; ?>"/>
+                                   
+                                    
+                                     
+                             	</div>
+                            </div>
+                         </div>
+                          
+                        <section class="left">
+						<div class="thumb"> <?php echo img($data->avatar);?> </div>
+              <?php echo '             <h3>'.$data->fname.'</h3>                      
+                        </section>
+                        <section class="right">
+                       <span class="price">'.$data->specialist.' </span>
+                        </section>
+                    </li>';
+			
+				}
+?>
+                    
+                    
+               
+                    
+         
+                </ul>
+                
+                <footer>   
+                <br />
+               
+                  <div class="pagination small">
+                  
+                   <?php echo $links; ?>
+                
+                </div>
+                </footer>
+                    
+            </div>
+>>>>>>> master_two
             	
             </div>
         </div>

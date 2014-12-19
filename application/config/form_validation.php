@@ -63,7 +63,28 @@ $config = array(
 											'label' => 'Clinic',
 											'rules' => 'required|trim'
 										 )
-                                    )                                
+                                    ),
+				   
+				'edit_password' => array(
+									  array(
+                                            'field' => 'oldPassword',
+                                            'label' => 'oldPassword',
+                                            'rules' => 'required|trim|callback_check_oldpass'
+                                         ),
+                               
+                                    array(
+                                            'field' => 'password',
+                                            'label' => 'Password',
+                                            'rules' => 'required|trim|callback_check_passmatch'
+                                         ),
+                                    array(
+                                            'field' => 'cPassword',
+                                            'label' => 'Confirm Password',
+                                            'rules' => 'required|trim|matches[password]'
+                                         ),
+                           
+								
+                                    ),                                
                );
 			   
 			   
