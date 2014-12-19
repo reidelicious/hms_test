@@ -61,6 +61,17 @@ class Model_users extends CI_Model{
 		if($this->db->affected_rows()>0){
 			return true;
 		}else{ return false;}
+
+	}
+
+	public function deleteClinicFromDB($id){
+		$this->db->where('clinic_id',$id);
+		
+		$query = $this->db->delete('clinic');
+		
+		if($this->db->affected_rows()>0){
+			return true;
+		}else{ return false;}
 	
 	}
 	
@@ -130,18 +141,16 @@ class Model_users extends CI_Model{
 		return $query->result();
 	}	
 		
-public function edit_user(){
-     $id = $this->input->post('id');
-		$data = array(
-			'email' => $this->input->post('email'),
-			'fname' => $this->input->post('fname'),
-			'lname' => $this->input->post('lname')
-            );
+public function edit_clinic(){
+ 	$id = $this->input->post('id');
+	$data = array(
+		'clinic_name' => $this->input->post('clinicname'),
+        );
 
-$this->db->where('id', $id);
- $this->db->update('users', $data);
+	$this->db->where('clinic_id', $id);
+	$this->db->update('clinic', $data);
 
-if($this->db->affected_rows()>0)
+	if($this->db->affected_rows()>0)
 	return true;
 	else
 	 false;

@@ -21,7 +21,7 @@
                         <a class="dropdown-toggle"  href="#">Manage Clinic</a>
                         <ul class="dropdown-menu" data-role="dropdown">
                             <li><a href="<?php echo base_url()."add_clinic"?>">Add Clinic</a></li>
-                            <li><a href="<?php echo base_url()."admin/view_user"?>">View Clinic</a></li>   
+                            <li><a href="<?php echo base_url()."admin/view_clinic"?>">View Clinic</a></li>   
                         </ul>
                     </li>                   
                     <li>
