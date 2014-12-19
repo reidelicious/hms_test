@@ -15,6 +15,7 @@ public function add_user(){
 			$this->load->view('templates/header/header_all');
 			$this->load->view('templates/header/navbar_admin');
 			$this->load->view('admin/add_user',$data);
+			$this->load->view('templates/footer/footer_admin');
 		}else{
 			show_404();
 		}		
@@ -236,7 +237,7 @@ public function add_user(){
 		$this->load->view('templates/header/header_all');
 		$this->load->view('templates/header/navbar_admin');
 		$this->load->view('admin/admin',$data);
-	}
+	}// end of adduservalidation
 	
 	public function makeAnnouncement(){
 		$this->load->view('templates/header/header_all');
@@ -263,6 +264,16 @@ public function add_user(){
 	}
 
 
+	public function edituser_validation(){
+		$this->load->library('form_validation');			
+				
+		$data['mail'] = ' ';
+		$data['success'] = ' ';
+		$this->load->model('model_users');	
+		
+
+		
+	}// end of adduservalidation
 
 
 

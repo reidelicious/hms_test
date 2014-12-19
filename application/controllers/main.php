@@ -73,6 +73,7 @@ class Main extends CI_Controller {
 			
 			if($row->utype == "ADMIN"){
 				$row =  $this->model_users->getAdmin_sessions($row->id);
+				$data1 = array();
 				
 			}else if($row->utype == "USER"){
 				$row =  $this->model_users->getUser_sessions($row->id);
@@ -207,6 +208,33 @@ class Main extends CI_Controller {
 		}
 		
 	}
+	
+	public function settings(){
+		
+		if($this->session->userdata('is_logged_in') == 1){
+			$this->load->view('templates/header/header_all');
+			
+			if($this->session->userdata('usertype') == "USER"){
+				$this->load->view('templates/header/header_patient');
+				$this->load->view('settings');
+				
+			}else if($this->session->userdata('usertype') == "ADMIN"){
+				$this->load->view('templates/header/navbar_admin');
+				$this->load->view('settings');
+				$this->load->view('templates/footer/footer_admin');
+				
+			}
+			
+			
+		}else{
+			$this->load->view('templates/header/header_all');
+			$this->load->view('login');
+		}	
+			
+			
+		
+		
+		}
 	
 	
 	//charles

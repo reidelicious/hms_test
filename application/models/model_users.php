@@ -331,7 +331,6 @@ public function edit_account(){
 	public function getAdmin_sessions($id){
 		$this->db->where('id',$id);
 		$this->db->from('users');
-		$this->db->join('doctors','users.id = doctors.u_id');
 		$query = $this->db->get();
 		
 		return  $query->row();
