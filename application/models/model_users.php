@@ -315,7 +315,7 @@ public function edit_account(){
 		return true;
 	}
 	else
-	 	false;
+	false;
 	
 }	
 	
@@ -345,6 +345,47 @@ public function edit_account(){
 		$query = $this->db->get();
 		
 		return  $query->row();
+	}
+	
+	public function edit_password($id){
+		$data = array(
+             'password' =>  md5($this->input->post('password')),
+            );
+
+		$this->db->where('id', $id);
+		$this->db->update('users', $data); 
+			if($this->db->affected_rows()>0){
+				return true;
+			}
+		else
+			return false;
+		
+		/*
+$this->db->set('a.firstname', 'Pekka');
+$this->db->set('a.lastname', 'Kuronen');
+$this->db->set('b.companyname', 'Suomi Oy');
+$this->db->set('b.companyaddress', 'Mannerheimtie 123, Helsinki Suomi');
+
+$this->db->where('a.id', 1);
+$this->db->where('a.id = b.id');
+$this->db->update('table as a, table2 as b');
+		
+	*/	
+	}
+	
+	public function checkOldPass(){
+		$this->db->where('id', $this->session->userdata('id'));
+		$query = $this->db->get('users');
+		$row = $query ->row();
+		if($query->num_rows() > 0 ){
+			if($row->password == md5($this->input->post('oldPassword'))){
+				return true;
+				}
+			else return false;
+				
+			
+		}else{return false;}
+		
 	}
 	
 	

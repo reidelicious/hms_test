@@ -1,7 +1,8 @@
 
 <?php   $user	='<label>Email </label>' ;
     	$user .= '<div class="input-control text" data-role="input-control">';
-    	$data = array( 'name'=> 'email', 'placeholder'=>'enter your email', 'required'=>'required');
+		
+    	$data = array( 'name'=> 'email', 'placeholder'=>'enter your email', 'required'=>'required'  ,'disabled' => 'disabled');
         $user .=    form_email($data, $this->session->userdata('email'));
     	$user .=	'<button class="btn-clear" tabindex="-1"></button>';
     	$user .= '</div>';
@@ -43,22 +44,62 @@
 
 
 
-    
+    <?php echo validation_errors(); ?>
     <div class="accordion with-marker" data-role="accordion">
-    <div class="accordion-frame ">
+    <div class="accordion-frame active">
         <a href="#" class=" bg-lightBlue fg-white heading">Frame heading</a>
         <div class="content">...</div>
+    </div>
+    <div class="accordion-frame ">
+        <a href="#" class=" bg-lightBlue fg-white heading">Password</a>
+        <div class="content">
+        <?php 
+        $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'editUser_form');
+			 echo form_open('admin/editPassword_validation',$attributes); ?>
+   			 <fieldset>
+    
+   			 <legend>Edit Password</legend>
+             <?php   echo form_error('oldPassword');
+			 echo form_error('password');
+			 		echo form_error('cPassword');
+			  ?>
+        <label>Old Password </label>
+        <div class="input-control password" data-role="input-control">
+   		<?php $data = array( 'name'=> 'oldPassword', 'placeholder'=>'enter your old password', 'required'=>'required');
+        	echo form_password($data); ?>
+         <button class="btn-reveal" tabindex="-1"></button>
+       </div>
+        <label>Password </label>
+        <div class="input-control password" data-role="input-control">
+   		<?php $data = array( 'name'=> 'password', 'placeholder'=>'enter your password', 'required'=>'required');
+        	echo form_password($data); ?>
+         <button class="btn-reveal" tabindex="-1"></button>
+       </div>
+        <label>Confirm Password </label>
+        <div class="input-control password" data-role="input-control">
+       	<?php $data = array( 'name'=> 'cPassword', 'placeholder'=>'confirm your password', 'required'=>'required');
+        	echo form_password($data); ?>
+       	<button class="btn-reveal" tabindex="-1"></button>
+        </div>
+             
+             	 <?php echo form_submit('signup_submit','Sign up'); ?>
+                 
+                </fieldset>
+            <?php echo form_close();?>
+        
+        </div>
     </div>
     <div class="accordion-frame">
         <a href="#" class="heading">Edit Details</a>
         <div class="content">
          <?php
 			$attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'editUser_form');
-			 echo form_open('admin/edituser_validation',$attributes); ?>
+			 echo form_open('main/edituser_validation',$attributes); ?>
    			 <fieldset>
     
    			 <legend>Update Information</legend>
-   		 <?php echo validation_errors(); ?>
+             	<input type="hidden" name="id" value="<?php echo $this->session->userdata('id'); ?>" />
+   		 <?php  ?>
     
   		<?php echo $user;
 			if($this->session->userdata('usertype') == "USER"){
@@ -100,7 +141,7 @@
 
 
 
-
+<?php echo $success;?>
 
 
 

@@ -254,7 +254,7 @@ public function add_user(){
 			$this->load->model('model_users');
 			if($this->model_users->addAnnouncement()){
 				echo "Successfully added";
-		}
+			}
 		}
 		else{
 			
@@ -264,16 +264,77 @@ public function add_user(){
 	}
 
 
-	public function edituser_validation(){
-		$this->load->library('form_validation');			
-				
-		$data['mail'] = ' ';
-		$data['success'] = ' ';
-		$this->load->model('model_users');	
-		
+public function editpass_notif_succ(){
+	
+	return"<script>var not = $.Notify({
+				 	style: {background: 'green', color: 'white'},
+    				caption: 'PASSWORD ',
+       				content: 'update password SUCCESS!!!',
+      			  	timeout: 10000 // 10 seconds
+						});
+					
+					</script>";
+	}
 
+public function editpass_notif_error(){
+	
+	$retval = "<script>var not = $.Notify({
+				 	style: {background: 'red', color: 'white'},
+    				caption: 'PASSWORD ', 
+					timeout: 10000 ,
+					content: 'fail to update password' 
+				});
+					
+					</script>";
+	
+	return $retval;
+       		
+	}
+
+
+
+		public function editPassword_validation(){
+			$this->load->library('form_validation');			
+			$this->load->model('model_users');		
 		
+			$this->form_validation->set_message('check_passmatch', 'the password must not be the same as the old password');
+			$this->form_validation->set_message('check_oldpass', 'the old password is incorrect');
+			if($this->form_validation->run('edit_password')){		
+				if($this->model_users->edit_password($this->session->userdata('id'))){
+					$data['success'] = $this->editpass_notif_succ();
+		
+				}
+				
+				
+			}else{
+					$data['success'] = $this->editpass_notif_error();
+				
+			
+			}
+					$this->load->view('templates/header/header_all');
+					$this->load->view('templates/header/navbar_admin');
+					$this->load->view('settings',$data);
+					$this->load->view('templates/footer/footer_admin');
 	}// end of adduservalidation
+	
+	public function check_passmatch(){
+		
+		
+		
+		if($this->input->post('oldPassword') == $this->input->post('password')){
+			return false;
+		}
+		else return true;
+		
+	}
+	public function check_oldpass(){
+		$this->load->model('model_users');	
+		if($this->model_users->checkOldPass($this->session->userdata('id'))){
+			return true;
+		}
+		else return false;
+		
+	}
 
 
 
