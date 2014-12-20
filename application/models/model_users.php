@@ -65,13 +65,13 @@ class Model_users extends CI_Model{
 	}
 
 	public function deleteClinicFromDB($id){
+		$this->db->trans_start();
 		$this->db->where('clinic_id',$id);
-		
-		$query = $this->db->delete('clinic');
-		
-		if($this->db->affected_rows()>0){
-			return true;
-		}else{ return false;}
+		$this->db->delete('clinic');
+		$this->db->trans_complete();
+		if($this->db->trans_status() === FALSE){
+			return FALSE;
+		}else{ return TRUE;}
 	
 	}
 	

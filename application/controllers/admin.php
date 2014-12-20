@@ -121,7 +121,7 @@ public function add_user(){
 			
 				echo "success";
 		}else{
-			echo "invalid id";
+			echo "fail";
 		}	
 	}
 	

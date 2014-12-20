@@ -173,11 +173,19 @@ $.ajax({
 			 var not = $.Notify({
 				 	style: {background: 'green', color: 'white'},
     				caption: "Delete",
-       				content: "Deletion of User is successful!!!",
+       				content: "Deletion of Clinic is successful!!!",
       			  	timeout: 10000 // 10 seconds
    			 });
 		 oTable.fnDraw();
-		}
+		}else if(msg=="fail"){
+
+      var not = $.Notify({
+          style: {background: 'red', color: 'white'},
+            caption: "Delete FAIL",
+              content: "Deletion of Clinic Failed. Remove first the doctors inside the clinic!!",
+                timeout: 10000 // 10 seconds
+         });
+    }
 				//alert(msg);
 	});
 
