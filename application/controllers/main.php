@@ -270,8 +270,7 @@ public function edituser_validation(){
 			if($this->form_validation->run()){		
 				if($this->model_users->edit_admininfo()){
 					$data['success'] = $this->editinfo_notif_succ();
-					
-					
+									
 				}else{
 				$data['success'] = $this->editinfo_notif_fail();	
 				}

@@ -55,6 +55,7 @@ public function add_user(){
 	//start addclinic
 	public function add_clinic(){
 		$this->load->model('model_users');
+		$data['success'] =' ';
 		$data['specialists'] = $this->model_users->get_Specialists();
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$this->load->view('templates/header/header_all');

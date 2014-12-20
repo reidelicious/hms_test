@@ -75,7 +75,7 @@ $(document).on('click','.editInfo', function(){
 			   
 			  
                 '<div class="form-actions">' +
-                '<button class="button primary" onclick="$.Dialog.close();">EDIT</button> '+
+                '<button class="button primary" >EDIT</button> '+
                 '<button class="button" type="button" onclick="$.Dialog.close()">Cancel</button> '+
                 '</div>'+
                 '</form>';
@@ -137,7 +137,7 @@ $(document).on('submit','#editform', function(e){
 			var not = $.Notify({
 				 	style: {background: 'green', color: 'white'},
     				caption: "Update",
-       				content: "Update of User is successful!!!",
+       				content: "Update of Clinic is successful!!!",
       			  	timeout: 10000 // 10 seconds
 			});
 			 oTable.fnDraw();
@@ -145,7 +145,7 @@ $(document).on('submit','#editform', function(e){
 			 	var not = $.Notify({
 				 	style: {background: 'red', color: 'white'},
     				caption: "Update",
-       				content: "Update of User has Failed!!!",
+       				content: "Update of clinic has Failed!!!",
       			  	timeout: 10000 // 10 seconds
 			});
 		  }  

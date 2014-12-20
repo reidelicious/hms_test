@@ -32,6 +32,10 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
 
         	<?php echo form_submit('clinic_submit','Add Clinic'); ?>
     </fieldset>
-<?php echo form_close();?>
+<?php echo form_close();
+
+	echo $success;
+
+?>
 </body>
 </html>
