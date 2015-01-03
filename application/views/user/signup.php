@@ -11,7 +11,7 @@
 </style>
 <body class="metro">
 <div class="bg-lightBlue fg-white">
-			<img src = "<?php echo base_url('assets/images/Icon/hms-logo.png'); ?>" style="width: 100px; height: 100px;">
+			<img src = "<?php echo base_url('assets/images/hms-logo.png'); ?>" style="width: 100px; height: 100px;">
 </div>
 	<div class="container">
 		<div class="grid fluid">

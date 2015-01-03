@@ -6,7 +6,7 @@ header('Pragma: no-cache'); // HTTP 1.0.
 header('Expires: 0');
 ?>
 
-	<title>members Page</title>
+	<title><?php echo $title ?></title>
  	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="hms admin">
@@ -15,7 +15,7 @@ header('Expires: 0');
 	
    
 	<?php   echo link_tag('assets/css/bootstrap.css'); ?>
-   <link href="<?php echo base_url('assets/css/metro-bootstrap.css')?>" rel="stylesheet">
+   	<link href="<?php echo base_url('assets/css/metro-bootstrap.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/metro-bootstrap-responsive.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/iconFont.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/docs.css')?>" rel="stylesheet">
@@ -31,8 +31,8 @@ header('Expires: 0');
 
     <!-- Metro UI CSS JavaScript plugins -->
     <script src="<?php echo base_url('assets/js/metro.min.js')?>"></script>
-<script src="<?php echo base_url('assets/js/metro/metro-streamer.js')?>"></script>       
-<script src="<?php echo base_url('assets/js/jquery.validate.js')?>"></script> 
+	<script src="<?php echo base_url('assets/js/metro/metro-streamer.js')?>"></script>       
+	<script src="<?php echo base_url('assets/js/jquery.validate.js')?>"></script> 
 
 
  <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js');?>"></script>

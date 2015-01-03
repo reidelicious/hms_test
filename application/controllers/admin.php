@@ -6,13 +6,14 @@ class Admin extends CI_Controller {
 	
 
 public function add_user(){
+		$data['title'] = 'add user';
 		$this->load->model('model_users');
 		$data['mail'] = '';
 		$data['success'] = '';
 		$data['specialists'] = $this->model_users->get_Specialists();
 		$data['clinic'] = $this->model_users->get_Clinic();
 		if($this->session->userdata('usertype') == "ADMIN"){
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/navbar_admin');
 			$this->load->view('admin/add_user',$data);
 			$this->load->view('templates/footer/footer_admin');
@@ -21,12 +22,13 @@ public function add_user(){
 		}		
 	}
 	public function view_user(){
+		$data['title'] = 'view user';
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
 			$this->table->set_heading('id', 'email', 'fname','lname','utype','action');
 			
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/navbar_admin');
 			$this->load->view('admin/view_user');
 			$this->load->view('templates/footer/footer_admin');
@@ -37,12 +39,13 @@ public function add_user(){
 	
 		//start viewclinic
 	public function view_clinic(){
+		$data['title'] = 'view clinic';
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
 			$this->table->set_heading('id', 'Clinic Name', 'Specialization', 'Action');
 			
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/navbar_admin');
 			$this->load->view('admin/view_clinic');
 			$this->load->view('templates/footer/footer_admin');
@@ -54,11 +57,12 @@ public function add_user(){
 	
 	//start addclinic
 	public function add_clinic(){
+		$data['title'] = 'add clinic';
 		$this->load->model('model_users');
 		$data['success'] =' ';
 		$data['specialists'] = $this->model_users->get_Specialists();
 		if($this->session->userdata('usertype') == "ADMIN"){
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/navbar_admin');
 			$this->load->view('admin/add_clinic',$data);
 		}else{
@@ -68,11 +72,13 @@ public function add_user(){
 	//end addclinic
 
 	public function addClinic_validation(){
+		$data['title'] = 'add clinic';
 		$this->load->library('form_validation');		
 		$this->form_validation->set_rules('clinicname','Clinic Name','required|trim');
-		
+		$this->load->model('model_users');
+		$data['specialists'] = $this->model_users->get_Specialists();
 		if($this->form_validation->run()){
-			$this->load->model('model_users');
+			
 			if($this->model_users->admin_addClinic()){
 				$data['success'] = $this->ret_success_notif();
 			}
@@ -80,7 +86,7 @@ public function add_user(){
 		else{
 			$data['success'] = $this->ret_fail_notif();
 		}
-		$this->load->view('templates/header/header_all');
+		$this->load->view('templates/header/header_all',$data);	
 		$this->load->view('templates/header/navbar_admin');
 		$this->load->view('admin/add_clinic',$data);
 	}
@@ -139,21 +145,17 @@ public function add_user(){
 	}
 	
 
-	public function editClinicInfo(){
-		
+	public function editClinicInfo(){		
 		$this->load->model('model_users');
-		
 		if($this->model_users->edit_clinic()){
-					echo "success";
-					
+			echo "success";			
 		}else{
 			echo $this->input->post('uiD');
 			echo "error";
 		}	
 	}
 
-	public function ret_success_notif(){
-		
+	public function ret_success_notif(){	
 		return "<script>var not = $.Notify({
 				 	style: {background: 'green', color: 'white'},
     				caption: 'DATABASE',
@@ -161,12 +163,10 @@ public function add_user(){
       			  	timeout: 10000 // 10 seconds
 						});
 					
-					</script>";
-		
+					</script>";		
 	}
 	
 	public function ret_fail_notif(){
-		
 		return "<script>var not = $.Notify({
 				 	style: {background: 'RED', color: 'white'},
     				caption: 'DATABASE',
@@ -174,8 +174,7 @@ public function add_user(){
       			  	timeout: 10000 // 10 seconds
 						});
 					
-					</script>";
-		
+					</script>";		
 	}
 	
 	
@@ -201,6 +200,7 @@ public function add_user(){
 					</script>";	
 	}	
 	public function addUser_validation(){
+		$data['title'] = 'add user';
 		$this->load->library('form_validation');	
 			$config = array(
 					'mailtype' => 'html',
@@ -286,13 +286,14 @@ public function add_user(){
 		
 			}			
 		}
-		$this->load->view('templates/header/header_all');
+		$this->load->view('templates/header/header_all',$data);	
 		$this->load->view('templates/header/navbar_admin');
 		$this->load->view('admin/admin',$data);
 	}// end of adduservalidation
 	
 	public function makeAnnouncement(){
-		$this->load->view('templates/header/header_all');
+		$data['title'] = 'make Announcement';
+		$this->load->view('templates/header/header_all',$data);	
 		$this->load->view('templates/header/navbar_admin');
 		$this->load->view('makeAnnouncement');	
 	}
