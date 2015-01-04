@@ -1,5 +1,10 @@
 <?php echo link_tag('assets/css/l&g.css');echo link_tag('assets/css/dimmer.min.css');?>
 <script src="<?php echo base_url('assets/js/dimmer.min.js')?>"></script>
+<style type="text/css">
+.alphabetical li .active a{
+	 font-weight: bold;
+	};
+</style>
 <div class="container">
     <div class="grid fluid">
         <div class="row">	
@@ -15,7 +20,37 @@
             <div class="span9">
                 <div class="lg"> 
                     <header>                 
-                    	<h1>Doctors</h1>       
+                    	<h1>Doctors</h1>   
+                        <strong>
+					<ul style="list-style:none;" class="inline alphabetical">
+                        <li><strong> <a style="cursor:pointer;cursor:hand" href="<?php echo base_url('patient/explore/sort_by/A'); ?>">A</a></strong></li>
+                        <li class="active"><a style="cursor:pointer;cursor:hand" href="<?php echo base_url('patient/explore/sort_by/B'); ?>">B</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="<?php echo base_url('patient/explore/sort_by/C'); ?>">C</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">D</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">E</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">F</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">G</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">H</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">I</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">J</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">K</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">L</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">M</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">N</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">O</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">P</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">Q</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">R</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">S</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">T</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">U</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">V</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">W</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">X</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">Y</a></li>
+                        <li><a style="cursor:pointer;cursor:hand" href="#">Z</a></li>
+					</ul>
+            		</strong>    
                     </header>
                     <ul id="products" class="grid clearfix">                   
                     <?php foreach($results as $data) { 	?>                    

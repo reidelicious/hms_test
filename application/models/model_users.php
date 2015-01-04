@@ -286,6 +286,7 @@ public function doctor_count(){
 public function fetch_doctors($limit,$start){
 	
 	$this->db->limit($limit,$start);
+	$this->db->order_by("fname", "asc"); 
 	$this->db->select('*');
 	$this->db->from('users');
 	$this->db->join('doctors','users.id = doctors.u_id');
@@ -301,6 +302,26 @@ public function fetch_doctors($limit,$start){
 		return false;
 }
 	
+	
+
+public function fetch_doctors_alpha($letter){
+	
+	$this->db->like('fname',$letter,'after');
+	$this->db->order_by("fname", "asc"); 
+	$this->db->select('*');
+	$this->db->from('users');
+	$this->db->join('doctors','users.id = doctors.u_id');
+	$this->db->join('medical_specialist','medical_specialist.specialist_id =  doctors.specialization ');
+	$query = $this->db->get();	
+	
+	if($query->num_rows() > 0 ){
+		foreach($query->result() as $row){
+				$data[] = $row;
+			}
+			return $data;	
+		}
+		return false;
+}
 	
 	
 	
