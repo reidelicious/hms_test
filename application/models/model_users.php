@@ -76,16 +76,12 @@ class Model_users extends CI_Model{
 	}
 	
 	public function add_user($key){
-		
-		
 		$this->db->where('key',$key);
 		$temp_user = $this->db->get('temp_users');	
 		$row = $temp_user->row();
 		
 		
 		if($temp_user){
-			
-			
 			$this->db->where('email',$row->email);
 			$isEmail_exist = $this->db->get('users');
 			
@@ -141,23 +137,23 @@ class Model_users extends CI_Model{
 		return $query->result();
 	}	
 		
-public function edit_clinic(){
- 	$id = $this->input->post('id');
-	$data = array(
+	public function edit_clinic(){
+		$id = $this->input->post('id');
+		$data = array(
 		'clinic_name' => $this->input->post('clinicname'),
-        );
+	    );
 
-	$this->db->where('clinic_id', $id);
-	$this->db->update('clinic', $data);
+		$this->db->where('clinic_id', $id);
+		$this->db->update('clinic', $data);
 
-	if($this->db->affected_rows()>0)
-	return true;
-	else
-	 false;
-}
+		if($this->db->affected_rows()>0)
+			return true;
+		else
+		 	return false;
+	}
 
-public function admin_addUser(){
-	$data1 = array(
+	public function admin_addUser(){
+		$data1 = array(
 			'email' => $this->input->post('email'),
 			'password' => md5($this->input->post('password')),
 			'fname' => $this->input->post('fname'),
@@ -170,29 +166,25 @@ public function admin_addUser(){
 		$max_query = $this->db->get('users');
 		$u_id = $max_query->row();
 		
-	$data2 = array(	
-		'p_age' => $this->input->post('age'),
-		'p_gender' => $this->input->post('gender'),
-		'p_address' => $this->input->post('address'),
-		'u_id' => $u_id->id,
+		$data2 = array(	
+			'p_age' => $this->input->post('age'),
+			'p_gender' => $this->input->post('gender'),
+			'p_address' => $this->input->post('address'),
+			'u_id' => $u_id->id,
 			
 		);
 		$did_add_user2 = $this->db->insert('patients', $data2);
 
-				if($did_add_user && $did_add_user2){
-			
-					return true;
-				}else{ 
-
-					return false;
-				}
-	
-	
-}
+		if($did_add_user && $did_add_user2){
+			return true;
+		}else{ 
+			return false;
+		}
+	}
 
 
-public function admin_addDoctor(){
-	
+	public function admin_addDoctor(){
+
 		$data1 = array(
 			'email' => $this->input->post('email'),
 			'password' => md5($this->input->post('password')),
@@ -202,7 +194,7 @@ public function admin_addDoctor(){
 
 		);	
 		$did_add_user = $this->db->insert('users', $data1);
-	
+
 	$last_id = $this->db->insert_id();	
 	$data2 = array(	
 		'specialization' => $this->input->post('Specialization'),
@@ -221,12 +213,12 @@ public function admin_addDoctor(){
 
 					return false;
 				}
-	
-}
+
+	}
 
 
 
-public function admin_addAdmin(){
+	public function admin_addAdmin(){
 	$data1 = array(
 			'email' => $this->input->post('email'),
 			'password' => md5($this->input->post('password')),
@@ -236,7 +228,7 @@ public function admin_addAdmin(){
 
 		);	
 		$did_add_user = $this->db->insert('users', $data1);
-	
+
 		
 
 				if($did_add_user){
@@ -246,11 +238,11 @@ public function admin_addAdmin(){
 
 					return false;
 				}
-	
-	
-}
 
-public function admin_addClinic(){
+
+	}
+
+	public function admin_addClinic(){
 	$data = array(
 			'clinic_name' => $this->input->post('clinicname'),
 			'clinic_category' => $this->input->post('Specialization')
@@ -260,38 +252,38 @@ public function admin_addClinic(){
 		return true;
 	else
 		return false;
-}
+	}
 
-public function addAnnouncement(){
+	public function addAnnouncement(){
 	$data = array(
 		'announcement_subject' => $this->input->post('subject'),
 		'announcement_details' => $this->input->post('details'),
 	);	
-	
+
 	$query = $this->db->insert('announcement', $data);
 	if($query)
 		return true;
 	else
 		return false;
-}
-	
+	}
 
-	
-	
-	
-public function doctor_count(){
+
+
+
+
+	public function doctor_count(){
 	return $this->db->count_all('doctors');
-}	
+	}	
 
-public function fetch_doctors($limit,$start){
-	
+	public function fetch_doctors($limit,$start){
+
 	$this->db->limit($limit,$start);
 	$this->db->select('*');
 	$this->db->from('users');
 	$this->db->join('doctors','users.id = doctors.u_id');
 	$this->db->join('medical_specialist','medical_specialist.specialist_id =  doctors.specialization ');
 	$query = $this->db->get();	
-	
+
 	if($query->num_rows() > 0 ){
 		foreach($query->result() as $row){
 				$data[] = $row;
@@ -299,13 +291,13 @@ public function fetch_doctors($limit,$start){
 			return $data;	
 		}
 		return false;
-}
-	
-	
-	
-	
-	
-public function edit_account(){
+	}
+
+
+
+
+
+	public function edit_account(){
 	//print_r($this->session->all_userdata());exit;
 	//$id = $this->input->post('id');
 	//echo $id;exit;
@@ -314,7 +306,7 @@ public function edit_account(){
 			'fname' => $this->input->post('fname'),
 			'lname' => $this->input->post('lname'),
 			'password' => md5($this->input->post('password'))
-            );
+	        );
 
 	$this->db->where('email', $this->session->userdata('email'));
 	$this->db->update('users', $data);
@@ -325,8 +317,8 @@ public function edit_account(){
 	}
 	else
 	 return false;
-	
-}	
+
+	}	
 	
 	public function what_userType(){
 		$this->db->select('id, utype');
@@ -355,7 +347,17 @@ public function edit_account(){
 		
 		return  $query->row();
 	}
-	
+	public function getDoctor_sessions($id){
+
+		$this->db->where('id',$id);
+		$this->db->from('users');
+		$this->db->join('doctors','users.id = doctors.u_id');
+		$this->db->join('clinic', 'clinic.clinic_id = doctors.clinic');
+		$this->db->join('medical_specialist', 'medical_specialist.specialist_id = doctors.specialization');
+		$query = $this->db->get();
+		
+		return  $query->row();
+	}
 	public function edit_password($id){
 		$data = array(
              'password' =>  md5($this->input->post('password')),

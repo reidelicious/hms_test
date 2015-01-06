@@ -41,12 +41,14 @@ $route['404_override'] = '';
 $route['default_controller'] = "main";
 $route['login'] = 'main/login';
 $route['new_user/signup'] = 'main/signup';
+
+
 $route['home'] = 'patient/home';
 $route['explore'] = 'patient/explore';
 $route['appointment'] = 'patient/appointment';
 
 
-
+$route['home_doctor'] = 'doctor/home_doctor';
 
 
 $route['makeAnnouncement'] = 'admin/makeAnnouncement';

@@ -85,6 +85,13 @@ class Main extends CI_Controller {
 					'age' => $row->p_age
 				);
 				
+			}else if($row->utype == "DOCTOR"){
+				$row = $this->model_users->getDoctor_sessions($row->id);
+
+				$data1 = array(
+					'id' => $row->d_id,
+					'contactnum' => $row->contact_num
+				);
 			}
 			
 			$data2 = array(
@@ -103,6 +110,8 @@ class Main extends CI_Controller {
 				redirect('home');	
 			}else if($row->utype == "ADMIN"){
 				redirect('add_user');	
+			}else if($row->utype == "DOCTOR"){
+				redirect('home_doctor');
 			}
 				
 		}else{

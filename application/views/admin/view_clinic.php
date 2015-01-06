@@ -55,7 +55,7 @@ $(document).on('click','.editInfo', function(){
         overlay: true,
         shadow: true,
         flat: true,
-		draggable: true,
+		    draggable: true,
         icon: '<img src="<?php echo base_url('assets/images/Windows-8-Logo.png')?>">',
         title: 'Flat window',
         content: '',
@@ -66,13 +66,13 @@ $(document).on('click','.editInfo', function(){
                 '<label>ID</label>' +
                 '<div class="input-control text"><input type="text" name="id" value="'+id+'" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
-			     '<label>Clinic Name</label>' +
+			           '<label>Clinic Name</label>' +
                 '<div class="input-control text"><input type="text"  value= "'+clinicname.text()+'" name="clinicname" required>'+
                ' <button class="btn-clear"></button></div> ' +
-			     '<label>Specialization</label>' +
+			          '<label>Specialization</label>' +
                 '<div class="input-control text"><input type="text" value = "'+specialization.text()+'" name="specialization" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
-			   
+			           '<label>Doctors</label>' +
 			  
                 '<div class="form-actions">' +
                 '<button class="button primary" >EDIT</button> '+
