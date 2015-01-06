@@ -278,6 +278,7 @@ class Model_users extends CI_Model{
 	public function fetch_doctors($limit,$start){
 
 	$this->db->limit($limit,$start);
+	$this->db->order_by("fname", "asc"); 
 	$this->db->select('*');
 	$this->db->from('users');
 	$this->db->join('doctors','users.id = doctors.u_id');
@@ -291,6 +292,7 @@ class Model_users extends CI_Model{
 			return $data;	
 		}
 		return false;
+<<<<<<< HEAD
 	}
 
 
@@ -298,6 +300,35 @@ class Model_users extends CI_Model{
 
 
 	public function edit_account(){
+=======
+}
+	
+	
+
+public function fetch_doctors_alpha($letter){
+	
+	$this->db->like('fname',$letter,'after');
+	$this->db->order_by("fname", "asc"); 
+	$this->db->select('*');
+	$this->db->from('users');
+	$this->db->join('doctors','users.id = doctors.u_id');
+	$this->db->join('medical_specialist','medical_specialist.specialist_id =  doctors.specialization ');
+	$query = $this->db->get();	
+	
+	if($query->num_rows() > 0 ){
+		foreach($query->result() as $row){
+				$data[] = $row;
+			}
+			return $data;	
+		}
+		return false;
+}
+	
+	
+	
+	
+public function edit_account(){
+>>>>>>> origin/master
 	//print_r($this->session->all_userdata());exit;
 	//$id = $this->input->post('id');
 	//echo $id;exit;

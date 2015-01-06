@@ -25,6 +25,7 @@ class Main extends CI_Controller {
 	
 	//loginpage
 	public function login(){
+		$data['title'] = "HMS";
 	
 		if($this->session->userdata('is_logged_in') == 1){
 			if($this->session->userdata('usertype') == "USER"){
@@ -35,19 +36,20 @@ class Main extends CI_Controller {
 			
 			
 		}else{
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('login');
 		}	
 		
 		
 	}
-	
+
 	//signup page
 	public function signup(){
+		$data['title'] = "sign up";
 		$data['mail'] = ' ';
 		$data['notif'] = ' ';
 		$data['success'] = ' ';
-		$this->load->view('templates/header/header_all');
+		$this->load->view('templates/header/header_all',$data);
 		$this->load->view('user/signup',$data);
 	}
 	
@@ -60,6 +62,7 @@ class Main extends CI_Controller {
 	
 	//login validation
 	public function login_validation(){
+		$data['title'] = "HMS";
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|xss_clean|callback_validate_credentials');
 		//callback_validate_credentials will call validate_credentials() and return true or false
@@ -115,7 +118,7 @@ class Main extends CI_Controller {
 			}
 				
 		}else{
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('login');
 		}
 	}
@@ -123,6 +126,7 @@ class Main extends CI_Controller {
 	
 	//main
 	public function signup_validation(){
+		$data['title'] = "sign up";
 		$data['mail'] = ' ';
 		$data['success'] = ' ';
 		$data['notif'] = ' ';
@@ -169,7 +173,7 @@ class Main extends CI_Controller {
 			}else {}//do nothing //**}
 				
 	    }//end of if
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('user/signup',$data);
 		
 	}//end of function
@@ -219,149 +223,125 @@ class Main extends CI_Controller {
 		
 	}
 	
+		
+	public function editinfo_notif_succ(){
+		
+		return"<script>var not = $.Notify({
+						style: {background: 'green', color: 'white'},
+						caption: 'update info ',
+						content: 'update info SUCCESS!!!',
+						timeout: 10000 // 10 seconds
+							});
+						
+						</script>";
+	}
+	public function editinfo_notif_fail(){
+		
+		return"<script>var not = $.Notify({
+						style: {background: 'red', color: 'white'},
+						caption: 'update info ',
+						content: 'update info fail!!!',
+						timeout: 10000 // 10 seconds
+							});
+						
+						</script>";
+	}
 	
-public function editinfo_notif_succ(){
-	
-	return"<script>var not = $.Notify({
-				 	style: {background: 'green', color: 'white'},
-    				caption: 'update info ',
-       				content: 'update info SUCCESS!!!',
-      			  	timeout: 10000 // 10 seconds
-						});
-					
-					</script>";
-}
-public function editinfo_notif_fail(){
-	
-	return"<script>var not = $.Notify({
-				 	style: {background: 'red', color: 'white'},
-    				caption: 'update info ',
-       				content: 'update info fail!!!',
-      			  	timeout: 10000 // 10 seconds
-						});
-					
-					</script>";
-}
-	
-public function edituser_validation(){
-			
-		$this->load->library('form_validation');
-		$this->load->model('model_users');	
-		$data['success'] = ' ';	
-		$data['error'] = ' ';	
+	public function edituser_validation(){
+			$data['title'] = "edit user";		
+			$this->load->library('form_validation');
+			$this->load->model('model_users');	
+			$data['success'] = ' ';	
+			$data['error'] = ' ';	
 		
 		
 			$this->form_validation->set_rules('fname', 'Fname', 'required|trim');
 			$this->form_validation->set_rules('lname', 'lname', 'required|trim');
-		if($this->session->userdata('usertype') == "USER"){
-			$this->form_validation->set_rules('age', 'age', 'required|trim');
-			$this->form_validation->set_rules('address', 'address', 'required|trim');
-		}
-
-	
+			if($this->session->userdata('usertype') == "USER"){
+				$this->form_validation->set_rules('age', 'age', 'required|trim');
+				$this->form_validation->set_rules('address', 'address', 'required|trim');
+			}else{}
 			
-		
-		if($this->session->userdata('usertype') == "USER"){	
-			if($this->form_validation->run()){		
-				if($this->model_users->edit_userinfo()){
-					$data['success'] = $this->editinfo_notif_succ();
-					$this->session->set_userdata($data);
-				}else{
-				$data['success'] = $this->editinfo_notif_fail();	
+			if($this->session->userdata('usertype') == "USER"){	
+				if($this->form_validation->run()){		
+					if($this->model_users->edit_userinfo()){
+						$data['success'] = $this->editinfo_notif_succ();
+						$this->session->set_userdata($data);
+					}else{
+					$data['success'] = $this->editinfo_notif_fail();	
+					}
 				}
-			}
-					$this->load->view('templates/header/header_all');
-					$this->load->view('templates/header/header_patient');
-					$this->load->view('settings',$data);
-			
-			
-		}else if($this->session->userdata('usertype') == "ADMIN"){
-			if($this->form_validation->run()){		
-				if($this->model_users->edit_admininfo()){
-					$data['success'] = $this->editinfo_notif_succ();
-									
-				}else{
-				$data['success'] = $this->editinfo_notif_fail();	
-				}
-				
-					$this->load->view('templates/header/header_all');
+				$this->load->view('templates/header/header_all',$data);
+				$this->load->view('templates/header/header_patient');
+				$this->load->view('settings',$data);
+					
+			}else if($this->session->userdata('usertype') == "ADMIN"){
+				if($this->form_validation->run()){		
+					if($this->model_users->edit_admininfo()){
+						$data['success'] = $this->editinfo_notif_succ();					
+					}else{
+					$data['success'] = $this->editinfo_notif_fail();	
+					}
+					
+					$this->load->view('templates/header/header_all',$data);
 					$this->load->view('templates/header/navbar_admin');
 					$this->load->view('settings',$data);
 					$this->load->view('templates/footer/footer_admin');
-			}
-			
-			
-			
-		}else if($this->session->userdata('usertype') == "DOCTOR"){
-			if($this->form_validation->run()){		
-				if($this->model_users->edit_doctorinfo()){		
-				}
-			}
-		}
-			
-			
-		
-
+				}else{}	
+			}else if($this->session->userdata('usertype') == "DOCTOR"){
+				if($this->form_validation->run()){		
+					if($this->model_users->edit_doctorinfo()){		
+					}else{}
+				}else{}
+			}else{}
 		
 	}// end of adduservalidation
 	
 	public function settings(){
+		$data['title'] = "settings";
 		$data['success'] = ' ';
 		$data['error'] = ' ';	
 		if($this->session->userdata('is_logged_in') == 1){
-			$this->load->view('templates/header/header_all');
-			
+			$this->load->view('templates/header/header_all',$data);			
 			if($this->session->userdata('usertype') == "USER"){
 				$this->load->view('templates/header/header_patient');
-				$this->load->view('settings',$data);
-				
+				$this->load->view('settings',$data);				
 			}else if($this->session->userdata('usertype') == "ADMIN"){
 				$this->load->view('templates/header/navbar_admin');
 				$this->load->view('settings',$data);
-				$this->load->view('templates/footer/footer_admin');
-				
+				$this->load->view('templates/footer/footer_admin');	
 			}
-			
-			
 		}else{
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('login');
-		}		
+		}				
+	}
+
+	public function editpass_notif_succ(){	
+		return"<script>var not = $.Notify({
+						style: {background: 'green', color: 'white'},
+						caption: 'PASSWORD ',
+						content: 'update password SUCCESS!!!',
+						timeout: 10000 // 10 seconds
+							});
+						
+						</script>";
+	}
+
+	public function editpass_notif_error(){
+		$retval = "<script>var not = $.Notify({
+						style: {background: 'red', color: 'white'},
+						caption: 'PASSWORD ', 
+						timeout: 10000 ,
+						content: 'fail to update password' 
+					});
+						
+						</script>";
 		
-			
-}
-	
+		return $retval;			
+	}
 
-
-
-public function editpass_notif_succ(){
-	
-	return"<script>var not = $.Notify({
-				 	style: {background: 'green', color: 'white'},
-    				caption: 'PASSWORD ',
-       				content: 'update password SUCCESS!!!',
-      			  	timeout: 10000 // 10 seconds
-						});
-					
-					</script>";
-}
-
-public function editpass_notif_error(){
-	
-	$retval = "<script>var not = $.Notify({
-				 	style: {background: 'red', color: 'white'},
-    				caption: 'PASSWORD ', 
-					timeout: 10000 ,
-					content: 'fail to update password' 
-				});
-					
-					</script>";
-	
-	return $retval;
-       		
-}
-
-		public function editPassword_validation(){
+	public function editPassword_validation(){
 			$data['success'] = ' ';	
 			$data['error'] = ' ';	
 			$this->load->library('form_validation');			
@@ -372,16 +352,15 @@ public function editpass_notif_error(){
 			if($this->form_validation->run('edit_password')){		
 				if($this->model_users->edit_password($this->session->userdata('id'))){
 					$data['success'] = $this->editpass_notif_succ();
-				}
-					
+				}else{}
 			}else{
 					$data['success'] = $this->editpass_notif_error();		
 			}
-					$this->load->view('templates/header/header_all');
+					$this->load->view('templates/header/header_all',$data);
 					$this->load->view('templates/header/navbar_admin');
 					$this->load->view('settings',$data);
 					$this->load->view('templates/footer/footer_admin');
-	}// end of adduservalidation
+		}// end of editPassword
 	
 	public function check_passmatch(){
 		if($this->input->post('oldPassword') == $this->input->post('password')){
@@ -400,35 +379,32 @@ public function editpass_notif_error(){
 	}
 
 
-public function upload_notif_succ(){
-	
-	return"<script>var not = $.Notify({
-				 	style: {background: 'green', color: 'white'},
-    				caption: 'avatar ',
-       				content: 'avatar successfully changed!!!',
-      			  	timeout: 10000 // 10 seconds
-						});
-					
-					</script>";
-}
+	public function upload_notif_succ(){
+		return"<script>var not = $.Notify({
+						style: {background: 'green', color: 'white'},
+						caption: 'avatar ',
+						content: 'avatar successfully changed!!!',
+						timeout: 10000 // 10 seconds
+							});
+						
+						</script>";
+	}
 
-public function upload_notif_error(){
-	
-	$retval = "<script>var not = $.Notify({
-				 	style: {background: 'red', color: 'white'},
-    				caption: 'avatar ', 
-					timeout: 10000 ,
-					content: 'FAIL!!' 
-				});
-					
-					</script>";
-	
-	return $retval;
-       		
-}
+	public function upload_notif_error(){	
+		$retval = "<script>var not = $.Notify({
+						style: {background: 'red', color: 'white'},
+						caption: 'avatar ', 
+						timeout: 10000 ,
+						content: 'FAIL!!' 
+					});
+						
+						</script>";	
+		return $retval;     		
+	}
 
 public function do_upload()
 	{
+		$data['title'] = "settings";
 		$this->load->model('model_users');	
 		$data['success'] = '';	
 		$data['error'] = ' ';		
@@ -452,21 +428,16 @@ public function do_upload()
 		     $file_name = 'uploads/'.$file_name;			 
 			 if($this->model_users->updateAvatar($file_name)){
 				$data['success'] = $this->upload_notif_succ();
-			}
-			
-
-			
+			}else{}	
 		}
-		
-		
 		if($this->session->userdata('usertype') == "USER"){
-				$this->load->view('templates/header/header_all');
+				$this->load->view('templates/header/header_all',$data);
 				$this->load->view('templates/header/header_patient');
 				$this->load->view('settings',$data);
 				
-			}
+		}
 		else if($this->session->userdata('usertype') == "ADMIN"){
-			$this->load->view('templates/header/header_all');
+			$this->load->view('templates/header/header_all',$data);
 				$this->load->view('templates/header/navbar_admin');
 				$this->load->view('settings',$data);
 				$this->load->view('templates/footer/footer_admin');	

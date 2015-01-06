@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2014 at 07:29 AM
--- Server version: 5.5.32
--- PHP Version: 5.4.16
+-- Generation Time: Jan 06, 2015 at 02:07 PM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `hms_test`
 --
-CREATE DATABASE IF NOT EXISTS `hms_test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `hms_test`;
 
 -- --------------------------------------------------------
 
@@ -71,14 +69,17 @@ CREATE TABLE IF NOT EXISTS `clinic` (
   `clinic_name` varchar(45) NOT NULL,
   `clinic_category` int(11) NOT NULL,
   PRIMARY KEY (`clinic_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `clinic`
 --
 
 INSERT INTO `clinic` (`clinic_id`, `clinic_name`, `clinic_category`) VALUES
-(1, 'Hi', 1);
+(1, 'heya', 1),
+(6, 'lim', 1),
+(7, 'hjkjh', 2),
+(8, 'hjkjh', 2);
 
 -- --------------------------------------------------------
 
@@ -96,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `doctors` (
   UNIQUE KEY `u_id` (`u_id`),
   KEY `specialization` (`specialization`),
   KEY `clinic` (`clinic`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
 
 --
 -- Dumping data for table `doctors`
@@ -104,7 +105,35 @@ CREATE TABLE IF NOT EXISTS `doctors` (
 
 INSERT INTO `doctors` (`d_id`, `contact_num`, `clinic`, `u_id`, `specialization`) VALUES
 (9, '09258552005', 1, 17, 1),
-(10, '09258552005', 1, 18, 2);
+(10, '09258552005', 1, 18, 2),
+(11, '123', 1, 19, 2),
+(12, '123', 1, 20, 2),
+(13, '123', 1, 21, 2),
+(14, '123', 1, 22, 2),
+(15, '123', 1, 23, 2),
+(16, '123', 1, 24, 2),
+(17, '123', 1, 25, 2),
+(18, '123', 1, 26, 2),
+(19, '123', 6, 27, 1),
+(20, '123', 6, 28, 1),
+(21, '123', 6, 29, 1),
+(22, '123', 6, 30, 1),
+(23, '123', 6, 31, 1),
+(24, '123', 6, 32, 1),
+(25, '123', 6, 33, 1),
+(26, '123', 6, 34, 1),
+(27, '123', 6, 35, 1),
+(28, '123', 6, 36, 1),
+(29, '123', 6, 37, 1),
+(30, '123', 6, 38, 1),
+(31, '123', 6, 39, 1),
+(32, '123', 6, 40, 1),
+(33, '123', 6, 41, 1),
+(34, '123', 6, 42, 1),
+(35, '123', 6, 43, 1),
+(36, '123', 6, 44, 1),
+(37, '123', 1, 45, 1),
+(38, '123', 1, 46, 1);
 
 -- --------------------------------------------------------
 
@@ -150,7 +179,7 @@ INSERT INTO `patients` (`p_id`, `p_address`, `p_gender`, `p_age`, `u_id`) VALUES
 (23, 'oh yea baby', 'MALE', 0, 3),
 (24, 'Mabolo, Cebu City, 6000 Philippines', 'MALE', 20, 4),
 (26, '11', 'MALE', 1, 1),
-(28, 'Opon', 'MALE', 30, 8);
+(28, 'talamban', 'MALE', 89, 8);
 
 -- --------------------------------------------------------
 
@@ -197,17 +226,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `avatar` varchar(255) DEFAULT 'assets/images/icon-user-default.png',
   `utype` enum('USER','DOCTOR','ADMIN') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `utype`) VALUES
-(1, 'james_naruto2000@yahoo.com', '202cb962ac59075b964b07152d234b70', 'Angel James', 'Torayno', 'assets/images/icon-user-default.png', 'ADMIN'),
+(1, 'james_naruto2000@yahoo.com', '202cb962ac59075b964b07152d234b70', 'Louie', 'Abueva', 'uploads/IMG_20141218_2011241.JPG', 'ADMIN'),
 (3, 'merricklance@yahoo.com', 'f830f69d23b8224b512a0dc2f5aec974', 'Merrick Lance', 'Noel', 'assets/images/icon-user-default.png', 'USER'),
 (4, 'dummyemail@gmail.com', '60da11eb799d6a8da47e5cd6e4aa2273', 'Ernest Cesar', 'Cueva', 'assets/images/icon-user-default.png', 'USER'),
-(8, 'zzz123.cb@gmail.com', '202cb962ac59075b964b07152d234b70', 'Erwin Gail', 'Sarmiento', 'assets/images/icon-user-default.png', 'USER'),
+(8, 'zzz123.cb@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'glalaa', 'milk', 'uploads/reid2.jpg', 'USER'),
 (9, 'judithfrato@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'bla', 'bla', 'assets/images/red.jpg', 'DOCTOR'),
 (10, 'ivan.torayno@yahoo.com', '202cb962ac59075b964b07152d234b70', '11', '11', 'assets/images/icon-user-default.png', 'DOCTOR'),
 (11, 'nanana@yahoo.com', '202cb962ac59075b964b07152d234b70', '123', '123', 'assets/images/icon-user-default.png', 'DOCTOR'),
@@ -217,7 +246,35 @@ INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `uty
 (15, 'mcgalanido@yahoo.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Marjhun', 'Galanido', 'assets/images/icon-user-default.png', 'DOCTOR'),
 (16, 'princess.bermoy@yahoo.com', '202cb962ac59075b964b07152d234b70', 'Princess', 'bermoy', 'assets/images/icon-user-default.png', 'DOCTOR'),
 (17, 'toraynogwapo@yahoo.com', '9996535e07258a7bbfd8b132435c5962', 'James', 'Torayno nga dinosaur', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(18, 'marjhungwapo@yahoo.com', '9996535e07258a7bbfd8b132435c5962', 'Marjhun', 'Galanido gwapo', 'assets/images/icon-user-default.png', 'DOCTOR');
+(18, 'marjhungwapo@yahoo.com', '9996535e07258a7bbfd8b132435c5962', 'Marjhun', 'Galanido gwapo', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(19, 'A@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'A', 'A', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(20, 'B@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'B', 'B', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(21, 'C@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'C', 'C', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(22, 'D@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'D', 'D', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(23, 'E@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'E', 'E', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(24, 'F@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'F', 'F', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(25, 'G@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'G', 'G', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(26, 'H@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'H', 'H', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(27, 'I@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'I', 'I', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(28, 'J@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'J', 'J', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(29, 'K@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'K', 'K', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(30, 'L@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'L', 'L', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(31, 'M@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'M', 'M', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(32, 'N@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'N', 'N', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(33, 'O@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'O', 'O', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(34, 'P@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'P', 'P', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(35, 'Q@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Q', 'Q', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(36, 'R@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'R', 'R', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(37, 'S@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'S', 'S', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(38, 'T@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'T', 'T', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(39, 'U@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'U', 'U', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(40, 'V@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'V', 'V', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(41, 'W@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'W', 'W', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(42, 'X@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'X', 'X', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(43, 'Y@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Y', 'Y', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(44, 'Z@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Z', 'Z', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(45, 'aa@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'reid', 'angeles', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(46, 'aaa@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'angels', 'azalor', 'assets/images/icon-user-default.png', 'DOCTOR');
 
 --
 -- Constraints for dumped tables
