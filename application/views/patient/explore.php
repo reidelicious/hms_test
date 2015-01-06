@@ -23,32 +23,32 @@
                     	<h1>Doctors</h1>   
                         <strong>
 					<ul style="list-style:none;" class="inline alphabetical">
-                        <li><strong> <a style="cursor:pointer;cursor:hand" href="<?php echo base_url('patient/explore/sort_by/A'); ?>">A</a></strong></li>
-                        <li class="active"><a style="cursor:pointer;cursor:hand" href="<?php echo base_url('patient/explore/sort_by/B'); ?>">B</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="<?php echo base_url('patient/explore/sort_by/C'); ?>">C</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">D</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">E</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">F</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">G</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">H</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">I</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">J</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">K</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">L</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">M</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">N</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">O</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">P</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">Q</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">R</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">S</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">T</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">U</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">V</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">W</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">X</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">Y</a></li>
-                        <li><a style="cursor:pointer;cursor:hand" href="#">Z</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/A'); ?>">A</a></li>
+                        <li class="active"><a  href="<?php echo base_url('patient/explore/sort_by/B'); ?>">B</a></li>
+                        <li><a href="<?php echo base_url('patient/explore/sort_by/C'); ?>">C</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/D'); ?>">D</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/E'); ?>">E</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/F'); ?>">F</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/G'); ?>">G</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/H'); ?>">H</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/I'); ?>">I</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/J'); ?>">J</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/K'); ?>">K</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/L'); ?>">L</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/M'); ?>">M</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/N'); ?>">N</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/O'); ?>">O</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/P'); ?>">P</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/Q'); ?>">Q</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/R'); ?>">R</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/S'); ?>">S</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/T'); ?>">T</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/U'); ?>">U</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/V'); ?>">V</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/W'); ?>">W</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/X'); ?>">X</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/Y'); ?>">Y</a></li>
+                        <li><a  href="<?php echo base_url('patient/explore/sort_by/Z'); ?>">Z</a></li>
 					</ul>
             		</strong>    
                     </header>
@@ -162,7 +162,14 @@ $( document ).ready(function() {
 
 	$(document).on('click','.closemdl', function(){
 	  $(".appointmentForm").hide();
-	});			
+	});
+	
+	<?php if($this->uri->segment(3) == "sort_by"){
+		
+		
+		
+		} ?>
+				
 });//ready end
 </script>
      
