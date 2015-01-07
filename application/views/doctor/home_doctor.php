@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>members Page</title>
-   
+	<title>members Page</title>   
 </head>
 <body>
 

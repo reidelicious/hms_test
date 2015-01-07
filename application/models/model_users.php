@@ -292,16 +292,7 @@ class Model_users extends CI_Model{
 			return $data;	
 		}
 		return false;
-<<<<<<< HEAD
 	}
-
-
-
-
-
-	public function edit_account(){
-=======
-}
 	
 	
 
@@ -328,7 +319,6 @@ public function fetch_doctors_alpha($letter){
 	
 	
 public function edit_account(){
->>>>>>> origin/master
 	//print_r($this->session->all_userdata());exit;
 	//$id = $this->input->post('id');
 	//echo $id;exit;

@@ -443,6 +443,45 @@ public function do_upload()
 				$this->load->view('templates/footer/footer_admin');	
 		}
 	}
+	public function makeAnnouncement_validation(){
+		$this->load->library('form_validation');		
+		$this->form_validation->set_rules('subject','Subject','required|trim');
+		$this->form_validation->set_rules('details','Details','required|trim');
+		
+		if($this->form_validation->run()){
+			$this->load->model('model_users');
+			if($this->model_users->addAnnouncement()){
+				$data['success'] = $this->ret_success_notif();
+				$data['title'] = "Announcement";
+				if($this->session->userdata('usertype') == "DOCTOR"){
+					$this->load->view('templates/header/header_all', $data);
+					$this->load->view('templates/header/header_doctor');
+					$this->load->view('makeAnnouncement', $data);
+				}
+				else if($this->session->userdata('usertype') == "ADMIN"){
+					$this->load->view('templates/header/header_all',$data);	
+					$this->load->view('templates/header/navbar_admin');
+					$this->load->view('makeAnnouncement');
+					$this->load->view('templates/footer/footer_admin');
+				}
+			}
+		}
+		else{
+			
+			$this->makeAnnouncement();
+		}
+	}
+
+	public function ret_success_notif(){	
+		return "<script>var not = $.Notify({
+				 	style: {background: 'green', color: 'white'},
+    				caption: 'DATABASE',
+       				content: 'add to database success!!!',
+      			  	timeout: 10000 // 10 seconds
+						});
+					
+					</script>";		
+	}
 	
 }
 

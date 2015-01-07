@@ -33,6 +33,7 @@ width: 100%;
                 
                 echo form_open('main/makeAnnouncement_validation');
                 
+
                 echo validation_errors();
             
             
@@ -58,5 +59,6 @@ width: 100%;
             </div>
         </div>
     </div>
+    <?php  echo $success; ?>
 </body>
 </html>

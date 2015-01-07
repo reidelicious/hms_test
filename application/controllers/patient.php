@@ -6,7 +6,7 @@ class Patient extends CI_Controller {
 	
 		// patient
 	public function home(){
-		$data['title'] = 'home';
+		$data['title'] = 'Hospital Management System';
 		if($this->session->userdata('is_logged_in')){
 			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('templates/header/header_patient');
@@ -17,6 +17,7 @@ class Patient extends CI_Controller {
 	}
 	
 	public function explore(){
+		$data['title'] = 'Explore Doctors or Clinic';
 		$this->load->model("model_users");
 		$config = array();
 		$config['base_url'] = base_url('patient/explore/page/');
@@ -65,7 +66,7 @@ class Patient extends CI_Controller {
 			
 		}
 		
-		$this->load->view('templates/header/header_all');
+		$this->load->view('templates/header/header_all', $data);
 		$this->load->view('templates/header/header_patient');
 		$this->load->view('patient/explore',$data);
 	}// end of explore

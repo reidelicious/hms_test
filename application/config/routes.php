@@ -49,6 +49,7 @@ $route['appointment'] = 'patient/appointment';
 
 
 $route['home_doctor'] = 'doctor/home_doctor';
+$route['makeAnnouncement_doctor'] = 'doctor/makeAnnouncement';
 
 
 $route['makeAnnouncement'] = 'admin/makeAnnouncement';

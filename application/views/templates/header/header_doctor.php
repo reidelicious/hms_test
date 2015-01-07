@@ -13,7 +13,7 @@
                         <li><a href="<?php echo base_url()."appointment"?>">Appointments </a></li>
                     </li>
                     <li>
-                    	<li><a href="<?php echo base_url()."explore"?>">Make Announcement </a></li>
+                    	<li><a href="<?php echo base_url()."makeAnnouncement_doctor"?>">Make Announcement </a></li>
                     </li>
                     <li>
                         <div class="element input-element">
