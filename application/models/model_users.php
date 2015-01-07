@@ -293,7 +293,7 @@ class Model_users extends CI_Model{
 		}
 		return false;
 	}
-	
+}
 	
 
 public function fetch_doctors_alpha($letter){
