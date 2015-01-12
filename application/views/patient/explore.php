@@ -111,7 +111,7 @@ $( document ).ready(function() {
 		var Rnum = $(this).siblings('#cont_num').val();
 		var avatar = $(this).siblings('#avatar').val();
 		var id = $(this).siblings('#id').val();	
-		var cont= 	'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+		var cont= 		'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 						'<div class="modal-dialog">'+
 							'<div class="modal-content">'+
 								'<div class="modal-header">'+
@@ -153,7 +153,7 @@ $( document ).ready(function() {
 						'</div>';
 
 		$( "#modal_cont" ).html(cont);
-		$('#myModal').modal('show');	
+		$('#myModal').modal('show');
 	});	//end of viewProfile
 	
 	$(document).on('click','.makeAppointment', function(){

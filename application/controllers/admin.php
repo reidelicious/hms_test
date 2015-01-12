@@ -104,7 +104,7 @@ public function add_user(){
     public function datatable_clinic(){
 		
         $this->datatables->select('clinic.clinic_id, clinic.clinic_name, medical_specialist.specialist')
-			->add_column('action', get_buttons('$1','$2'), 'clinic.clinic_id')
+			->add_column('action', get_buttons('$1'), 'clinic.clinic_id')
             ->from('clinic')
             ->join('medical_specialist', 'medical_specialist.specialist_id = clinic.clinic_category', 'inner');
  

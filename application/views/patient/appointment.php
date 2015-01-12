@@ -1,7 +1,7 @@
-<div class = "container">
-
-<h2 id="_default"><i class="icon-accessibility on-left"></i>Appointments</h2>
-         
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>    
+    <div class = "container">
+    <h2 id="_default"><i class="icon-accessibility on-left"></i>Appointments</h2>
+    <div id="makeAppointment" class="ui primary button">Make Appointment</div>
 	<div class="grid fluid">
     	<div class="row">
         	<div class="span3">
@@ -207,6 +207,38 @@
                         </div>
                     </div>
             </div>
+            <div id="myMod" class="modal fade bs-example-modal-lg">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #e7e5e3;">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Appointment</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 column">
+                                <div class="col-md-6 column">
+                                    <span>Province</span>
+                                        <select id="pro" class="form-group form-control" name="province" required="required">
+                                                      <option value="" disabled default selected class="display-none">Select Province</option>
+                                                      <?php foreach($specialization as $s):?>
+                                                        <option value="<?php echo $s->ID;?>"><?php echo $s->name;?></option> 
+                                                      <?php endforeach;?>                              
+                                        </select>
+                                    <span>Barangay</span>
+                                        <div id="bcontainer">
+                                            <select id="brgy" class="form-group form-control" name="barangay" required="required"></select>
+                                        </div>
+                                    <span>Sitio</span>
+                                        <div id="scontainer">
+                                            <input id="sit" class="form-group form-control" name="sitio" required="required">
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button id="savedata" type="button" name="addlist" class="btn btn-primary "> DONE </a>
+                        </div>
+                    </div>
+                </div>  
         </div>
     
     </div>         
@@ -221,26 +253,47 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+    
+    $('#component_id').calendar({
+        format: 'yyyy-mm-dd',
+        multiSelect: false, //default true (multi select date)
+        startMode: 'day', //year, month, day
+      
+        locale: 'en', // 'ru', 'ua', 'fr' or 'en', default is $.Metro.currentLocale
+        otherDays: false, // show days for previous and next months,
+        weekStart: 0, //start week from sunday - 0 or monday - 1
+        getDates:function(data){
+                var r = "", out = $("#calendar-output").html("");
+                $.each(data, function(i, d){
+                    r += d + "<br />";
+                });
+                out.html(r);
+            }, // see example below
+        click: function(d){
+                var out = $("#calendar-output2").html("");
+                out.html(d);
+            } // fired when user clicked on day, in "d" stored date
+    });
+    $(document).on('click','#makeAppointment', function(){ 
+        var cont=       '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+                        '<div class="modal-dialog">'+
+                            '<div class="modal-content">'+
+                                '<div class="modal-header">'+
+                                    '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
+                                    '<h4 class="modal-title" id="myModalLabel">Doctor </h4>'+
+                                '</div>'+
+                                '<div class="modal-body">'+
+                                    '<div class="modal-footer appointmentForm" hidden="hidden">'+
+                                        '<button type="button" class=" closemdl btn btn-default" data-dismiss="modal">Close</button>'+
+                                        '<button type="button" class=" closemdl btn btn-primary">Save changes</button>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>';
 
-$('#component_id').calendar({
-    format: 'yyyy-mm-dd',
-    multiSelect: false, //default true (multi select date)
-    startMode: 'day', //year, month, day
-  
-    locale: 'en', // 'ru', 'ua', 'fr' or 'en', default is $.Metro.currentLocale
-    otherDays: false, // show days for previous and next months,
-    weekStart: 0, //start week from sunday - 0 or monday - 1
-    getDates:function(data){
-            var r = "", out = $("#calendar-output").html("");
-            $.each(data, function(i, d){
-                r += d + "<br />";
-            });
-            out.html(r);
-        }, // see example below
-    click: function(d){
-            var out = $("#calendar-output2").html("");
-            out.html(d);
-        } // fired when user clicked on day, in "d" stored date
-});
-
+        $( "#modal_cont" ).html(cont);
+        $('#myModal').modal('show');
+    }); 
+})
 </script>
