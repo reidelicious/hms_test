@@ -134,7 +134,7 @@ var date =currentdate.getFullYear() + "/"
 				+ currentdate.getDate()  ;
                 
 		var id = $(this).siblings('#id').val();	
-		var cont= 	'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+		var cont= 		'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 						'<div class="modal-dialog">'+
 							'<div class="modal-content">'+
 								'<div class="modal-header">'+
@@ -176,8 +176,10 @@ var date =currentdate.getFullYear() + "/"
 						'</div>';
 
 		$( "#modal_cont" ).html(cont);
+
 		$('#myModal').modal('show');	
 		 $("#datepicker").datepicker();
+
 	});	//end of viewProfile
 	
 	$(document).on('click','.makeAppointment', function(){

@@ -60,7 +60,6 @@ class Patient extends CI_Controller {
 				fetch_doctors($config['per_page'], $page );
 			$data["links"] = $this->pagination->create_links();
 		}else{
-		
 			$data["results"] = $this->model_users->fetch_doctors_alpha($this->uri->segment(4));
 			$data["links"] = '';
 			
@@ -77,10 +76,12 @@ class Patient extends CI_Controller {
 		
 	}
 	public function appointment(){
+		$this->load->model('model_users');
 		$data['title'] = 'appointment';
+		$data['specializations'] = $this->model_users->get_Specialists();
 		$this->load->view('templates/header/header_all',$data);
 		$this->load->view('templates/header/header_patient');
-		$this->load->view('patient/appointment');
+		$this->load->view('patient/appointment', $data);
 		
 	}
 	
