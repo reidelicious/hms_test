@@ -316,7 +316,17 @@ class Model_users extends CI_Model{
 			return $data;	
 		}
 		return false;
+<<<<<<< HEAD
 	}	
+=======
+
+	}	
+
+	
+
+	
+
+>>>>>>> origin/master
 
 public function fetch_doctors_alpha($letter){
 	

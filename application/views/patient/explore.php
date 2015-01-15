@@ -52,7 +52,17 @@
 					</ul>
             		</strong>    
                     </header>
-                    <ul id="products" class="grid clearfix">                   
+                    <ul id="products" class="grid clearfix">          
+        
+<div class="input-control text" data-role="datepicker"
+     data-date='2013-01-01'
+    data-format='dddd/mmmm/yyyy'
+    data-effect='fade'
+    data-locale='en'
+  >
+    <input type="text">
+    <button class="btn-date"></button>
+</div>  
                     <?php foreach($results as $data) { 	?>                    
                         <li class="clearfix dims">
                             <div class="ui dimmer">
@@ -91,7 +101,14 @@
 	<div id="modal_cont"></div>  
 </div> <!-- end of container -->
 <script type="text/javascript">
-$( document ).ready(function() {				   
+$( document ).ready(function() {	
+var currentdate = new Date(); 
+var date = "Last Sync: "+ currentdate.getFullYear() + " / " 
+                + (currentdate.getMonth()+1)  + "/"
+				+ currentdate.getDate() + "@" ;
+
+
+			   
 	$('.dims')
 		.dimmer({
 			on: 'hover',
@@ -110,6 +127,12 @@ $( document ).ready(function() {
 		var Cnum = $(this).siblings('#room_num').val();
 		var Rnum = $(this).siblings('#cont_num').val();
 		var avatar = $(this).siblings('#avatar').val();
+		
+		var currentdate = new Date(); 
+var date =currentdate.getFullYear() + "/" 
+                + (currentdate.getMonth()+1)  + "/"
+				+ currentdate.getDate()  ;
+                
 		var id = $(this).siblings('#id').val();	
 		var cont= 		'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 						'<div class="modal-dialog">'+
@@ -134,14 +157,14 @@ $( document ).ready(function() {
 										'</dl>'+			
 										'<form action="<?php echo base_url('admin/blabla'); ?>" method="POST"  class="appointmentForm" hidden="hidden">' +
 											'<label>id</label>' +
-											'<div class="input-control text"><input type="text" name="date" value="">'+
-											'<button class="btn-clear"></button></div> ' +
+											'<div class="input-control text" id="datepicker" data-role="datepicker" data-date="'+date+'"  data-format="dddd, mmmm d, yyyy" data-effect="fade">'+
+                                   ' <input type="text" placeholder="please enter date" >'+
+                                   ' <button class="btn-date"></button>'+
+                              '  </div> '+
 											'<label>email</label>' +
-											'<div class="input-control text"><input type="email"  value= "" name="time" required>'+
-											' <button class="btn-clear"></button></div> ' +
-											'<label>first name</label>' +
-											'<div class="input-control text"><input type="text" value = "" name="message"  required>'+
-											' <button class="btn-clear"></button></div> ' +
+											'<div class="input-control text"><input type="time"  value= "" name="time" required>'+
+											'</div> ' +
+										
 										'</form>'+
 									'</div>'+
 									'<div class="modal-footer appointmentForm" hidden="hidden">'+
@@ -153,7 +176,10 @@ $( document ).ready(function() {
 						'</div>';
 
 		$( "#modal_cont" ).html(cont);
-		$('#myModal').modal('show');
+
+		$('#myModal').modal('show');	
+		 $("#datepicker").datepicker();
+
 	});	//end of viewProfile
 	
 	$(document).on('click','.makeAppointment', function(){
@@ -170,6 +196,8 @@ $( document ).ready(function() {
 		
 		} ?>
 				
+   
+
 });//ready end
 </script>
      
