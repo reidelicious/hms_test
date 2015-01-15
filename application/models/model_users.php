@@ -72,7 +72,31 @@ class Model_users extends CI_Model{
 		if($this->db->trans_status() === FALSE){
 			return FALSE;
 		}else{ return TRUE;}
-	
+	}
+
+	public function check_schedule($d){
+		$query = $this->db->get_where('doctor_schedule', array('d_id' => $this->session->userdata('id'), 'date' => $d));
+		return $query->num_rows();
+	}
+
+	public function add_schedule_forDoctor($a){
+		$data = array(
+				'd_id' => $this->session->userdata('id'),
+				'date' => $a[0],
+				'time_start' => $a[1],
+				'time_end' => $a[2]
+			);
+		$this->db->insert('doctor_schedule', $data);
+	}
+
+	public function overwrite_schedule_forDoctor($a){
+		$array = array('d_id' => $this->session->userdata('id'), 'date' => $a[0]);
+		$this->db->where($array); 
+		$data = array(
+				'time_start' => $a[1],
+				'time_end' => $a[2]
+			);
+		$this->db->update('doctor_schedule', $data2);
 	}
 	
 	public function add_user($key){
@@ -292,13 +316,7 @@ class Model_users extends CI_Model{
 			return $data;	
 		}
 		return false;
-<<<<<<< HEAD
 	}	
-=======
-	}
-
-	
->>>>>>> origin/master
 
 public function fetch_doctors_alpha($letter){
 	

@@ -18,6 +18,34 @@ class Doctor extends CI_Controller {
 		$this->load->view('templates/header/header_doctor');
 		$this->load->view('makeAnnouncement', $data);	
 	}
+	public function manage_schedules(){
+		$data['success'] = '';
+		$data['title'] = 'Manage Schedules';
+		$this->load->view('templates/header/header_all',$data);	
+		$this->load->view('templates/header/header_doctor');
+		$this->load->view('doctor/manage_schedules', $data);	
+	}
+
+	public function is_schedule_unique(){
+		$this->load->model('model_users');
+		$date = $_POST['day'];
+		$result = $this->model_users->check_schedule($date);
+		print_r($result);
+		if($result > 0)
+			return 1;
+		else
+			return 0;
+	}
+
+	public function manage_schedule_toDB(){
+		$this->load->model('model_users');
+		$a = $_POST['arr'];		
+		$flag = $_POST['flag'];
+		if($flag == 0)
+			$this->model_users->add_schedule_forDoctor($a);
+		else
+			$this->model_users->overwrite_schedule_forDoctor($a);
+	}
 
 	public function makeAnnouncement_validation(){
 		$this->load->library('form_validation');		

@@ -33,8 +33,6 @@ class Main extends CI_Controller {
 			}else if($this->session->userdata('usertype') == "ADMIN"){
 				redirect('add_user');
 			}
-			
-			
 		}else{
 			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('login');

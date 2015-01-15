@@ -16,6 +16,9 @@
                     	<li><a href="<?php echo base_url()."makeAnnouncement_doctor"?>">Make Announcement </a></li>
                     </li>
                     <li>
+                        <li><a href="<?php echo base_url()."manage_schedules"?>">Manage Schedules </a></li>
+                    </li>
+                    <li>
                         <div class="element input-element">
                             <form>
                                 <div class="input-control text">

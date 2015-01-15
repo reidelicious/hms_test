@@ -106,10 +106,10 @@ $(document).on('click','.deleteUser', function(){
         overlay: true,
         shadow: true,
         flat: true,
-		draggable: true,
+		    draggable: true,
         icon: '<img src="images/excel2013icon.png">',
         title: 'Delete User',
-		width: 300,
+		    width: 300,
         content: '',
         padding: 10,
         onShow: function(_dialog){

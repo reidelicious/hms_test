@@ -45,7 +45,7 @@ width: 100%;
               <?php
                // echo form_open('main/login_validation'); 
                 echo validation_errors();
-			 ?>  
+			         ?>  
              </fieldset>
               </br>
                 <div class="input-control text" data-role="input-control">
@@ -57,7 +57,7 @@ width: 100%;
                 </div>
          
                   <div class="input-control password" data-role="input-control">
-						<?php $data = array( 'name'=> 'password', 'placeholder'=>'enter your password', 'required'=>'required');?>
+						            <?php $data = array( 'name'=> 'password', 'placeholder'=>'enter your password', 'required'=>'required');?>
                         <?php echo form_password($data);  ?>
                         <button class="btn-reveal" tabindex="-1"></button>
                    </div>
