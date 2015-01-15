@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2015 at 02:07 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Jan 15, 2015 at 01:50 PM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.16
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `hms_test`
 --
+CREATE DATABASE IF NOT EXISTS `hms_test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `hms_test`;
 
 -- --------------------------------------------------------
 
@@ -32,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `announcement` (
   `announcement_subject` varchar(45) NOT NULL,
   `announcement_details` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `announcement`
@@ -56,7 +58,27 @@ INSERT INTO `announcement` (`id`, `announcement_datetime_made`, `announcement_su
 (18, '2014-11-22 08:12:48', 'k', 'j'),
 (19, '2014-11-22 08:13:07', 'j', 'jj'),
 (20, '2014-11-22 08:15:21', 'kjlkljk', 'jj'),
-(21, '2014-11-22 08:16:01', 'k', 'j');
+(21, '2014-11-22 08:16:01', 'k', 'j'),
+(22, '2015-01-07 05:54:48', 'hi', 'dinosaur nga torayno'),
+(23, '2015-01-07 06:03:15', 'HI', 'NICK'),
+(24, '2015-01-07 06:04:44', 'BYE', 'NICK'),
+(25, '2015-01-07 06:05:47', 'HOHOHOHO', 'HOHOHOHOHOH'),
+(26, '2015-01-07 06:08:15', 'HI', 'HOHOHO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `appointments`
+--
+
+CREATE TABLE IF NOT EXISTS `appointments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -138,6 +160,30 @@ INSERT INTO `doctors` (`d_id`, `contact_num`, `clinic`, `u_id`, `specialization`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `doctor_schedule`
+--
+
+CREATE TABLE IF NOT EXISTS `doctor_schedule` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `d_id` int(11) unsigned NOT NULL,
+  `date` date NOT NULL,
+  `time_start` time NOT NULL,
+  `time_end` time NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `d_id` (`d_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `doctor_schedule`
+--
+
+INSERT INTO `doctor_schedule` (`id`, `d_id`, `date`, `time_start`, `time_end`) VALUES
+(1, 11, '2015-01-22', '09:30:00', '18:00:00'),
+(3, 11, '2015-01-16', '10:00:00', '18:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `medical_specialist`
 --
 
@@ -199,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `temp_users` (
   `utype` enum('USER','DOCTOR','ADMIN') NOT NULL,
   `key` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `temp_users`
@@ -209,7 +255,8 @@ INSERT INTO `temp_users` (`id`, `email`, `password`, `fname`, `lname`, `age`, `g
 (1, 'zzzzzzzzz123.cb@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Christine Grace', 'Bacatan', 1, 'FEMALE', '123', 'USER', 'd0d73fcc93c6d535a3f301db13d97aa2'),
 (2, 'zz1z123.cb@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 'Christine Grace', 'Bacatan', 1, 'FEMALE', '1', 'USER', '95a749bc521519cb2e6c52d8ab1f1fdb'),
 (3, 'zz11z123.cb@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', 'Christine Grace', 'Bacatan', 1, 'FEMALE', '1', 'USER', 'a62ebe76343ce14f183263e91e15ddad'),
-(4, 'ivan.torayno@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', '1234', '213', 12, 'MALE', '123', 'USER', 'a59739fb7186aee27289e28189bb2099');
+(4, 'ivan.torayno@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', '1234', '213', 12, 'MALE', '123', 'USER', 'a59739fb7186aee27289e28189bb2099'),
+(5, 'marjhun.galanido@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Marjhun Christopher', 'Galanido', 21, 'MALE', 'Cantagay', 'USER', 'ced5dcb3af7a2497c8d7d419cc18f236');
 
 -- --------------------------------------------------------
 
@@ -287,6 +334,12 @@ ALTER TABLE `doctors`
   ADD CONSTRAINT `doctors_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `doctors_ibfk_2` FOREIGN KEY (`specialization`) REFERENCES `medical_specialist` (`specialist_id`),
   ADD CONSTRAINT `doctors_ibfk_3` FOREIGN KEY (`clinic`) REFERENCES `clinic` (`clinic_id`);
+
+--
+-- Constraints for table `doctor_schedule`
+--
+ALTER TABLE `doctor_schedule`
+  ADD CONSTRAINT `doctor_schedule_ibfk_1` FOREIGN KEY (`d_id`) REFERENCES `doctors` (`d_id`);
 
 --
 -- Constraints for table `patients`
