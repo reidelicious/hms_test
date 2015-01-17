@@ -172,17 +172,19 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
-	public function getDoctorByClinic($id){
-		$this->db->where('clinic', $id);
-		$this->db->from('users');
-		$this->db->join('doctors','users.id = doctors.u_id');
+	public function getDoctorByClinic($spec, $cate){
+		$this->db->where('clinic', $spec);
+		$this->db->where('specialization', $cate);
+		$this->db->from('doctors');
+		$this->db->join('users','users.id = doctors.u_id');
 		$query = $this->db->get();
 		return $query->result();
 	}
 	public function getSchedule($id, $d){
-		echo $id;
 		$this->db->where('d_id', $id);
-		$query = $this->db->get('doctor_schedule');
+		$this->db->where('date', $d);
+		$this->db->from('doctor_schedule');
+		$query = $this->db->get();
 		if($this->db->count_all_results() > 0)
 			return $query->result();
 		else

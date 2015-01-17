@@ -247,9 +247,9 @@
                                     </div>
                                 </div>
                             </div>
-                    <div class="modal-footer">
-                        <button id="savedata" type="button" name="addlist" class="btn btn-primary "> DONE </a>
-                        </div>
+                    <div id="footer" class="modal-footer" style="display:none;">
+                        <button id="savedata" type="button" name="addlist" class="primary button"> Make an Appointment </a>
+                    </div>
                     </div>
                 </div>  
         </div>
@@ -280,7 +280,7 @@ $(document).ready(function(){
                 var out = $("#calendar-output2").html("");
                 out.html(d);
                 day = d;
-                alert(day);
+                
                 $('#begin').show();
                 if($('#doctor').val() != ''){
                     $.ajax({
@@ -320,7 +320,7 @@ $(document).ready(function(){
     $('#clinic').change(function(){
         $.ajax({
               url:"<?php echo base_url(); ?>patient/build_drop_doctor_fromClinic",    
-              data: {doctor:$(this).val()},
+              data: {doctor:$(this).val(), category:$('#category').val()},
               type: "POST",
               success: function(data){
                   $("#doctor").html(data);
@@ -330,7 +330,6 @@ $(document).ready(function(){
     $('#doctor').change(function(){
         $('#availsched').show();
         $("#ndoctor").html("Available Schedule for " + $('#doctor option:selected').text());
-        
         $.ajax({
               url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
               data: {doctor:$(this).val(), day:day},
@@ -339,7 +338,14 @@ $(document).ready(function(){
                 $("#sched").html("");
                 $("#sched").html(data);
               }
-          });
+          }).done(function(flag){
+                if(flag == 1){
+
+                }
+                else{
+
+                }
+          })
     });
 })
 </script>

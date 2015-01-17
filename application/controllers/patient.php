@@ -107,22 +107,23 @@ class Patient extends CI_Controller {
        $output .= "<option value='' disabled default selected class='display-none'>Select Doctor</option>";
         foreach ($data['doctor'] as $s)
         {
-            $output .= "<option value='".$s->id."'> Dr. ".$s->lname."</option>";
+            $output .= "<option value='".$s->d_id."'> Dr. ".$s->lname."</option>";
         }
 
         echo  $output;
 	}
 	
 	public function build_drop_doctor_fromClinic(){
-		$id = $_POST['doctor'];
+		$spec = $_POST['doctor'];
+		$cate = $_POST['category'];
 		$this->load->model('model_users');
-		$data['doctor'] = $this->model_users->getDoctorByClinic($id);
+		$data['doctor'] = $this->model_users->getDoctorByClinic($spec, $cate);
         
        $output = null;
        $output .= "<option value='' disabled default selected class='display-none'>Select Doctor</option>";
         foreach ($data['doctor'] as $s)
         {
-            $output .= "<option value='".$s->id."'> Dr. ".$s->lname."</option>";
+            $output .= "<option value='".$s->d_id."'> Dr. ".$s->lname."</option>";
         }
 
         echo  $output;
@@ -137,9 +138,12 @@ class Patient extends CI_Controller {
 			$output = null;
 			$output .= $row[0]->time_start." - ".$row[0]->time_end."";
 			echo $output;
+			return 1;
 		}
-		else
+		else{
 			echo "Not Yet Available!";
+			return 0;
+		}
 		
 	}
 
