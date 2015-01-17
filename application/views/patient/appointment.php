@@ -233,7 +233,7 @@
                                                   <?php endforeach;?>                              
                                                 </select>
                                                 <label for="clinic">Clinic : </label>
-                                                <select id="clinic" class="input-control" name="clinic" required="required">
+                                                <select id="clinic" class="input-control" name="clinic">
                                                 </select> 
                                                 <label for="doctor">Doctors : </label>
                                                 <select id="doctor" class="input-control" name="doctor" required="required">
@@ -241,7 +241,8 @@
                                             </div>
                                             <div id="availsched" class="span3" style="display:none;">
                                                 <div id="ndoctor" class="readable-text subheader"></div>
-                                                <div id="sched" class="readable-text subheader text-warning"></div>
+                                                <div id="sched" class="readable-text subheader text-warning"></div><br/>
+                                                <input id="gimme" class="input-control" type="time" style="display:none;"></input>
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +256,7 @@
         </div>
     
     </div>         
-	<div id="modal_cont"></div> 
+	<p id="dummy" value = "-1"></p> 
      
 </div>
 
@@ -329,7 +330,7 @@ $(document).ready(function(){
     });
     $('#doctor').change(function(){
         $('#availsched').show();
-        $("#ndoctor").html("Available Schedule for " + $('#doctor option:selected').text());
+        $("#ndoctor").html("Available Time of " + $('#doctor option:selected').text());
         $.ajax({
               url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
               data: {doctor:$(this).val(), day:day},
@@ -337,15 +338,104 @@ $(document).ready(function(){
               success: function(data){
                 $("#sched").html("");
                 $("#sched").html(data);
+                if(data == "Not Yet Available!"){
+                    $('#gimme').hide();
+                    $('#footer').hide();
+                }
+                else{
+                    $('#gimme').show();
+                    $('#footer').show();
+                }
               }
-          }).done(function(flag){
-                if(flag == 1){
+          })
+    });
+    $(document).on('click', '#savedata', function(){
+        if($('#gimme').val() != ''){
+            var time_input = document.getElementById("gimme").value;
+            $.ajax({
+              url:"<?php echo base_url(); ?>patient/build_time_start",    
+              data: {doctor:$('#doctor').val(), day:day},
+              type: "POST",
+              success: function(data){
+                if(data != "Not Yet Available!"){
+                   //time_start = data;
+                    if(time_input < data){
+                        document.getElementById('#dummy').value='1';
+                        var not = $.Notify({
+                                style: {background: 'red', color: 'white'}, 
+                                caption: 'STILL NOT OPEN AT THAT TIME',
+                                content: "Please Input Time after " + data,
+                                timeout: 10000 // 10 seconds
+                            });
+                    }
+                }
+                else{
+                    $('#gimme').hide();
+                    $('#footer').hide();
+                }
+              }
+            });
+            $.ajax({
+              url:"<?php echo base_url(); ?>patient/build_time_end",    
+              data: {doctor:$('#doctor').val(), day:day},
+              type: "POST",
+              success: function(data){
+                if(data != "Not Yet Available!"){
+                    //time_end = data;
+                    if(time_input > data){
+                        document.getElementById('dummy').value='1';
+                        var not = $.Notify({
+                                style: {background: 'red', color: 'white'}, 
+                                caption: 'DOCTOR IS ALREADY OUT AT THAT TIME',
+                                content: "Please Input Time before " + data,
+                                timeout: 10000 // 10 seconds
+                            });
+                    }
+                    if(time_input == data){
+                        document.getElementById('dummy').value='1';
+                        var not = $.Notify({
+                                style: {background: 'red', color: 'white'}, 
+                                caption: 'DOCTOR IS ALREADY OUT AT THAT TIME',
+                                content: "Please input before " + data,
+                                timeout: 10000 // 10 seconds
+                            });
+                    }
 
                 }
                 else{
-
+                    $('#gimme').hide();
+                    $('#footer').hide();
                 }
-          })
-    });
+              }
+             });
+            
+             if(document.getElementById('dummy').value != 1){ //passes all the rules
+                var arr = [];
+                arr.push(day);
+                arr.push(time_input);
+                arr.push($('#doctor').val());
+                $.ajax({
+                  url:"<?php echo base_url(); ?>patient/saveAppointmentToDB",    
+                  data: {arr:arr},
+                  type: "POST"
+                }).done(function(){    
+                    var not = $.Notify({
+                            style: {background: 'green', color: 'white'}, 
+                            caption: 'SUCCESSFULLY SAVED!',
+                            content: "Please wait for the secretary to approve your request",
+                            timeout: 10000 // 10 seconds
+                        });
+                });
+            }
+        }
+        else{
+            var not = $.Notify({
+                        style: {background: 'red', color: 'white'}, 
+                        caption: 'MISSING TIME',
+                        content: "Please Input Time",
+                        timeout: 10000 // 10 seconds
+                    });
+        }
+    })
 })
 </script>

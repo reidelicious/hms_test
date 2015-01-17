@@ -135,18 +135,50 @@ class Patient extends CI_Controller {
 		$this->load->model('model_users');
 		$row = $this->model_users->getSchedule($id, $d);
 		if($row){
+			$timestart = date("g:i a", strtotime($row[0]->time_start));
+			$timeend = date("g:i a", strtotime($row[0]->time_end));	
 			$output = null;
-			$output .= $row[0]->time_start." - ".$row[0]->time_end."";
+			$output .= $timestart." - ".$timeend."";
 			echo $output;
-			return 1;
 		}
 		else{
 			echo "Not Yet Available!";
-			return 0;
 		}
 		
 	}
 
+	public function build_time_start(){
+		$id = $_POST['doctor'];
+		$d = $_POST['day'];
+		$this->load->model('model_users');
+		$row = $this->model_users->getSchedule($id, $d);
+		if($row){
+			$timestart = date("h:i", strtotime($row[0]->time_start));
+			echo $timestart;
+		}
+		else{
+			echo "Not Yet Available!";
+		}
+	}
+
+	public function build_time_end(){
+		$id = $_POST['doctor'];
+		$d = $_POST['day'];
+		$this->load->model('model_users');
+		$row = $this->model_users->getSchedule($id, $d);
+		if($row){
+			$timeend = date("g:i", strtotime($row[0]->time_end));
+			echo $timeend;
+		}
+		else{
+			echo "Not Yet Available!";
+		}
+	}
+	public function saveAppointmentToDB(){
+		$arr = $_POST['arr'];
+		$this->load->model('model_users');
+		$this->model_users->patient_addAppointment($arr);
+	}
 	public function arrange_alphabetically($letter){
 		
 		if (ctype_alpha($letter)) {}

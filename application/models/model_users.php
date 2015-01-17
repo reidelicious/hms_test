@@ -190,6 +190,19 @@ class Model_users extends CI_Model{
 		else
 			return false;
 	}
+	public function patient_addAppointment($arr){
+		$data = array(
+				'date' => $arr[0],
+				'time' => $arr[1],
+				'doctor_id' => $arr[2],
+				'patient_id' => $this->session->userdata('id')
+			);
+		$query = $this->db->insert('appointments', $data);
+		if($query)
+			return true;
+		else
+			return false;
+	}
 	public function edit_clinic(){
 		$id = $this->input->post('id');
 		$data = array(
