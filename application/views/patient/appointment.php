@@ -319,7 +319,7 @@ $(document).ready(function(){
     });
     $('#clinic').change(function(){
         $.ajax({
-              url:"<?php echo base_url(); ?>patient/build_drop_doctor",    
+              url:"<?php echo base_url(); ?>patient/build_drop_doctor_fromClinic",    
               data: {doctor:$(this).val()},
               type: "POST",
               success: function(data){

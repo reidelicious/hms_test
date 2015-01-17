@@ -133,7 +133,6 @@ class Patient extends CI_Controller {
 		$d = $_POST['day'];
 		$this->load->model('model_users');
 		$row = $this->model_users->getSchedule($id, $d);
-		print_r($row);
 		if($row){
 			$output = null;
 			$output .= $row[0]->time_start." - ".$row[0]->time_end."";

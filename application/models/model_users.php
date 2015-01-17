@@ -180,8 +180,8 @@ class Model_users extends CI_Model{
 		return $query->result();
 	}
 	public function getSchedule($id, $d){
-		$array = array('d_id' => $id, 'date' => $d);
-		$this->db->where($array);
+		echo $id;
+		$this->db->where('d_id', $id);
 		$query = $this->db->get('doctor_schedule');
 		if($this->db->count_all_results() > 0)
 			return $query->result();
