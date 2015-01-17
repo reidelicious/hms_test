@@ -7,7 +7,6 @@
         	<div class="span3">
             	 <div class="calendar" id="component_id" ></div>
                  <div id="calendar-output"></div>
-                 
             </div>
             <div class="span9">
             	<div class="streamer" data-role="streamer" data-scroll-bar="true" data-slide-to-group="3" data-slide-speed="500">
@@ -214,26 +213,40 @@
                             <h4 class="modal-title">Appointment</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="col-md-12 column">
-                                <div class="col-md-6 column">
-                                    <span>Province</span>
-                                        <select id="pro" class="form-group form-control" name="province" required="required">
-                                                      <option value="" disabled default selected class="display-none">Select Province</option>
-                                                      <?php foreach($specialization as $s):?>
-                                                        <option value="<?php echo $s->ID;?>"><?php echo $s->name;?></option> 
-                                                      <?php endforeach;?>                              
-                                        </select>
-                                    <span>Barangay</span>
-                                        <div id="bcontainer">
-                                            <select id="brgy" class="form-group form-control" name="barangay" required="required"></select>
+                            <div class="grid">
+                                <div class="row">
+                                    <div class="span12">
+                                        <div class="row">
+                                            <div class="span3">
+                                                <p class="subheader ">Select a Date:</p>
+                                                 <div class="calendar" id="component_id2" ></div>
+                                            </div>
+                                            <div id="begin" class="span4 offset1" style="display:none;">
+                                                <label for="datesched">Schedule an Appointment on : </label>
+                                                <div id="calendar-output2" class="subheader-secondary readable-text text-warning"></div><br/>
+                                                <p class="subheader ">Find a Doctor:</p>
+                                                <label for="category">Specialization : </label>
+                                                <select id="category" class="input-control" name="category" required="required">
+                                                  <option value="" disabled default selected class="display-none">Select Specialization</option>
+                                                  <?php foreach($specialization as $s):?>
+                                                    <option value="<?php echo $s->specialist_id;?>"><?php echo $s->specialist;?></option> 
+                                                  <?php endforeach;?>                              
+                                                </select>
+                                                <label for="clinic">Clinic : </label>
+                                                <select id="clinic" class="input-control" name="clinic" required="required">
+                                                </select> 
+                                                <label for="doctor">Doctors : </label>
+                                                <select id="doctor" class="input-control" name="doctor" required="required">
+                                                </select> 
+                                            </div>
+                                            <div id="availsched" class="span3" style="display:none;">
+                                                <div id="ndoctor" class="readable-text subheader"></div>
+                                                <div id="sched" class="readable-text subheader text-warning"></div>
+                                            </div>
                                         </div>
-                                    <span>Sitio</span>
-                                        <div id="scontainer">
-                                            <input id="sit" class="form-group form-control" name="sitio" required="required">
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     <div class="modal-footer">
                         <button id="savedata" type="button" name="addlist" class="btn btn-primary "> DONE </a>
                         </div>
@@ -254,8 +267,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    
-    $('#component_id').calendar({
+    var day = '';
+    $('#component_id2').calendar({
         format: 'yyyy-mm-dd',
         multiSelect: false, //default true (multi select date)
         startMode: 'day', //year, month, day
@@ -263,37 +276,70 @@ $(document).ready(function(){
         locale: 'en', // 'ru', 'ua', 'fr' or 'en', default is $.Metro.currentLocale
         otherDays: false, // show days for previous and next months,
         weekStart: 0, //start week from sunday - 0 or monday - 1
-        getDates:function(data){
-                var r = "", out = $("#calendar-output").html("");
-                $.each(data, function(i, d){
-                    r += d + "<br />";
-                });
-                out.html(r);
-            }, // see example below
         click: function(d){
                 var out = $("#calendar-output2").html("");
                 out.html(d);
+                day = d;
+                alert(day);
+                $('#begin').show();
+                if($('#doctor').val() != ''){
+                    $.ajax({
+                          url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
+                          data: {doctor:$('#doctor').val(), day:day},
+                          type: "POST",
+                          success: function(data){
+                            $('#sched').html("");
+                            $("#sched").html(data);
+                          }
+                      });
+                }
+
             } // fired when user clicked on day, in "d" stored date
     });
     $(document).on('click','#makeAppointment', function(){ 
-        var cont=       '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-                        '<div class="modal-dialog">'+
-                            '<div class="modal-content">'+
-                                '<div class="modal-header">'+
-                                    '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
-                                    '<h4 class="modal-title" id="myModalLabel">Make Appointment </h4>'+
-                                '</div>'+
-                                '<div class="modal-body">'+
-                                    '<div class="modal-footer appointmentForm" hidden="hidden">'+
-                                        '<button type="button" class=" closemdl btn btn-default" data-dismiss="modal">Close</button>'+
-                                        '<button type="button" class=" closemdl btn btn-primary">Save changes</button>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>';
-
-        $( "#modal_cont" ).html(cont);
-        $('#myModal').modal('show');
+        $('#myMod').modal('show');
     }); 
+    $('#category').change(function(){
+        $.ajax({
+              url:"<?php echo base_url(); ?>patient/build_drop_clinic_fromCategory",    
+              data: {category:$(this).val()},
+              type: "POST",
+              success: function(data){
+                  $("#clinic").html(data);
+              }
+          })
+          $.ajax({
+              url:"<?php echo base_url(); ?>patient/build_drop_doctor_fromCategory",    
+              data: {category:$(this).val()},
+              type: "POST",
+              success: function(data){
+                  $("#doctor").html(data);
+              }
+          })
+    });
+    $('#clinic').change(function(){
+        $.ajax({
+              url:"<?php echo base_url(); ?>patient/build_drop_doctor",    
+              data: {doctor:$(this).val()},
+              type: "POST",
+              success: function(data){
+                  $("#doctor").html(data);
+              }
+          });
+    });
+    $('#doctor').change(function(){
+        $('#availsched').show();
+        $("#ndoctor").html("Available Schedule for " + $('#doctor option:selected').text());
+        
+        $.ajax({
+              url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
+              data: {doctor:$(this).val(), day:day},
+              type: "POST",
+              success: function(data){
+                $("#sched").html("");
+                $("#sched").html(data);
+              }
+          });
+    });
 })
 </script>

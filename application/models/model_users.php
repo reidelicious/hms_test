@@ -96,7 +96,7 @@ class Model_users extends CI_Model{
 				'time_start' => $a[1],
 				'time_end' => $a[2]
 			);
-		$this->db->update('doctor_schedule', $data2);
+		$this->db->update('doctor_schedule', $data);
 	}
 	
 	public function add_user($key){
@@ -160,7 +160,34 @@ class Model_users extends CI_Model{
 		$query = $this->db->get('clinic');
 		return $query->result();
 	}	
-		
+	public function getClinicByCategory($id){
+		$this->db->where('clinic_category', $id);
+		$query = $this->db->get('clinic');
+		return $query->result();
+	}
+	public function getDoctorByCategory($id){
+		$this->db->where('specialization', $id);
+		$this->db->from('users');
+		$this->db->join('doctors','users.id = doctors.u_id');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function getDoctorByClinic($id){
+		$this->db->where('clinic', $id);
+		$this->db->from('users');
+		$this->db->join('doctors','users.id = doctors.u_id');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function getSchedule($id, $d){
+		$array = array('d_id' => $id, 'date' => $d);
+		$this->db->where($array);
+		$query = $this->db->get('doctor_schedule');
+		if($this->db->count_all_results() > 0)
+			return $query->result();
+		else
+			return false;
+	}
 	public function edit_clinic(){
 		$id = $this->input->post('id');
 		$data = array(
@@ -316,17 +343,17 @@ class Model_users extends CI_Model{
 			return $data;	
 		}
 		return false;
-<<<<<<< HEAD
-	}	
-=======
 
 	}	
+
+
+		
 
 	
 
 	
 
->>>>>>> origin/master
+
 
 public function fetch_doctors_alpha($letter){
 	

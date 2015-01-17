@@ -74,7 +74,7 @@
 
 
 
-<script type="text/javascript">
+<script>
 $(document).ready(function(){
     var day = '';
     var arr = [];
@@ -102,6 +102,7 @@ $(document).ready(function(){
                 out.html(d);
                 day = d;
 
+
             } // fired when user clicked on day, in "d" stored date
         
     });
@@ -117,7 +118,7 @@ $(document).ready(function(){
 
             var endt = new Date("December 20, 1993 " + end_time);
             endt = endt.getTime();
-
+            arr = [];   
             if(stt < endt) {
                 arr.push(day);
                 arr.push($("#start_time").val());
@@ -145,7 +146,7 @@ $(document).ready(function(){
                                               '<div class="grid fluid">'+
                                               '<div class="row">'+
                                               '<div class="span8 offset2"> <button class="btn-close" onclick="$.Dialog.close()"><i class="icon-folder-2 on-left"></i>Cancel</button> '+
-                                              '<button class="confirmDelete" onclick="$.Dialog.close();overWriteSchedule(); "><i class="icon-floppy on-left"></i>Overwrite</button>'+
+                                              '<button class="confirmOverwrite" id="overwrite" onclick="$.Dialog.close();overWriteSchedule(); "><i class="icon-floppy on-left"></i>Overwrite</button>'+
                                               '</div>'+
                                               '</div>'+
                                             '</div> ';
@@ -194,7 +195,7 @@ $(document).ready(function(){
         return false;            
     });
     
-    function overWriteSchedule(){
+    window.overWriteSchedule = function(){
         flag = 1;
         $.ajax({
                 type: "POST",

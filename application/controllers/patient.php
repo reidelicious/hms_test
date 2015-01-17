@@ -76,13 +76,74 @@ class Patient extends CI_Controller {
 	public function appointment(){
 		$this->load->model('model_users');
 		$data['title'] = 'appointment';
-		$data['specializations'] = $this->model_users->get_Specialists();
+		$data['specialization'] = $this->model_users->get_Specialists();
 		$this->load->view('templates/header/header_all',$data);
 		$this->load->view('templates/header/header_patient');
 		$this->load->view('patient/appointment', $data);
 		
 	}
+
+	public function build_drop_clinic_fromCategory(){
+		$id = $_POST['category'];
+		$this->load->model('model_users');
+		$data['clinic'] = $this->model_users->getClinicByCategory($id);
+        
+       $output = null;
+       $output .= "<option value='' disabled default selected class='display-none'>Select Clinic</option>";
+        foreach ($data['clinic'] as $s)
+        {
+            $output .= "<option value='".$s->clinic_id."'>".$s->clinic_name."</option>";
+        }
+
+        echo  $output;
+	}
+
+	public function build_drop_doctor_fromCategory(){
+		$id = $_POST['category'];
+		$this->load->model('model_users');
+		$data['doctor'] = $this->model_users->getDoctorByCategory($id);
+        
+       $output = null;
+       $output .= "<option value='' disabled default selected class='display-none'>Select Doctor</option>";
+        foreach ($data['doctor'] as $s)
+        {
+            $output .= "<option value='".$s->id."'> Dr. ".$s->lname."</option>";
+        }
+
+        echo  $output;
+	}
 	
+	public function build_drop_doctor_fromClinic(){
+		$id = $_POST['doctor'];
+		$this->load->model('model_users');
+		$data['doctor'] = $this->model_users->getDoctorByClinic($id);
+        
+       $output = null;
+       $output .= "<option value='' disabled default selected class='display-none'>Select Doctor</option>";
+        foreach ($data['doctor'] as $s)
+        {
+            $output .= "<option value='".$s->id."'> Dr. ".$s->lname."</option>";
+        }
+
+        echo  $output;
+	}
+
+	public function build_drop_schedule(){
+		$id = $_POST['doctor'];
+		$d = $_POST['day'];
+		$this->load->model('model_users');
+		$row = $this->model_users->getSchedule($id, $d);
+		print_r($row);
+		if($row){
+			$output = null;
+			$output .= $row[0]->time_start." - ".$row[0]->time_end."";
+			echo $output;
+		}
+		else
+			echo "Not Yet Available!";
+		
+	}
+
 	public function arrange_alphabetically($letter){
 		
 		if (ctype_alpha($letter)) {}
