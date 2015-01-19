@@ -82,6 +82,26 @@ class Patient extends CI_Controller {
 		$this->load->view('patient/appointment', $data);
 		
 	}
+	public function appointmentv2(){
+		$this->load->model('model_users');
+		$data['title'] = 'appointment';
+		$data['specialization'] = $this->model_users->get_Specialists();
+		$this->load->view('templates/header/header_all',$data);
+		$this->load->view('templates/header/header_patient');
+		$this->load->view('patient/appointmentv2', $data);
+	}
+	public function build_timeline_appointment(){
+		$this->load->model('model_users');
+		$d = $_POST['d'];
+		$data['appointment'] = $this->model_users->getAppointments($d);
+		if($data['appointment']){
+			$this->load->view('templates/header/header_all');
+			$this->load->view('patient/appointment_details', $data);
+		}
+		else{
+			echo "No Appointment";
+		}
+	}
 
 	public function build_drop_clinic_fromCategory(){
 		$id = $_POST['category'];
@@ -153,8 +173,9 @@ class Patient extends CI_Controller {
 		$this->load->model('model_users');
 		$row = $this->model_users->getSchedule($id, $d);
 		if($row){
-			$timestart = date("h:i", strtotime($row[0]->time_start));
-			echo $timestart;
+			//$timestart = date("h:i", strtotime($row[0]->time_start));
+			//echo $timestart;
+			echo $row[0]->time_start;
 		}
 		else{
 			echo "Not Yet Available!";
@@ -167,8 +188,9 @@ class Patient extends CI_Controller {
 		$this->load->model('model_users');
 		$row = $this->model_users->getSchedule($id, $d);
 		if($row){
-			$timeend = date("g:i", strtotime($row[0]->time_end));
-			echo $timeend;
+			//$timeend = date("H:i", strtotime($row[0]->time_end));
+			//echo $timeend;
+			echo $row[0]->time_end;
 		}
 		else{
 			echo "Not Yet Available!";

@@ -10,7 +10,7 @@
                         <li><a href="<?php echo base_url()."home"?>">Home </a></li>
                     </li>
                     <li>
-                        <li><a href="<?php echo base_url()."appointment"?>">Appointment </a></li>
+                        <li><a href="<?php echo base_url()."appointmentv2"?>">Appointment </a></li>
                     </li>
                     <li>
                     	<li><a href="<?php echo base_url()."explore"?>">Explore </a></li>

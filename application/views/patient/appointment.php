@@ -256,7 +256,7 @@
         </div>
     
     </div>         
-	<p id="dummy" value = "-1"></p> 
+	<div id="dummy" value = "-1"></div> 
      
 </div>
 
@@ -301,6 +301,7 @@ $(document).ready(function(){
         $('#myMod').modal('show');
     }); 
     $('#category').change(function(){
+        
         $.ajax({
               url:"<?php echo base_url(); ?>patient/build_drop_clinic_fromCategory",    
               data: {category:$(this).val()},
@@ -350,8 +351,11 @@ $(document).ready(function(){
           })
     });
     $(document).on('click', '#savedata', function(){
+        $('#dummy').val("-1");
+        alert($('#dummy').val());
         if($('#gimme').val() != ''){
             var time_input = document.getElementById("gimme").value;
+            alert(time_input);
             $.ajax({
               url:"<?php echo base_url(); ?>patient/build_time_start",    
               data: {doctor:$('#doctor').val(), day:day},
@@ -359,14 +363,16 @@ $(document).ready(function(){
               success: function(data){
                 if(data != "Not Yet Available!"){
                    //time_start = data;
+                   alert(data);
                     if(time_input < data){
-                        document.getElementById('#dummy').value='1';
+                        $('#dummy').val("1");
                         var not = $.Notify({
                                 style: {background: 'red', color: 'white'}, 
                                 caption: 'STILL NOT OPEN AT THAT TIME',
                                 content: "Please Input Time after " + data,
                                 timeout: 10000 // 10 seconds
                             });
+                        alert($('#dummy').val());
                     }
                 }
                 else{
@@ -381,7 +387,6 @@ $(document).ready(function(){
               type: "POST",
               success: function(data){
                 if(data != "Not Yet Available!"){
-                    //time_end = data;
                     if(time_input > data){
                         document.getElementById('dummy').value='1';
                         var not = $.Notify({
@@ -391,8 +396,8 @@ $(document).ready(function(){
                                 timeout: 10000 // 10 seconds
                             });
                     }
-                    if(time_input == data){
-                        document.getElementById('dummy').value='1';
+                    else if(time_input == data){
+                        $('#dummy').val("1");
                         var not = $.Notify({
                                 style: {background: 'red', color: 'white'}, 
                                 caption: 'DOCTOR IS ALREADY OUT AT THAT TIME',
@@ -408,8 +413,9 @@ $(document).ready(function(){
                 }
               }
              });
-            
+            alert($('#dummy').val());
              if(document.getElementById('dummy').value != 1){ //passes all the rules
+                alert($('#dummy').val());
                 var arr = [];
                 arr.push(day);
                 arr.push(time_input);
@@ -425,6 +431,7 @@ $(document).ready(function(){
                             content: "Please wait for the secretary to approve your request",
                             timeout: 10000 // 10 seconds
                         });
+                    $
                 });
             }
         }

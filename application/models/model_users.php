@@ -155,6 +155,17 @@ class Model_users extends CI_Model{
 		$query = $this->db->get('medical_specialist');	
 		return $query->result();
 	}
+	public function getAppointments($d){
+		$this->db->where('date', $d);
+		$this->db->where('patient_id', $this->session->userdata('id'));
+		$this->db->from('appointments');
+		$this->db->join('doctors', 'appointments.doctor_id = doctors.d_id', 'inner');
+		$this->db->join('users', 'doctors.u_id = users.id', 'inner');
+		$this->db->join('clinic', 'doctors.clinic = clinic.clinic_id', 'inner');
+		$this->db->join('medical_specialist', 'doctors.specialization = medical_specialist.specialist_id', 'inner');
+		$query = $this->db->get();
+		return $query->result();
+	}
 	
 	public function get_Clinic(){
 		$query = $this->db->get('clinic');
@@ -195,7 +206,8 @@ class Model_users extends CI_Model{
 				'date' => $arr[0],
 				'time' => $arr[1],
 				'doctor_id' => $arr[2],
-				'patient_id' => $this->session->userdata('id')
+				'patient_id' => $this->session->userdata('id'),
+				'status' => 1
 			);
 		$query = $this->db->insert('appointments', $data);
 		if($query)
