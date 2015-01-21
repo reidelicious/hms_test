@@ -10,7 +10,11 @@
                         <li><a href="<?php echo base_url()."home"?>">Home </a></li>
                     </li>
                     <li>
-                        <li><a href="<?php echo base_url()."appointment"?>">Appointments </a></li>
+                        <a class="dropdown-toggle"  href="#">Appointments </a>
+                        <ul class="dropdown-menu" data-role="dropdown">
+                            <li><a href="<?php echo base_url()."manage_appointment"?>">Manage Appointment</a></li>
+                            <li><a href="<?php echo base_url()."view_appointment"?>">View Timeline</a></li>   
+                        </ul>
                     </li>
                     <li>
                     	<li><a href="<?php echo base_url()."makeAnnouncement_doctor"?>">Make Announcement </a></li>

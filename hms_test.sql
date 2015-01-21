@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2015 at 01:50 PM
+-- Generation Time: Jan 20, 2015 at 04:53 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -77,8 +77,24 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `time` time NOT NULL,
   `doctor_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
+  `status` enum('PENDING','APPROVED','REJECTED','') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=89 ;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `date`, `time`, `doctor_id`, `patient_id`, `status`) VALUES
+(80, '2015-01-20', '10:00:00', 11, 8, 'PENDING'),
+(81, '2015-01-20', '09:30:00', 11, 8, 'PENDING'),
+(82, '2015-01-19', '12:59:00', 12, 8, 'PENDING'),
+(83, '2015-01-20', '12:00:00', 11, 8, 'PENDING'),
+(84, '2015-01-21', '10:30:00', 11, 8, 'PENDING'),
+(85, '2015-01-20', '10:00:00', 11, 8, 'PENDING'),
+(86, '2015-01-21', '15:30:00', 11, 8, 'PENDING'),
+(87, '2015-01-21', '10:01:00', 11, 8, 'PENDING'),
+(88, '2015-01-21', '15:30:00', 11, 8, 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -171,15 +187,18 @@ CREATE TABLE IF NOT EXISTS `doctor_schedule` (
   `time_end` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `d_id` (`d_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `doctor_schedule`
 --
 
 INSERT INTO `doctor_schedule` (`id`, `d_id`, `date`, `time_start`, `time_end`) VALUES
-(1, 11, '2015-01-22', '09:30:00', '18:00:00'),
-(3, 11, '2015-01-16', '10:00:00', '18:00:00');
+(19, 11, '2015-01-20', '09:30:00', '16:30:00'),
+(20, 11, '2015-01-21', '09:30:00', '16:30:00'),
+(21, 11, '2015-01-22', '09:30:00', '16:30:00'),
+(22, 11, '2015-01-23', '09:30:00', '16:30:00'),
+(23, 12, '2015-01-19', '10:00:00', '17:00:00');
 
 -- --------------------------------------------------------
 

@@ -105,12 +105,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="event"></div>
-                                            <div class="event"></div>
-                                            <div class="event"></div>
-                                            <div class="event"></div>
-                                            <div class="event"></div>
-                                            <div class="event"></div>
+                                            
                                             <div class="event"></div>
                                             <div class="event double"></div>
                                             <div class="event double"></div>

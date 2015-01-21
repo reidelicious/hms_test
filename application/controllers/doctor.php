@@ -63,4 +63,50 @@ class Doctor extends CI_Controller {
 			$this->makeAnnouncement();
 		}
 	}
+
+	public function manage_appointment(){
+		$this->load->model('model_users');
+		$data['title'] = 'Manage Appointment';
+		$data['pending'] = $this->model_users->getPendingAppointments();
+		if($this->session->userdata('is_logged_in')){
+			$this->load->view('templates/header/header_all', $data);
+			$this->load->view('templates/header/header_doctor');
+			$this->load->view('doctor/manage_appointment', $data);
+		}else{
+			redirect('main/restricted');
+		}	
+	}
+
+	public function changeStat_appointment(){
+		$id = $_POST['id'];
+		$flag = $_POST['flag'];
+		$this->load->model('model_users');
+		if($this->model_users->updateStatus_appointment($id, $flag)){
+			echo "Success";
+		}
+		else{
+			echo "Fail";
+		}
+	}
+	public function view_appointment(){
+		$data['title'] = 'View Timeline';
+		if($this->session->userdata('is_logged_in')){
+			$this->load->view('templates/header/header_all', $data);
+			$this->load->view('templates/header/header_doctor');
+			$this->load->view('doctor/view_appointment');
+		}else
+			redirect('main/restricted');
+	}
+	public function build_timeline_doctor(){
+		$this->load->model('model_users');
+		$d = $_POST['d'];
+		$data['appointment'] = $this->model_users->getPatientsAppointments($d);
+		if($data['appointment']){
+			$this->load->view('templates/header/header_all');
+			$this->load->view('doctor/appointment_details_doctor', $data);
+		}
+		else{
+			echo "No Appointment";
+		}
+	}
 }
