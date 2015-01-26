@@ -611,6 +611,12 @@ $this->db->update('table as a, table2 as b');
 		
 		
 	}
+	public function count_doctors($id){
+		$this->db->where('clinic',$id);
+		$this->db->from('doctors');
+		return $this->db->count_all_results();
+		
+	}
 	
 	
 }//end of class

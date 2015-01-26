@@ -27,30 +27,29 @@ class Patient extends CI_Controller {
 		
 		foreach($category as $c){
 			$clinic = $this->model_users->browse_clinic_name($c->specialist_id);
+			
 			$data['output'] .= '<div class="list-group collapsed ">';
 			$data['output'] .= '<a href="" class="group-title">'.$c->specialist.'</a>';
 			$data['output'] .=  '<div class="group-content">';
 			
+			foreach($clinic as $i){
+				$dcount = $this->model_users->count_doctors($i->clinic_id);
+				  $data['output'].='<a class="list marked" href="#">';
+          		  $data['output'].='	<div class="list-content">';
+          		  $data['output'].='		<span class="list-title"> '.$i->clinic_name.'</span>';
+          		  $data['output'].='		<span class="list-subtitle">room number here</span>';
+           		  $data['output'].='		<span class="list-remark">There are '.$dcount.' doctors in this clinic</span>';
+           		  $data['output'].='	</div>';
+             	  $data['output'].='</a>';	
+			}//foreach
 			$data['output'] .=  '</div>'; // content
 			$data['output'] .=  '</div>'; // listgroyp
-			
-			
 		}
-		$data['output'] = '</div>';
-	//	print_r($data['output']);
-		
-		 
-                                       
-                                     //   <div class="content">
-                                  //          <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
-                             //           </div>
-                              //      </div>
-			
-			
-		
-		$this->load->view('templates/header/header_all', $data);
-		$this->load->view('templates/header/header_patient');
-		$this->load->view('patient/explore_clinic');
+		$data['output'] .= '</div>';
+	
+	$this->load->view('templates/header/header_all', $data);
+    $this->load->view('templates/header/header_patient');
+	$this->load->view('patient/explore_clinic',$data);
 	
 	}
 	
