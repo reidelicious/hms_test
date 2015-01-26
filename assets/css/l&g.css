@@ -113,7 +113,27 @@ html[xmlns] .clearfix { display: block; }
 
 
 
+/** list view **/
+.lg ul.list { list-style: none; width: 100%; }
+.lg ul.list li { display: block; background: #d7dfe0; padding: 10px 15px; }
 
+.lg ul.list li.alt { background: #f2f2f2; }
+
+.lg ul.list li section.left { display: block; float: left; width: 350px; position: relative; padding-left: 20px; }
+.lg ul.list li section.right { display: block; float: right; margin-right: 10px; width: 250px; text-align: right; }
+
+.lg ul.list li section.left div.thumb { float: left; margin-right: 10px; min-height:80px; max-height:80px; min-width:80px; max-width:80px; overflow:hidden; }
+.lg ul.list li section.left .thumb img.scale{height:80px;width:auto;}
+.lg ul.list li section.left .thumb img.scale{height:auto;width:80px;}
+.lg ul.list li section.left img.featured-banner { position: absolute; left: -18px; top: 35px; }
+
+.lg ul.list li section.left h3 { font-family: "Trebuchet MS", Arial, sans-serif; font-weight: bold; text-transform: uppercase; color: #707375; font-size: 1.4em; line-height: 1.6em; } 
+.lg ul.list li section.left span.meta { color: #93989b; font-weight: normal; font-size: 1.1em; }
+
+
+.lg ul.list li section.right span.price { font-weight: bold; display: block; margin-bottom: 15px; color: #ad3939; font-size: 1.6em; text-align: right; }
+
+.lg ul.list li section.right a.firstbtn { margin-right: 7px; }
 
 
 

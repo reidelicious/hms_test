@@ -574,5 +574,43 @@ $this->db->update('table as a, table2 as b');
 		
 	}
 	
+	public function search_doctors($item){
+		$this->db->like('lname', $item, 'after');
+		$this->db->where('utype','DOCTOR'); 
+		$this->db->from('users');
+		$this->db->join('doctors','users.id = doctors.u_id');
+		$this->db->join('clinic', 'clinic.clinic_id = doctors.clinic');
+		$this->db->join('medical_specialist', 'medical_specialist.specialist_id = doctors.specialization');
+		
+		$query = $this->db->get();
+		
+		return $query->result();
+		
+		
+	}
+	public function search_clinics($item){
+		
+		
+		
+	}
+	
+	public function browse_category(){
+		
+		$this->db->from('medical_specialist');
+		$query = $this->db->get();
+		
+		return $query -> result();
+		
+	}
+	public function browse_clinic_name($id){
+		$this->db->where('clinic_category',$id );
+		$this->db->from('clinic');
+		$query = $this->db->get();
+		
+		return $query->result();
+		
+		
+	}
+	
 	
 }//end of class
