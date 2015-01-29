@@ -166,7 +166,25 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
-	
+	public function getPatientsAppointments($d){
+		$this->db->where('doctor_id', $this->session->userdata('id'));
+		$this->db->where('date', $d);
+		$this->db->where('status', 2);
+		$this->db->from('appointments');
+		$this->db->order_by('date');
+		$this->db->join('users', 'appointments.patient_id = users.id', 'inner');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function getPendingAppointments(){
+		$this->db->where('doctor_id', $this->session->userdata('id'));
+		$this->db->where('status', 1);
+		$this->db->from('appointments');
+		$this->db->order_by('date');
+		$this->db->join('users', 'appointments.patient_id = users.id', 'inner');
+		$query = $this->db->get();
+		return $query->result();
+	}
 	public function get_Clinic(){
 		$query = $this->db->get('clinic');
 		return $query->result();
@@ -200,6 +218,20 @@ class Model_users extends CI_Model{
 			return $query->result();
 		else
 			return false;
+	}
+	public function updateStatus_appointment($id, $flag){
+		
+		if($flag == 0) //approved
+			$data = array( 'status' => 2);
+		else //rejected
+			$data = array('status' => 3);
+		$this->db->where('appointment_id', $id);
+		$query = $this->db->update('appointments', $data);
+		if($query)
+			return true;
+		else
+			return false;
+
 	}
 	public function patient_addAppointment($arr){
 		$data = array(

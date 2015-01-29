@@ -372,8 +372,7 @@ class Main extends CI_Controller {
 		if($this->model_users->checkOldPass($this->session->userdata('id'))){
 			return true;
 		}
-		else return false;
-		
+		else return false;	
 	}
 
 
