@@ -12,8 +12,8 @@
             </br></br>
                 <nav class="sidebar light">
                     <ul>
-                    	<li class="stick bg-red"><a href="#"><i class="icon-cog"></i>Doctors</a></li>
-                   		<li class="stick bg-yellow"><a href="#"><i class="icon-cog"></i>Clinic</a></li>
+                    	<li class="stick bg-red"><a href="<?php echo base_url('patient/doctors') ?>"><i class="icon-cog"></i>Doctors</a></li>
+                   		<li class="stick bg-yellow"><a href="<?php echo base_url('patient/clinics') ?>"><i class="icon-cog"></i>Clinic</a></li>
                     </ul>
                 </nav>
             </div><!-- end of span3 -->
