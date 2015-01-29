@@ -49,24 +49,26 @@
                                             <div id="availsched" class="span3" style="display:none;">
                                                 <div id="ndoctor" class="readable-text subheader"></div>
                                                 <div id="sched" class="readable-text subheader text-warning"></div><br/>
-                                                <input id="gimme" class="input-control" type="time" style="display:none;"></input>
+                                                <input id="gimme" class="input-control" type="time" style="display:none;">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    <div id="footer" class="modal-footer" style="display:none;">
-                        <button id="savedata" type="button" name="addlist" class="primary button"> Make an Appointment </a>
-                    </div>
-                    </div>
-                </div>  
-        </div>
+                            <div id="footer" class="modal-footer" style="display:none;">
+                                <button id="savedata" type="button" name="addlist" class="primary button"> Make an Appointment </button>
+                            </div>
+                    	</div>
+              	  </div>  
+       			 </div>
     
-    </div>          
-</div>
+    		</div>          
+		</div>
 
 
-
+		</div>
+	</div>
+    
 
 
 

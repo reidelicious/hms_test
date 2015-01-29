@@ -26,7 +26,10 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
     	
         	<?php $data = array( 'name'=> 'clinicname', 'placeholder'=>'enter clinic name','required'=>'required', 'data-transform'=>'input-control');?>
          	<?php echo form_input($data, $this->input->post('clinicname')); ?>
-    		
+    	
+        <label>Room  num</label>
+            <?php $data = array( 'name'=> 'room_num', 'placeholder'=>'enter clinic room','required'=>'required', 'data-transform'=>'input-control');?>
+         	<?php echo form_input($data, $this->input->post('room_num')); ?>
     	
        
 

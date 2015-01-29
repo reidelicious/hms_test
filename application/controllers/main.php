@@ -91,7 +91,8 @@ class Main extends CI_Controller {
 
 				$data1 = array(
 					'id' => $row->d_id,
-					'contactnum' => $row->contact_num
+					'contactnum' => $row->contact_num,
+					'clinic_id' => $row->clinic
 				);
 			}
 			
@@ -445,10 +446,10 @@ public function do_upload()
 		$this->load->library('form_validation');		
 		$this->form_validation->set_rules('subject','Subject','required|trim');
 		$this->form_validation->set_rules('details','Details','required|trim');
-		
+		$type = $this->session->userdata('clinic_id')? $this->session->userdata('clinic_id') : 0;
 		if($this->form_validation->run()){
 			$this->load->model('model_users');
-			if($this->model_users->addAnnouncement()){
+			if($this->model_users->addAnnouncement($type)){
 				$data['success'] = $this->ret_success_notif();
 				$data['title'] = "Announcement";
 				if($this->session->userdata('usertype') == "DOCTOR"){
@@ -480,6 +481,29 @@ public function do_upload()
 					
 					</script>";		
 	}
+	
+	
+	public function ret_failmail_notif(){
+		return "<script>var not = $.Notify({
+				 	style: {background: 'red', color: 'white'},
+    				caption: 'MAIL FAIL',
+       				content: 'SEND to EMAIL  FAIL!!!',
+      			  	timeout: 10000 // 10 seconds
+						});
+					
+					</script>";
+	}
+	
+	public function ret_succmail_notif(){
+	 return "<script>var not = $.Notify({
+				 	style: {background: '#00EEFF', color: 'white'},
+    				caption: 'MAIL SUCCESS',
+       				content: 'SEND to EMAIL  SUCCESS!!!',
+      			  	timeout: 10000 // 10 seconds
+						});
+					
+					</script>";	
+	}	
 	
 }
 
