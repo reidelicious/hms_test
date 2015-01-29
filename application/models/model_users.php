@@ -353,22 +353,29 @@ class Model_users extends CI_Model{
 	}
 
 	public function admin_addClinic(){
-	$data = array(
-			'clinic_name' => $this->input->post('clinicname'),
-			'clinic_category' => $this->input->post('Specialization')
-		);
-	$query = $this->db->insert('clinic', $data);
-	if($query)
-		return true;
-	else
-		return false;
+		$data = array(
+				'clinic_name' => $this->input->post('clinicname'),
+				'clinic_category' => $this->input->post('Specialization'),
+				'room_num' => $this->input->post('room_num')
+			);
+		$query = $this->db->insert('clinic', $data);
+		if($query)
+			return true;
+		else
+			return false;
 	}
 
-	public function addAnnouncement(){
-	$data = array(
-		'announcement_subject' => $this->input->post('subject'),
-		'announcement_details' => $this->input->post('details'),
-	);	
+
+	public function addAnnouncement($type){
+		
+
+		$data = array(
+			'announcement_subject' => $this->input->post('subject'),
+			'announcement_details' => $this->input->post('details'),
+			'fk_clinic_id' => $type
+		);	
+
+	
 
 	$query = $this->db->insert('announcement', $data);
 	if($query)
@@ -395,18 +402,18 @@ class Model_users extends CI_Model{
 	$this->db->join('medical_specialist','medical_specialist.specialist_id =  doctors.specialization ');
 	$query = $this->db->get();	
 
-	if($query->num_rows() > 0 ){
-		foreach($query->result() as $row){
-				$data[] = $row;
-			}
-			return $data;	
+		if($query->num_rows() > 0 ){
+			foreach($query->result() as $row){
+					$data[] = $row;
+				}
+				return $data;	
 		}
+		
 		return false;
-
 	}	
 
 
-		
+	
 
 	
 
@@ -605,6 +612,83 @@ $this->db->update('table as a, table2 as b');
 		
 		
 	}
+	
+	public function search_doctors($item){
+		$this->db->like('lname', $item, 'after');
+		$this->db->where('utype','DOCTOR'); 
+		$this->db->from('users');
+		$this->db->join('doctors','users.id = doctors.u_id');
+		$this->db->join('clinic', 'clinic.clinic_id = doctors.clinic');
+		$this->db->join('medical_specialist', 'medical_specialist.specialist_id = doctors.specialization');
+		
+		$query = $this->db->get();
+		
+		return $query->result();
+		
+		
+	}
+	public function search_clinics($item){
+		
+		
+		
+	}
+	
+	public function browse_category(){
+		
+		$this->db->from('medical_specialist');
+		$query = $this->db->get();
+		
+		return $query -> result();
+		
+	}
+	public function browse_clinic_name($id){
+		$this->db->where('clinic_category',$id );
+		$this->db->from('clinic');
+		$query = $this->db->get();
+		
+		return $query->result();
+		
+		
+	}
+	public function count_doctors($id){
+		$this->db->where('clinic',$id);
+		$this->db->from('doctors');
+		return $this->db->count_all_results();
+		
+	}
+	
+	public function get_clinic_announcement($id){
+		$this->db->limit(3);
+		$this->db->where('fk_clinic_id',$id);
+		$this->db->order_by("announcement_datetime_made", "desc"); 
+		$query = $this->db->get('announcement');
+		
+		if($query->num_rows() > 0 ){
+			return $query->result();	
+		}else{
+			return false;
+		}
+		
+	}
+
+	public function fetch_clinic_doctors($id){
+
+	$this->db->where('doctors.clinic',$id);
+	$this->db->order_by("fname", "asc"); 
+	$this->db->select('*');
+	$this->db->from('users');
+	$this->db->join('doctors','users.id = doctors.u_id');
+	$this->db->join('medical_specialist','medical_specialist.specialist_id =  doctors.specialization ');
+	$query = $this->db->get();	
+
+		if($query->num_rows() > 0 ){
+		
+				return $query->result();	
+		}
+		
+		return false;
+	}	
+
 	
 	
 }//end of class

@@ -15,12 +15,140 @@ class Patient extends CI_Controller {
 	}
 	
 	public function explore(){
+		redirect('patient/doctors');
+	}// end of explore
+	
+	public function clinics(){
+		$this->load->model('model_users');
+		$data['ann'] = '';
+		$data['title'] = 'Explore Doctors or Clinic';
+		$data['tabs'] = '';
+		$data['docs'] = '';
+		
+		$category = $this->model_users->browse_category();
+		$data['output'] = '<div class="listview-outlook" data-role="listview">';
+		
+		foreach($category as $c){
+			$clinic = $this->model_users->browse_clinic_name($c->specialist_id);
+			
+			$data['output'] .= '<div class="list-group collapsed ">';
+			$data['output'] .= '<a href="" class="group-title">'.$c->specialist.'</a>';
+			$data['output'] .=  '<div class="group-content">';
+			
+			foreach($clinic as $i){
+				$dcount = $this->model_users->count_doctors($i->clinic_id);
+				  $data['output'].='<a class="list marked clinic_list"  href="#">';
+				  $data['output'] .=  '<input type="hidden" id="clinic_id" value ="'.$i->clinic_id.'"> ';
+          		  $data['output'].='	<div class="list-content">';
+          		  $data['output'].='		<span class="list-title" id="clinic_name"> '.$i->clinic_name.'</span>';
+          		  $data['output'].='		<span class="list-subtitle">room number here</span>';
+           		  $data['output'].='		<span class="list-remark" id="d_count">There are '.$dcount.' doctors in this clinic</span>';
+           		  $data['output'].='	</div>';
+             	  $data['output'].='</a>';	
+			}//foreach
+			$data['output'] .=  '</div>'; // content
+			$data['output'] .=  '</div>'; // listgroyp
+		}
+		$data['output'] .= '</div>';
+
+		
+	if($this->uri->segment(3) == "clinic_id"){
+			if($this->uri->segment(4)){	
+				//get clinic details	
+					$announcement = $this->model_users->get_clinic_announcement($this->uri->segment(4));
+					$data['tabs'] .= '<li class="active"><a href="#ann"> Announcement</a></li>';
+					
+					if($announcement != false){
+						 foreach($announcement as $ann){
+								$data['ann'] .='<div class="panel">
+										<div class="panel-header">
+											'. $ann->announcement_subject.' <span class="place-right" style="font-size:14px">'.$ann->announcement_datetime_made.'</span>
+										</div>
+										<div class="panel-content">
+										   lorem ipsum dolor 
+										</div>
+								 </div>';
+						 }
+					
+					}else{
+						$data['ann'] .='<div class="panel">
+										<div class="panel-header">
+											not available 
+										</div>
+										<div class="panel-content">
+										  
+										</div>
+								 </div>';
+					}//end of else
+					
+					
+					$c_doctors = $this->model_users->fetch_clinic_doctors($this->uri->segment(4));
+					
+					if($c_doctors != false){
+						 foreach($c_doctors as $cd){
+							 $data['tabs'] .= '<li class=""><a href="#_page_'.$cd->id.'"> '.$cd->fname.' '.$cd->lname.'</a></li>';
+							  	  //  <div class="frame" id="_page_1">
+                            		  // php echo $ann;  
+                          			 // </div>
+					$data['docs'] .= '<div class="frame" id="_page_'.$cd->id.'">
+							<div class="thumb" style="margin: 0 auto;"><img  class="scale" src = "'.base_url().$cd->avatar.'" ></div>
+										<dl class="horizontal" style="margin: 0 auto;">
+											<dt>name:</dt>
+												<dd>'.$cd->fname.' '.$cd->lname.'</dd>
+											<dt>Specialization:</dt>
+												<dd>'.$cd->specialist.'</dd>
+											<dt>Contact num:</dt>
+												<dd>'.$cd->contact_num.'</dd>
+											<dt>Room num:</dt>
+												<dd>N/A</dd>
+											<dt></dt>
+												<dd><button class="default makeAppointment">lalala</button></dd>
+										</dl>		
+										<form action="#" method="POST"  class="appointmentForm" hidden="hidden">
+										
+										
+										</form>
+						 </div>';
+						}
+						
+						
+						
+					}
+					
+					
+						
+					$data['c_output'] = '';	
+				
+				
+			}else{// $page = 0;
+			}
+		
+		/*
+		   // $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
+			$data["results"] = $this->model_users->
+				fetch_doctors($config['per_page'], $page );
+			$data["links"] = $this->pagination->create_links();
+		}else{
+			$data["results"] = $this->model_users->fetch_doctors_alpha($this->uri->segment(4));
+			$data["links"] = '';
+			*/
+		}  
+		
+		
+	
+	$this->load->view('templates/header/header_all', $data);
+    $this->load->view('templates/header/header_patient');
+	$this->load->view('patient/explore_clinic',$data);
+	
+	}
+	
+	public function doctors(){
 		$data['title'] = 'Explore Doctors or Clinic';
 		$this->load->model("model_users");
 		$config = array();
-		$config['base_url'] = base_url('patient/explore/page/');
+		$config['base_url'] = base_url('patient/doctors/page/');
 		$config["total_rows"] = $this->model_users->doctor_count();
-        $config['per_page'] = 10;
+        $config['per_page'] = 1;
         $config["uri_segment"] = '4';
 		$config['use_page_numbers'] = TRUE;				
 		$config['full_tag_open'] = '<ul>';
@@ -49,7 +177,7 @@ class Patient extends CI_Controller {
 		
 		if($this->uri->segment(3) == "page" ||$this->uri->segment(3) === FALSE){
 			if($this->uri->segment(4)){		
-				$page = ( $this->uri->segment(4)* $config['per_page'])-10;
+				$page = ( $this->uri->segment(4)* $config['per_page'])-1;
 			}else{ $page = 0;}
 	
 		
@@ -66,11 +194,6 @@ class Patient extends CI_Controller {
 		$this->load->view('templates/header/header_all', $data);
 		$this->load->view('templates/header/header_patient');
 		$this->load->view('patient/explore',$data);
-	}// end of explore
-	
-	
-	public function explore_doctors(){
-		
 		
 	}
 	public function appointment(){
@@ -211,7 +334,33 @@ class Patient extends CI_Controller {
 		
 	}
 	
+	public function search_results(){
+		$this->load->model('model_users');
+		$item = $this->input->post('search');
+		$data['s_doctor'] = $this->model_users->search_doctors('T');
+		$data['s_clinic'] = $this->model_users->search_clinics($item);
+		
+		print_r($data['s_doctor']);
+		
+	//	$result['s_result'] = array_merge($data['s_doctor'], $data['s_clinic']);
+		
+	/*	if($result['s_result'] != NULL){
+			echo 'fcuk';
+		}else{echo "hear";}
+		*/
+			
 	
+	}
+	
+	public function get_clinic_info($id){
+		$this->load->model('model_users');
+		
+		
+		//$this->model_users->get_clinic_info($id);
+	
+		echo $id;
+		
+	}
 	
 	
 	
