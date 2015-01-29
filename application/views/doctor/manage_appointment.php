@@ -3,30 +3,28 @@
     <h2 id="_default"><i class="icon-accessibility on-left"></i>Appointments</h2>
 	<div class="grid fluid">
     	<div class="row">
-            <div class="span9 offset 3">
-                <table>
+                <table class="table striped hovered">
                     <thead>
                         <tr>
-                             <th> <center> Date </center> </th> 
-                             <th> <center> Time </center> </th> 
-                             <th> <center> Patient Name </center> </th> 
-                             <th> <center> Approve </center> </th> 
-                             <th> <center> Reject </center> </th> 
+                             <th> Date </th> 
+                             <th> Time </th> 
+                             <th> Patient Name </th> 
+                             <th> Approve </th> 
+                             <th> Reject </th> 
                         </tr>
                     </thead>
-                    <tbody class="striped">
+                    <tbody>
                     	<?php foreach($pending as $row): ?>
                                 <tr class="tbtr" style="background-color: white">
-                                    <td><?php echo $row->date ?></td>
-                                    <td><?php echo $row->time ?></td>
-                                    <td><?php echo $row->fname ?></td>
-                                    <td><button id="approve" rowid=<?php echo $row->appointment_id; ?> class='large success'>Approve</td>
-                                    <td><button id="reject" rowid=<?php echo $row->appointment_id; ?> class='large danger'>Reject</td>
+                                    <td><center><?php echo $row->date ?></center></td>
+                                    <td><center><?php echo $row->time ?></center></td>
+                                    <td><center><?php echo $row->fname ?></center></td>
+                                    <td><center><button id="approve" rowid=<?php echo $row->appointment_id; ?> class='large success'>Approve</center></td>
+                                    <td><center><button id="reject" rowid=<?php echo $row->appointment_id; ?> class='large danger'>Reject</center></td>
                                 </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            </div>
         </div>          
     </div>
 <script type="text/javascript">
