@@ -43,7 +43,7 @@ public function add_user(){
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
-			$this->table->set_heading('id', 'Clinic Name', 'Specialization', 'Action');
+			$this->table->set_heading('id', 'Clinic Name', 'Specialization','Room num', 'Action');
 			
 			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/navbar_admin');
@@ -75,6 +75,7 @@ public function add_user(){
 		$data['title'] = 'add clinic';
 		$this->load->library('form_validation');		
 		$this->form_validation->set_rules('clinicname','Clinic Name','required|trim');
+		$this->form_validation->set_rules('room_num','Room num','required|trim');
 		$this->load->model('model_users');
 		$data['specialists'] = $this->model_users->get_Specialists();
 		if($this->form_validation->run()){
@@ -103,7 +104,7 @@ public function add_user(){
 
     public function datatable_clinic(){
 		
-        $this->datatables->select('clinic.clinic_id, clinic.clinic_name, medical_specialist.specialist')
+        $this->datatables->select('clinic.clinic_id, clinic.clinic_name, medical_specialist.specialist,clinic.room_num')
 			->add_column('action', get_buttons('$1'), 'clinic.clinic_id')
             ->from('clinic')
             ->join('medical_specialist', 'medical_specialist.specialist_id = clinic.clinic_category', 'inner');
