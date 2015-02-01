@@ -16,7 +16,8 @@
             locale: $.Metro.currentLocale,
             getDates: function(d){},
             click: function(d, d0){},
-            _storage: []
+            _storage: [],
+			_store:[]
         },
 
         _year: 0,
@@ -48,6 +49,7 @@
             this._mode = this.options.startMode;
 
             element.data("_storage", []);
+			element.data("_store", []);
 
             this._renderCalendar();
         },
@@ -133,8 +135,16 @@
 
                 var d = (new Date(this._year, this._month, i)).format('yyyy-mm-dd');
                 if (this.element.data('_storage').indexOf(d)>=0) {
-                    td.find("a").parent().addClass("app");
+                 //   td.find("a").addClass("selected");
+					td.find("a").addClass("selected");
                 }
+				
+				if (this.element.data('_store').indexOf(d)>=0) {
+                   td.find("a").addClass("selected");
+				td.find("a").parent().addClass("app");
+                }
+				
+				
 
                 td.appendTo(tr);
                 week_day++;
@@ -248,6 +258,8 @@
         _initButtons: function(){
             // Add actions
             var that = this, table = this.element.find('table');
+			
+		
 
             if (this._mode == 'day') {
                 table.find('.btn-select-month').on('click', function(e){
@@ -326,8 +338,11 @@
                         } else {
                             that._removeDate(d);
                         }
+						
+						
                     } else {
                         table.find('.day a').removeClass('selected');
+						//table.find('.day a').parent().removeClass('app');
                         $(this).addClass("selected");
                         that.element.data('_storage', []);
                         that._addDate(d);
@@ -392,9 +407,19 @@
         },
 
         _addDate: function(d){
-            var index = this.element.data('_storage').indexOf(d);
+           var index = this.element.data('_storage').indexOf(d);
             if (index < 0) this.element.data('_storage').push(d);
+			
+
         },
+		 _addD: function(d){
+  
+			
+			 var index2 = this.element.data('_store').indexOf(d);
+            if (index2 < 0) this.element.data('_store').push(d);
+        },
+		
+	
 
         _removeDate: function(d){
             var index = this.element.data('_storage').indexOf(d);
@@ -405,9 +430,10 @@
             var r;
             d = new Date(d);
             r = (new Date(d.getFullYear()+"/"+ (d.getMonth()+1)+"/"+ d.getDate())).format('yyyy-mm-dd');
-            this._addDate(r);
+            this._addD(r);
             this._renderCalendar();
         },
+
 
         getDate: function(index){
             return new Date(index != undefined ? this.element.data('_storage')[index] : this.element.data('_storage')[0]).format(this.options.format);

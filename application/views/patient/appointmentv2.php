@@ -181,10 +181,11 @@ $(document).ready(function(){
                             }
         } // fired when user clicked on day, in "d" stored date
     });
+		
 
 	<?php foreach($appointments as $apps) :	?>
 
-	  	cal.calendar('setDate', '<?php echo $apps->date; ?>');
+	  cal.calendar('setDate', '<?php echo $apps->date?> ');
 	 <?php  endforeach; ?>
 	 cal.calendar('unsetDate', today);
     $(document).on('click','#makeAppointment', function(){ 
