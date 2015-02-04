@@ -225,13 +225,59 @@ class Model_users extends CI_Model{
 			$data = array( 'status' => 2);
 		else //rejected
 			$data = array('status' => 3);
-		$this->db->where('appointment_id', $id);
+		$this->db->where('id', $id);
 		$query = $this->db->update('appointments', $data);
 		if($query)
 			return true;
 		else
 			return false;
 
+	}
+	public function countAppointments($flag){
+		$this->db->where('patient_id', $this->session->userdata('id'));
+		if($flag == 1){
+			$this->db->where('status', 1);	
+		} // Pending
+		if($flag == 2){
+			$this->db->where('status', 2);	
+		} // Pending
+		if($flag == 3){
+			$this->db->where('status', 3);	
+		} // Pending
+		$query = $this->db->get('appointments');
+		return $query->num_rows();
+	}
+
+	public function countDoctorAppointments($flag){
+		$this->db->where('doctor_id', $this->session->userdata('id'));
+		if($flag == 1){
+			$this->db->where('status', 1);	
+		} // Pending
+		if($flag == 2){
+			$this->db->where('status', 2);	
+		} // Pending
+		if($flag == 3){
+			$this->db->where('status', 3);	
+		} // Pending
+		$query = $this->db->get('appointments');
+		return $query->num_rows();
+	}
+
+	public function fetchAnnouncements(){
+		$this->db->from('announcement');
+		$this->db->join('clinic', 'clinic_id = announcement.fk_clinic_id');
+		$this->db->order_by('announcement_datetime_made', 'DESC');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function fetchAppointments(){
+		$this->db->where('patient_id', $this->session->userdata('id'));
+		$this->db->from('appointments');
+		$this->db->join('users', 'appointments.doctor_id = users.id');
+		$this->db->order_by('date', 'DESC');
+		$query = $this->db->get();
+		return $query->result();
 	}
 	public function patient_addAppointment($arr){
 		$data = array(

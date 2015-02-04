@@ -7,7 +7,7 @@
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">
                     <li>
-                        <li><a href="<?php echo base_url()."home"?>">Home </a></li>
+                        <li><a href="<?php echo base_url()."home_doctor"?>">Home </a></li>
                     </li>
                     <li>
                         <a class="dropdown-toggle"  href="#">Appointments </a>
