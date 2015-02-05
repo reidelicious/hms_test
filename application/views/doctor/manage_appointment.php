@@ -19,8 +19,8 @@
                                     <td><center><?php echo $row->date ?></center></td>
                                     <td><center><?php echo $row->time ?></center></td>
                                     <td><center><?php echo $row->fname ?></center></td>
-                                    <td><center><button id="approve" rowid=<?php echo $row->appointment_id; ?> class='large success'>Approve</center></td>
-                                    <td><center><button id="reject" rowid=<?php echo $row->appointment_id; ?> class='large danger'>Reject</center></td>
+                                    <td><center><button id="approve" rowid=<?php echo $row->id; ?> class='large success'>Approve</center></td>
+                                    <td><center><button id="reject" rowid=<?php echo $row->id; ?> class='large danger'>Reject</center></td>
                                 </tr>
                         <?php endforeach; ?>
                     </tbody>

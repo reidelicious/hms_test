@@ -6,9 +6,16 @@ class Patient extends CI_Controller {
 	public function home(){
 		$data['title'] = 'Hospital Management System';
 		if($this->session->userdata('is_logged_in')){
+			$this->load->model('model_users');
+			$data['countTotApp'] = $this->model_users->countAppointments(0);
+			$data['countPenApp'] = $this->model_users->countAppointments(1);
+			$data['countOKApp'] = $this->model_users->countAppointments(2);
+			$data['countRejApp'] = $this->model_users->countAppointments(3);
+			$data['announcements'] = $this->model_users->fetchAnnouncements();
+			$data['upcomings'] = $this->model_users->fetchAppointments();
 			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('templates/header/header_patient');
-			$this->load->view('patient/home');
+			$this->load->view('patient/home', $data);
 		}else{
 			redirect('main/restricted');
 		}	
