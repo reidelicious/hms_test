@@ -4,15 +4,9 @@ class Doctor extends CI_Controller {
 	public function home_doctor(){
 		$data['title'] = 'Hospital Management System';
 		if($this->session->userdata('is_logged_in')){
-			$this->load->model('model_users');
-			$data['countTotApp'] = $this->model_users->countDoctorAppointments(0);
-			$data['countPenApp'] = $this->model_users->countDoctorAppointments(1);
-			$data['countOKApp'] = $this->model_users->countDoctorAppointments(2);
-			$data['countRejApp'] = $this->model_users->countDoctorAppointments(3);
-			$data['announcements'] = $this->model_users->fetchAnnouncements();
 			$this->load->view('templates/header/header_all', $data);
 			$this->load->view('templates/header/header_doctor');
-			$this->load->view('doctor/home_doctor', $data);
+			$this->load->view('doctor/home_doctor');
 		}else{
 			redirect('main/restricted');
 		}	

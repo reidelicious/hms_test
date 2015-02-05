@@ -39,7 +39,10 @@
                             
                             </div>
                              <?php echo $docs;?>
-					               </div>
+                
+                 
+                    
+					</div>
                
                 </div> 
             </div>                   
@@ -74,12 +77,12 @@ $(document).on('click','.clinic_list', function(){
 	  var date = "Last Sync: "+ currentdate.getFullYear() + " / " 
                 + (currentdate.getMonth()+1)  + "/"
 				+ currentdate.getDate() + "@" ;
-		var app = 				'<label>Date</label>' +
+		var app = 				'<label>id</label>' +
 											'<div class="input-control text" id="datepicker" data-role="datepicker" data-date="'+date+'"  data-format="dddd, mmmm d, yyyy" data-effect="fade">'+
                                    ' <input type="text" placeholder="please enter date" >'+
                                    ' <button class="btn-date"></button>'+
                               '  </div> '+
-											'<label>Time</label>' +
+											'<label>email</label>' +
 											'<div class="input-control text"><input type="time"  value= "" name="time" required>'+
 											'</div> ' ;
 		
