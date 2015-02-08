@@ -1,4 +1,4 @@
-<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>    
+  
     <div class = "container">
     <h2 id="_default"><i class="icon-accessibility on-left"></i>Appointments</h2>
     <div id="makeAppointment" class="ui primary button">Make Appointment</div>
@@ -9,7 +9,8 @@
                  <div id="calendar-output"></div>
             </div>
             <div class="span9">
-            	<div id="timeline" class="streamer" data-role="streamer" data-scroll-bar="true" data-slide-to-group="3" data-slide-speed="500">
+            	<div id="timeline">
+                 
                 </div>
                 <div id="noapp" class="header readable-text text-warning" style="display:none;">No Appointments Available on this Date</div>
             </div>
@@ -75,10 +76,41 @@
 
 
 
-
 <script type="text/javascript">
 $(document).ready(function(){
     var day = '';
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	
+	if(dd<10) {
+		dd='0'+dd
+	} 
+	
+	if(mm<10) {
+		mm='0'+mm
+	} 
+	
+	today = yyyy+'-'+mm+'-'+dd;
+	 $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>patient/build_timeline_appointment",
+                    data: {d:today},
+                    success: function(data){
+                        if(data != "No Appointment"){
+                            $('#noapp').hide();
+                            $("#timeline").html(data);
+							$('.streamer').streamer();
+                        }
+                        else{
+							$("#timeline").html('');
+                            $('#noapp').show();
+						}
+
+					}
+	 });
+	
     $('#component_id').calendar({
         format: 'yyyy-mm-dd',
         multiSelect: false, //default true (multi select date)
@@ -90,7 +122,7 @@ $(document).ready(function(){
         click: function(d){
                 var out = $("#calendar-output").html("");
                 day = d;
-                $('#timeline').empty();
+                
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>patient/build_timeline_appointment",
@@ -98,16 +130,21 @@ $(document).ready(function(){
                     success: function(data){
                         if(data != "No Appointment"){
                             $('#noapp').hide();
-                            $('#timeline').empty();
-                            $("#timeline").append(data);
+                            $("#timeline").html(data);
+							$('.streamer').streamer();
                         }
-                        else
+                        else{
+							$("#timeline").html('');
                             $('#noapp').show();
+						}
 
                     }
-                });
+                })
         } // fired when user clicked on day, in "d" stored date
     });
+	
+	
+	//cal.calendar('setDate', '2013-7-21');
     $('#component_id2').calendar({
         format: 'yyyy-mm-dd',
         multiSelect: false, //default true (multi select date)
@@ -169,6 +206,7 @@ $(document).ready(function(){
               }
           })
     });
+	
     $('#clinic').change(function(){
         $.ajax({
               url:"<?php echo base_url(); ?>patient/build_drop_doctor_fromClinic",    
@@ -179,6 +217,7 @@ $(document).ready(function(){
               }
           });
     });
+	
     $('#doctor').change(function(){
         $('#availsched').show();
         $("#ndoctor").html("Available Time of " + $('#doctor option:selected').text());
@@ -202,6 +241,7 @@ $(document).ready(function(){
           }
         });
     });
+	
     $("#savedata").click(function(){
         
        if($('#gimme').val() != ''){
@@ -218,8 +258,7 @@ $(document).ready(function(){
                               caption: 'STILL NOT OPEN AT THAT TIME',
                               timeout: 10000 // 10 seconds
                           });
-                  }
-                  else{ //if time_input > time_start then start check time_end
+                  }else{ //if time_input > time_start then start check time_end
                     $.ajax({
                       url:"<?php echo base_url(); ?>patient/build_time_end",    
                       data: {doctor:$('#doctor').val(), day:day},
@@ -232,8 +271,7 @@ $(document).ready(function(){
                                       caption: 'DOCTOR IS ALREADY OUT AT THAT TIME',
                                       timeout: 10000 // 10 seconds
                                   });
-                          }
-                          else{ // if time input < time_end and time_input != data
+                          }else{ // if time input < time_end and time_input != data
                               var arr = [];
                               arr.push(day);
                               arr.push(time_input);
@@ -255,8 +293,7 @@ $(document).ready(function(){
                                       //location.reload(10000);
                               });
                           }
-                        }
-                         else{
+                        }else{ //else no yet available
                               $('#gimme').hide();
                               $('#notice').hide();
                               $('#footer').hide();

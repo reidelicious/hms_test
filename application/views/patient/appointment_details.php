@@ -1,3 +1,5 @@
+  
+<div class="streamer" data-role="streamer" data-scroll-bar="true" data-slide-to-group="3" data-slide-speed="500">
 <div class="streams">
     <div class="streams-title">
         <div class="toolbar">
@@ -39,4 +41,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
