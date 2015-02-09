@@ -6,12 +6,12 @@
         options: {
             scrollBar: false,
             meter: {
-                start: 9,
+                start: 8,
                 stop: 19,
-                interval: 20
+                interval: 30
             },
             slideToGroup: 1,
-            slideToTime: "10:20",
+            //slideToTime: "10:20",
             slideSleep: 1000,
             slideSpeed: 1000,
             onClick: function(event){},

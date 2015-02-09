@@ -1,4 +1,4 @@
-<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>    
+  
     <div class = "container">
     <h2 id="_default"><i class="icon-accessibility on-left"></i>Appointments</h2>
     <div id="makeAppointment" class="ui primary button">Make Appointment</div>
@@ -9,7 +9,7 @@
                  <div id="calendar-output"></div>
             </div>
             <div class="span9">
-            	<div id="timeline" class="streamer" data-role="streamer" data-scroll-bar="true" data-slide-to-group="3" data-slide-speed="500">
+            	<div id="timeline">
                 </div>
                 <div id="noapp" class="header readable-text text-warning" style="display:none;">No Appointments Available on this Date</div>
             </div>
@@ -79,6 +79,38 @@
 <script type="text/javascript">
 $(document).ready(function(){
     var day = '';
+	
+		var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	
+	if(dd<10) {
+		dd='0'+dd
+	} 
+	
+	if(mm<10) {
+		mm='0'+mm
+	} 
+	
+	today = yyyy+'-'+mm+'-'+dd;
+	 $.ajax({
+		           type: "POST",
+                    url: "<?php echo base_url(); ?>patient/build_timeline_appointment",
+                    data: {d:today},
+                    success: function(data){
+                        if(data != "No Appointment"){
+                            $('#noapp').hide();
+                            $("#timeline").html(data);
+							$('.streamer').streamer();
+                        }
+                        else{
+							$("#timeline").html('');
+                            $('#noapp').show();
+						}
+
+					}
+	 });
     $('#component_id').calendar({
         format: 'yyyy-mm-dd',
         multiSelect: false, //default true (multi select date)
@@ -90,7 +122,7 @@ $(document).ready(function(){
         click: function(d){
                 var out = $("#calendar-output").html("");
                 day = d;
-                $('#timeline').empty();
+                
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>patient/build_timeline_appointment",
@@ -98,11 +130,14 @@ $(document).ready(function(){
                     success: function(data){
                         if(data != "No Appointment"){
                             $('#noapp').hide();
-                            $('#timeline').empty();
-                            $("#timeline").append(data);
+							 $("#timeline").html(data);
+							$('.streamer').streamer();
+                      
                         }
-                        else
+                        else{
                             $('#noapp').show();
+							$("#timeline").html('');
+						}
 
                     }
                 });
