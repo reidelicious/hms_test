@@ -293,7 +293,6 @@ public function add_user(){
 	}// end of adduservalidation
 	
 	public function makeAnnouncement(){
-		$data['success'] ='';
 		$data['title'] = 'make Announcement';
 		$this->load->view('templates/header/header_all',$data);	
 		$this->load->view('templates/header/navbar_admin');

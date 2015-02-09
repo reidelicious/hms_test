@@ -23,7 +23,26 @@
                             <li><a href="<?php echo base_url()."add_clinic"?>">Add Clinic</a></li>
                             <li><a href="<?php echo base_url()."admin/view_clinic"?>">View Clinic</a></li>   
                         </ul>
-                    </li>                                     
+                    </li>                   
+                    <li>
+                    	<li><a class="element brand" href="#"><span class="icon-spin"></span></a></li>
+                    </li>
+                    <li>
+                    	<li><a class="element brand" href="#"><span class="icon-printer"></span></a></li>
+                    </li>
+                    <li>
+                        <div class="element input-element">
+                            <form>
+                                <div class="input-control text">
+                                    <input type="text" placeholder="Search...">
+                                    <button class="btn-search"></button>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    
+                    
+                    
                 </ul>
                  <ul class="element-menu place-right">
                  	<li>
