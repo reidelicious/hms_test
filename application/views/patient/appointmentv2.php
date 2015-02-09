@@ -49,10 +49,7 @@
                                             <div id="availsched" class="span3" style="display:none;">
                                                 <div id="ndoctor" class="readable-text subheader"></div>
                                                 <div id="sched" class="readable-text subheader text-warning"></div><br/>
-                                                <center><input id="gimme" class="input-control" type="time" style="display:none;"></center><br/>
-                                                <div id="notice" style="display:none;" class="notice marker-on-top">
-                                                  Please input time before 15 minutes of end time.
-                                                </div>
+                                                <input id="gimme" class="input-control" type="time" style="display:none;">
                                             </div>
                                         </div>
                                     </div>
@@ -123,32 +120,20 @@ $(document).ready(function(){
                 
                 $('#begin').show();
                 if($('#doctor').val() != ''){
-                     
-                              $.ajax({
-                                url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
-                                data: {doctor:$(this).val(), day:day},
-                                type: "POST",
-                                success: function(data){
-                                  $("#sched").html("");
-                                  $("#sched").html(data);
-                                  if(data == "Not Yet Available!"){
-                                      $('#gimme').hide();
-                                      $('#notice').hide();
-                                      $('#footer').hide();
-                                  }
-                                  else{
-                                      $('#gimme').show();
-                                      $('#notice').show();
-                                      $('#footer').show();
-                                  }
-                                }
-                              });
-                            }
+                    $.ajax({
+                          url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
+                          data: {doctor:$('#doctor').val(), day:day},
+                          type: "POST",
+                          success: function(data){
+                            $('#sched').html("");
+                            $("#sched").html(data);
+                          }
+                      });
+                }
         } // fired when user clicked on day, in "d" stored date
     });
     $(document).on('click','#makeAppointment', function(){ 
         $('#myMod').modal('show');
-        $('#myMod').data('modal', null);
     }); 
     $('#category').change(function(){
         
@@ -183,96 +168,92 @@ $(document).ready(function(){
         $('#availsched').show();
         $("#ndoctor").html("Available Time of " + $('#doctor option:selected').text());
         $.ajax({
-          url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
-          data: {doctor:$(this).val(), day:day},
-          type: "POST",
-          success: function(data){
-            $("#sched").html("");
-            $("#sched").html(data);
-            if(data == "Not Yet Available!"){
-                $('#gimme').hide();
-                $('#notice').hide();
-                $('#footer').hide();
-            }
-            else{
-                $('#gimme').show();
-                $('#notice').show();
-                $('#footer').show();
-            }
-          }
-        });
+              url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
+              data: {doctor:$(this).val(), day:day},
+              type: "POST",
+              success: function(data){
+                $("#sched").html("");
+                $("#sched").html(data);
+                if(data == "Not Yet Available!"){
+                    $('#gimme').hide();
+                    $('#footer').hide();
+                }
+                else{
+                    $('#gimme').show();
+                    $('#footer').show();
+                }
+              }
+          })
     });
-    $("#savedata").click(function(){
-        
-       if($('#gimme').val() != ''){
+    $(document).on('click', '#savedata', function(){
+        if($('#gimme').val() != ''){
             var time_input = document.getElementById("gimme").value + ":00";
             $.ajax({
-              url: "<?php echo base_url(); ?>patient/build_time_start",
+              url:"<?php echo base_url(); ?>patient/build_time_start",    
               data: {doctor:$('#doctor').val(), day:day},
               type: "POST",
-              success:function(data){
+              success: function(data){
                 if(data != "Not Yet Available!"){
-                  if(time_input < data){
-                      var not = $.Notify({
-                              style: {background: 'red', color: 'white'}, 
-                              caption: 'STILL NOT OPEN AT THAT TIME',
-                              timeout: 10000 // 10 seconds
-                          });
-                  }
-                  else{ //if time_input > time_start then start check time_end
-                    $.ajax({
-                      url:"<?php echo base_url(); ?>patient/build_time_end",    
-                      data: {doctor:$('#doctor').val(), day:day},
-                      type: "POST",
-                      success: function(data){
-                        if(data != "Not Yet Available!"){
-                          if(time_input > data || time_input == data){
-                              var not = $.Notify({
-                                      style: {background: 'red', color: 'white'}, 
-                                      caption: 'DOCTOR IS ALREADY OUT AT THAT TIME',
-                                      timeout: 10000 // 10 seconds
-                                  });
-                          }
-                          else{ // if time input < time_end and time_input != data
-                              var arr = [];
-                              arr.push(day);
-                              arr.push(time_input);
-                              arr.push($('#doctor').val());
-                              $.ajax({
-                                url:"<?php echo base_url(); ?>patient/saveAppointmentToDB",    
-                                data: {arr:arr},
-                                type: "POST",
-                              }).done(function(){    
-                                  var not = $.Notify({
-                                          style: {background: 'green', color: 'white'}, 
-                                          caption: 'SUCCESSFULLY SAVED!',
-                                          content: "Please wait for the secretary to approve your request",
-                                          timeout: 10000 // 10 seconds
+                    if(time_input < data){
+                        var not = $.Notify({
+                                style: {background: 'red', color: 'white'}, 
+                                caption: 'STILL NOT OPEN AT THAT TIME',
+                                content: "Please Input Time after " + data,
+                                timeout: 10000 // 10 seconds
+                            });
+                    }
+                    else{ //if time_input > time_start then start check time_end
+                         $.ajax({
+                              url:"<?php echo base_url(); ?>patient/build_time_end",    
+                              data: {doctor:$('#doctor').val(), day:day},
+                              type: "POST",
+                              success: function(data){
+                                if(data != "Not Yet Available!"){
+                                    if(time_input > data || time_input == data){
+                                        var not = $.Notify({
+                                                style: {background: 'red', color: 'white'}, 
+                                                caption: 'DOCTOR IS ALREADY OUT AT THAT TIME',
+                                                content: "Please Input Time before " + data,
+                                                timeout: 10000 // 10 seconds
+                                            });
+                                    }
+                                    else{ // if time input > time_end and time_input != data
+                                        var arr = [];
+                                        arr.push(day);
+                                        arr.push(time_input);
+                                        arr.push($('#doctor').val());
+                                        $.ajax({
+                                          url:"<?php echo base_url(); ?>patient/saveAppointmentToDB",    
+                                          data: {arr:arr},
+                                          type: "POST"
+                                        }).done(function(){    
+                                            var not = $.Notify({
+                                                    style: {background: 'green', color: 'white'}, 
+                                                    caption: 'SUCCESSFULLY SAVED!',
+                                                    content: "Please wait for the secretary to approve your request",
+                                                    timeout: 10000 // 10 seconds
 
-                                      });
-                                      $('#myMod').modal('hide');
-
-                                      //location.reload(10000);
-                              });
-                          }
-                        }
-                         else{
-                              $('#gimme').hide();
-                              $('#notice').hide();
-                              $('#footer').hide();
-                          }
-                      }
-                    });
-                  }
+                                                });
+                                                $('#myMod').modal('hide');
+                                                //location.reload(10000);
+                                            $
+                                        });
+                                    }
+                                }
+                                else{
+                                    $('#gimme').hide();
+                                    $('#footer').hide();
+                                }
+                              }
+                            });
+                    }
                 }
                 else{
                     $('#gimme').hide();
-                    $('#notice').hide();
                     $('#footer').hide();
                 }
               }
             });
-                
         }
         else{
             var not = $.Notify({
@@ -282,8 +263,7 @@ $(document).ready(function(){
                         timeout: 10000 // 10 seconds
                     });
         }
-    });
-    
+    })
 })
 </script>
 
