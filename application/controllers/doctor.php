@@ -3,6 +3,12 @@
 class Doctor extends CI_Controller {
 	public function home_doctor(){
 		$data['title'] = 'Hospital Management System';
+		$this->load->model('model_users');
+		$data['countTotApp'] = $this->model_users->countDoctorAppointments(0);
+		$data['countPenApp'] = $this->model_users->countDoctorAppointments(1);
+		$data['countOKApp'] = $this->model_users->countDoctorAppointments(2);
+		$data['countRejApp'] = $this->model_users->countDoctorAppointments(3);
+		$data['announcements'] = $this->model_users->fetchAnnouncements();
 		if($this->session->userdata('is_logged_in')){
 			$this->load->view('templates/header/header_all', $data);
 			$this->load->view('templates/header/header_doctor');
@@ -14,9 +20,13 @@ class Doctor extends CI_Controller {
 	public function makeAnnouncement(){
 		$data['success'] = '';
 		$data['title'] = 'Make Announcement';
-		$this->load->view('templates/header/header_all',$data);	
-		$this->load->view('templates/header/header_doctor');
-		$this->load->view('makeAnnouncement', $data);	
+		if($this->session->userdata('is_logged_in')){
+			if($this->session->userdata('usertype') == "DOCTOR"){
+				$this->load->view('templates/header/header_all',$data);	
+				$this->load->view('templates/header/header_doctor');
+				$this->load->view('makeAnnouncement', $data);	
+			}
+		}
 	}
 	public function manage_schedules(){
 		$data['success'] = '';
@@ -68,8 +78,11 @@ class Doctor extends CI_Controller {
 		$this->load->model('model_users');
 		$data['title'] = 'Manage Appointment';
 		$data['notif'] = '';
-		$data['pending'] = $this->model_users->getPendingAppointments();
 		if($this->session->userdata('is_logged_in')){
+			if(!$this->input->get('show'))
+				$data['pending'] = $this->model_users->getPendingActiveAppointments();
+			else if($this->input->get('show') == '1')
+				$data['pending'] = $this->model_users->getPendingInActiveAppointments();
 			$this->load->view('templates/header/header_all', $data);
 			$this->load->view('templates/header/header_doctor');
 			$this->load->view('doctor/manage_appointment', $data);

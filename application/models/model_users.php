@@ -174,7 +174,18 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
-	public function getPendingAppointments(){
+	public function getPendingActiveAppointments(){
+		$this->db->where('date >=', 'CURDATE()', FALSE);
+		$this->db->where('doctor_id', $this->session->userdata('id'));
+		$this->db->where('status', 1);
+		$this->db->from('appointments');
+		$this->db->order_by('date');
+		$this->db->join('users', 'appointments.patient_id = users.id', 'inner');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function getPendingInActiveAppointments(){
+		$this->db->where('date <', 'CURDATE()', FALSE);
 		$this->db->where('doctor_id', $this->session->userdata('id'));
 		$this->db->where('status', 1);
 		$this->db->from('appointments');
