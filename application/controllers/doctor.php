@@ -123,7 +123,10 @@ class Doctor extends CI_Controller {
 										</script>";
 		}
 		$data['title'] = 'Manage Appointment';
-		$data['pending'] = $this->model_users->getPendingAppointments();
+		if(!$this->input->get('show'))
+			$data['pending'] = $this->model_users->getPendingActiveAppointments();
+		else if($this->input->get('show') == '1')
+			$data['pending'] = $this->model_users->getPendingInActiveAppointments();
 		if($this->session->userdata('is_logged_in')){
 			$this->load->view('templates/header/header_all', $data);
 			$this->load->view('templates/header/header_doctor');
