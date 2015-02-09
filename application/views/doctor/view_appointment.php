@@ -1,10 +1,6 @@
 <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>    
     <div class = "container">
     <h2 id="_default"><i class="icon-accessibility on-left"></i>Appointments</h2>
-    <form action="<?php echo base_url('doctor/generateToDoc'); ?>" method="POST">
-        <input type="hidden" name="deyt" id="d">
-        <button type="submit" id="gen" class="primary" style="display:none;">Generate into .docx</button>
-    </form>
 	<div class="grid fluid">
     	<div class="row">
         	<div class="span3">
@@ -17,7 +13,8 @@
                 <div id="noapp" class="header readable-text text-warning" style="display:none;">No Appointments Available on this Date</div>
             </div>
         </div>
-      </div>   
+      </div>          
+
 
 
 
@@ -38,7 +35,6 @@ $(document).ready(function(){
         click: function(d){
                 var out = $("#calendar-output").html("");
                 day = d;
-                $('#d').val(day);
                 $('#timeline').empty();
                 $.ajax({
                     type: "POST",
@@ -47,18 +43,15 @@ $(document).ready(function(){
                     success: function(data){
                         if(data != "No Appointment"){
                             $('#noapp').hide();
-                            $('#gen').show();
                             $('#timeline').empty();
                             $("#timeline").append(data);
                         }
-                        else{
-                            $('#gen').hide();
+                        else
                             $('#noapp').show();
-                        }
+
                     }
                 });
         } // fired when user clicked on day, in "d" stored date
     });
-
 })
 </script>

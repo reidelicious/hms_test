@@ -67,7 +67,6 @@ class Doctor extends CI_Controller {
 	public function manage_appointment(){
 		$this->load->model('model_users');
 		$data['title'] = 'Manage Appointment';
-		$data['notif'] = '';
 		$data['pending'] = $this->model_users->getPendingAppointments();
 		if($this->session->userdata('is_logged_in')){
 			$this->load->view('templates/header/header_all', $data);
@@ -78,46 +77,17 @@ class Doctor extends CI_Controller {
 		}	
 	}
 
-	public function changeStat_appointmentToApprove(){
+	public function changeStat_appointment(){
 		$id = $_POST['id'];
+		$flag = $_POST['flag'];
 		$this->load->model('model_users');
-		if($this->model_users->approveStatus_appointment($id)){
+		if($this->model_users->updateStatus_appointment($id, $flag)){
 			echo "Success";
 		}
 		else{
-			echo "Failed";
+			echo "Fail";
 		}
 	}
-
-	public function changeStat_appointmentToReject(){
-		$this->load->model('model_users');
-		if($this->model_users->rejectStatus_appointment()){
-			$data['notif'] = "<script>var not = $.Notify({
-										style: {background: 'green', color: 'white'},
-										caption: 'Success Rejecting Appointment',
-										content: 'The message already been sent',
-										timeout: 10000 // 10 seconds
-											});					
-										</script>";
-		}
-		else{
-			$data['notif'] = "<script>var not = $.Notify({
-										style: {background: 'red', color: 'white'},
-										caption: 'Error Rejecting Appointment',
-										content: '',
-										timeout: 10000 // 10 seconds
-											});					
-										</script>";
-		}
-		$data['title'] = 'Manage Appointment';
-		$data['pending'] = $this->model_users->getPendingAppointments();
-		if($this->session->userdata('is_logged_in')){
-			$this->load->view('templates/header/header_all', $data);
-			$this->load->view('templates/header/header_doctor');
-			$this->load->view('doctor/manage_appointment', $data);
-		}
-	}
-
 	public function view_appointment(){
 		$data['title'] = 'View Timeline';
 		if($this->session->userdata('is_logged_in')){
@@ -137,72 +107,6 @@ class Doctor extends CI_Controller {
 		}
 		else{
 			echo "No Appointment";
-		}
-	}
-
-	public function generateToDoc(){
-		$this->load->model('model_users');
-
-		$data['app'] = $this->model_users->fetchAppointmentsToGenerate($this->input->post('deyt'));
-		$this->load->library('word');
-		//our docx will have 'portrait' paper orientation
-		$section = $this->word->createSection(array('orientation'=>'portrait'));
-		
-		// Add text elements		
-		$this->word->addFontStyle('rStyle', array('bold'=>true, 'italic'=>true, 'size'=>16));
-		$this->word->addParagraphStyle('pStyle', array('align'=>'center', 'spaceAfter'=>100));
-		$section->addText("Appointments for ". $this->input->post('deyt'), 'rStyle', 'pStyle');
-
-		// Define table style arrays
-		$styleTable = array('borderSize'=>6, 'borderColor'=>'006699', 'cellMargin'=>80);
-		$styleFirstRow = array('borderBottomSize'=>18, 'borderBottomColor'=>'0000FF', 'bgColor'=>'66BBFF');
-				
-		// Define cell style arrays
-		$styleCell = array('valign'=>'center');
-		$styleCellBTLR = array('valign'=>'center', 'textDirection'=>PHPWord_Style_Cell::TEXT_DIR_BTLR);
-				
-		// Define font style for first row
-		$fontStyle = array('bold'=>true, 'align'=>'center');
-				
-		// Add table style
-		$this->word->addTableStyle('myOwnTableStyle', $styleTable, $styleFirstRow);
-				
-		// Add table
-		$table = $section->addTable('myOwnTableStyle');
-				
-		// Add row
-		$table->addRow(900);
-				
-		// Add cells
-		$table->addCell(2000, $styleCell)->addText('Time', $fontStyle);
-		$table->addCell(2000, $styleCell)->addText('Name', $fontStyle);
-		$table->addCell(2000, $styleCell)->addText('Gender', $fontStyle);
-		$table->addCell(2000, $styleCell)->addText('Email', $fontStyle);
-		$table->addCell(5000, $styleCell)->addText('Remarks', $fontStyle);
-				
-		// Add more rows / cells
-		if(is_array($data['app'])){
-			foreach($data['app'] as $rows):
-				$table->addRow();
-				$table->addCell(2000)->addText($rows->time);
-				$table->addCell(2000)->addText(ucfirst($rows->lname) ." ". ucfirst($rows->fname));
-				$table->addCell(2000)->addText($rows->p_gender);
-				$table->addCell(2000)->addText($rows->email);
-				$table->addCell(5000)->addText('');
-			endforeach;
-			$filename=$this->input->post('deyt').".docx"; //save our document as this file name
-			header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document'); //mime type
-			header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
-			header('Cache-Control: max-age=0'); //no cache
-			 
-			$objWriter = PHPWord_IOFactory::createWriter($this->word, 'Word2007');
-			$objWriter->save('php://output');
-		}
-		else{
-			$data['title'] = 'View Timeline';
-			$this->load->view('templates/header/header_all', $data);
-			$this->load->view('templates/header/header_doctor');
-			$this->load->view('doctor/view_appointment');
 		}
 	}
 }

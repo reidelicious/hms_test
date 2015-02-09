@@ -309,9 +309,6 @@ class Main extends CI_Controller {
 				$this->load->view('templates/header/navbar_admin');
 				$this->load->view('settings',$data);
 				$this->load->view('templates/footer/footer_admin');	
-			}else if($this->session->userdata('usertype') == "DOCTOR"){
-				$this->load->view('templates/header/header_doctor');
-				$this->load->view('settings',$data);
 			}
 		}else{
 			$this->load->view('templates/header/header_all',$data);
@@ -471,12 +468,6 @@ public function do_upload()
 			
 			$this->makeAnnouncement();
 		}
-	}
-	public function announcement_details(){
-		$id = $_POST['id'];
-		$this->load->model('model_users');
-		$data['details'] = $this->model_users->fetchAnnouncementsByID($id);
-		echo $data['details'][0]->announcement_details;
 	}
 
 	public function ret_success_notif(){	

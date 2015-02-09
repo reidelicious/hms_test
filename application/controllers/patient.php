@@ -12,7 +12,7 @@ class Patient extends CI_Controller {
 			$data['countOKApp'] = $this->model_users->countAppointments(2);
 			$data['countRejApp'] = $this->model_users->countAppointments(3);
 			$data['announcements'] = $this->model_users->fetchAnnouncements();
-			$data['update'] = $this->model_users->fetchAppointments();
+			$data['upcomings'] = $this->model_users->fetchAppointments();
 			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('templates/header/header_patient');
 			$this->load->view('patient/home', $data);
@@ -100,7 +100,7 @@ class Patient extends CI_Controller {
 					$data['docs'] .= '<div class="frame" id="_page_'.$cd->id.'">
 							<div class="thumb" style="margin: 0 auto;"><img  class="scale" src = "'.base_url().$cd->avatar.'" ></div>
 										<dl class="horizontal" style="margin: 0 auto;">
-											<dt>Name:</dt>
+											<dt>name:</dt>
 												<dd>'.$cd->fname.' '.$cd->lname.'</dd>
 											<dt>Specialization:</dt>
 												<dd>'.$cd->specialist.'</dd>
@@ -109,9 +109,9 @@ class Patient extends CI_Controller {
 											<dt>Room num:</dt>
 												<dd>N/A</dd>
 											<dt></dt>
-												
+												<dd><button class="default makeAppointment">lalala</button></dd>
 										</dl>		
-										<form action="<?php echo base_url(patient/makeAppointmentFromExplore); ?>" method="POST"  class="appointmentForm" hidden="hidden">
+										<form action="#" method="POST"  class="appointmentForm" hidden="hidden">
 										
 										
 										</form>
@@ -178,7 +178,7 @@ class Patient extends CI_Controller {
 		$config['last_link'] = '&gt;&gt;';
 
 		$array = $this->uri->uri_to_assoc(4);
-		$data['notif'] = '';
+		
 		
 		$this->pagination->initialize($config);
 		
@@ -296,18 +296,7 @@ class Patient extends CI_Controller {
 		}
 		
 	}
-	public function checkdoctime(){
-		$id = $_POST['doctor'];
-		$d = $_POST['day'];
-		$this->load->model('model_users');
-		$row = $this->model_users->checkDuplicateAppointments($id, $d);
-		if($row == 1){
-			echo "OK";
-		}
-		else{
-			echo "You already made an appointment on this date to this doctor.";
-		}
-	}
+
 	public function build_time_start(){
 		$id = $_POST['doctor'];
 		$d = $_POST['day'];
@@ -337,85 +326,13 @@ class Patient extends CI_Controller {
 			echo "Not Yet Available!";
 		}
 	}
-	public function makeAppointmentFromExplore(){
-		$data['title'] = 'Explore Doctors or Clinic';
-		$this->load->model('model_users');
-		if($this->model_users->explore_addAppointment()){
-			$data['notif'] = "<script>var not = $.Notify({
-										style: {background: 'green', color: 'white'},
-										caption: 'SUCCESSFFULLY SAVED',
-										content: 'Please wait for the secretary to approve your request',
-										timeout: 10000 // 10 seconds
-											});					
-										</script>";
-		}
-		else{
-			$data['notif'] = "<script>var not = $.Notify({
-										style: {background: 'red', color: 'white'},
-										caption: 'ERROR',
-										content: 'Sorry for the inconvenience',
-										timeout: 10000 // 10 seconds
-											});					
-										</script>";	
-		}
-		$config = array();
-		$config['base_url'] = base_url('patient/doctors/page/');
-		$config["total_rows"] = $this->model_users->doctor_count();
-        $config['per_page'] = 1;
-        $config["uri_segment"] = '4';
-		$config['use_page_numbers'] = TRUE;				
-		$config['full_tag_open'] = '<ul>';
-		$config['full_tag_close'] = '</ul>';
-		$config['prev_link'] = '&lt;';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		$config['next_link'] = '&gt;'; 
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = ' </li>';
-		$config['cur_tag_open'] = '<li class="active"><a href="#">';
-		$config['cur_tag_close'] = '</a></li>';
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['first_tag_open'] = '<li>';
-		$config['first_tag_close'] = '</li>';
-		$config['last_tag_open'] = '<li>';
-		$config['last_tag_close'] = '</li>';
-		$config['first_link'] = '&lt;&lt;';
-		$config['last_link'] = '&gt;&gt;';
-
-		$array = $this->uri->uri_to_assoc(4);
-		
-		
-		$this->pagination->initialize($config);
-		
-		if($this->uri->segment(3) == "page" ||$this->uri->segment(3) === FALSE){
-			if($this->uri->segment(4)){		
-				$page = ( $this->uri->segment(4)* $config['per_page'])-1;
-			}else{ $page = 0;}
-	
-		
-		   // $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
-			$data["results"] = $this->model_users->
-				fetch_doctors($config['per_page'], $page );
-			$data["links"] = $this->pagination->create_links();
-		}else{
-			$data["results"] = $this->model_users->fetch_doctors_alpha($this->uri->segment(4));
-			$data["links"] = '';
-			
-		}
-
-		$this->load->view('templates/header/header_all', $data);
-		$this->load->view('templates/header/header_patient');
-		$this->load->view('patient/explore',$data);
-	}
-
 	public function saveAppointmentToDB(){
 		$arr = $_POST['arr'];
 		$this->load->model('model_users');
 		$this->model_users->patient_addAppointment($arr);
 	}
 	public function arrange_alphabetically($letter){
-		$data['notif'] = '';
+		
 		if (ctype_alpha($letter)) {}
 		else{echo "not a letter";}
 		$this->load->view('templates/header/header_all');

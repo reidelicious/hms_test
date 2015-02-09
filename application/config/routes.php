@@ -54,7 +54,7 @@ $route['makeAnnouncement_doctor'] = 'doctor/makeAnnouncement';
 $route['manage_schedules'] = 'doctor/manage_schedules';
 $route['manage_appointment'] = 'doctor/manage_appointment';
 $route['view_appointment'] = 'doctor/view_appointment';
-$route['generateToDoc'] = 'doctor/generateToDoc';
+
 
 $route['makeAnnouncement'] = 'admin/makeAnnouncement';
 $route['add_user'] = 'admin/add_user';

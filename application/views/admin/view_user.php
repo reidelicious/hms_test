@@ -61,11 +61,11 @@ $(document).on('click','.editInfo', function(){
         overlay: true,
         shadow: true,
         flat: true,
-	     	draggable: true,
+		draggable: true,
         icon: '<img src="<?php echo base_url('assets/images/Windows-8-Logo.png')?>">',
         title: 'Flat window',
         content: '',
-		    width: 500,
+		width: 500,
         padding: 10,
         onShow: function(_dialog){
             var content = '<form action="<?php echo base_url('admin/editUserInfo'); ?>" method="POST" id="editform">' +
