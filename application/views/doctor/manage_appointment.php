@@ -59,6 +59,30 @@ $(document).ready(function(){
         if(confirm("Are you sure you want to reject this appointment?")){
             var id = $(this).attr('rowid');
             var flag = 1;
+            /*
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>doctor/changeStat_appointment",
+                data: {id:id, flag:flag},
+                success: function(out){
+                    if(out == "Success"){
+                        var not = $.Notify({
+                                    style: {background: 'green', color: 'white'}, 
+                                    caption: 'Successfully Rejected Appointment',
+                                    conten: "",
+                                    timeout: 10000 // 10 seconds
+                                });
+                    }
+                    else{
+                        var not = $.Notify({
+                                    style: {background: 'red', color: 'white'}, 
+                                    caption: 'Error',
+                                    content: "There was an error in the system, Sorry for the inconvenience",
+                                    timeout: 10000 // 10 seconds
+                                });
+                    }
+                }
+            });*/
             $.Dialog({
                 overlay: true,
                 shadow: true,

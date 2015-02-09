@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Patient extends CI_Controller {
+	
+		// patient
 	public function home(){
 		$data['title'] = 'Hospital Management System';
 		if($this->session->userdata('is_logged_in')){
