@@ -7898,7 +7898,7 @@ a {
   height: 75px;
   float: left;
   display: block;
-  margin: 0 2px 2px 0;
+  margin: 0 2px 0px 0;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -10713,3 +10713,5 @@ input, select, textarea{
 textarea:focus, input:focus {
  color: #1ba1e2 !important;
 }
+
+.streamer-block{width:2968px !important}
