@@ -214,6 +214,7 @@ class Patient extends CI_Controller {
 		$this->load->model('model_users');
 		$data['title'] = 'appointment';
 		$data['specialization'] = $this->model_users->get_Specialists();
+		$data['appointments'] = $this->model_users->get_calendar_app();
 		$this->load->view('templates/header/header_all',$data);
 		$this->load->view('templates/header/header_patient');
 		$this->load->view('patient/appointmentv2', $data);

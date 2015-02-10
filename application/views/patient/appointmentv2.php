@@ -7,6 +7,7 @@
         	<div class="span3">
             	 <div class="calendar" id="component_id" ></div>
                  <div id="calendar-output"></div>
+          
             </div>
             <div class="span9">
             	<div id="timeline">
@@ -75,7 +76,6 @@
 
 
 
-
 <script type="text/javascript">
 $(document).ready(function(){
     var day = '';
@@ -111,7 +111,7 @@ $(document).ready(function(){
 
 					}
 	 });
-    $('#component_id').calendar({
+    var cal = $('#component_id').calendar({
         format: 'yyyy-mm-dd',
         multiSelect: false, //default true (multi select date)
         startMode: 'day', //year, month, day
@@ -143,7 +143,7 @@ $(document).ready(function(){
                 });
         } // fired when user clicked on day, in "d" stored date
     });
-    $('#component_id2').calendar({
+     $('#component_id2').calendar({
         format: 'yyyy-mm-dd',
         multiSelect: false, //default true (multi select date)
         startMode: 'day', //year, month, day
@@ -181,6 +181,12 @@ $(document).ready(function(){
                             }
         } // fired when user clicked on day, in "d" stored date
     });
+
+	<?php foreach($appointments as $apps) :	?>
+
+	  	cal.calendar('setDate', '<?php echo $apps->date; ?>');
+	 <?php  endforeach; ?>
+	 cal.calendar('unsetDate', today);
     $(document).on('click','#makeAppointment', function(){ 
         $('#myMod').modal('show');
         $('#myMod').data('modal', null);

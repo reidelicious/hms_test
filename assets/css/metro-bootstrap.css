@@ -6336,6 +6336,18 @@ a {
   background-color: #128023;
   color: #ffffff;
 }
+
+.metro .calendar .app a {
+  background-color: #1ba1e2;
+  color: #1d1d1d;
+}
+
+.metro .calendar .app a:hover {
+  background-color: #03F;
+  color: #ffffff;
+}
+
+
 .metro .calendar .day a {
   display: block;
   position: relative;

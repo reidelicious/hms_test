@@ -31,7 +31,8 @@ header('Expires: 0');
 
     <!-- Metro UI CSS JavaScript plugins -->
     <script src="<?php echo base_url('assets/js/metro.min.js')?>"></script>
-	<script src="<?php echo base_url('assets/js/metro/metro-streamer.js')?>"></script>       
+	<script src="<?php echo base_url('assets/js/metro/metro-streamer.js')?>"></script>
+    <script src="<?php echo base_url('assets/js/metro/metro-calendar.js')?>"></script>         
 	<script src="<?php echo base_url('assets/js/jquery.validate.js')?>"></script> 
 
 

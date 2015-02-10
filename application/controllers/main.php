@@ -81,6 +81,7 @@ class Main extends CI_Controller {
 				
 				$data1 = array(
 					'id' => $row->id,
+					'p_id' => $row->p_id,
 					'address' => $row->p_address,
 					'gender' =>$row->p_gender,
 					'age' => $row->p_age

@@ -133,7 +133,7 @@
 
                 var d = (new Date(this._year, this._month, i)).format('yyyy-mm-dd');
                 if (this.element.data('_storage').indexOf(d)>=0) {
-                    td.find("a").addClass("selected");
+                    td.find("a").parent().addClass("app");
                 }
 
                 td.appendTo(tr);
@@ -150,12 +150,12 @@
             tr.appendTo(table);
 
             if (this.options.buttons) {
-                tr = $("<tr/>").addClass("calendar-actions");
+          /*      tr = $("<tr/>").addClass("calendar-actions");
                 td = $("<td/>").attr('colspan', 7).addClass("text-left").html("" +
                     "<button class='button calendar-btn-today small success'>"+$.Metro.Locale[this.options.locale].buttons[0]+
                     "</button>&nbsp;<button class='button calendar-btn-clear small warning'>"+$.Metro.Locale[this.options.locale].buttons[1]+"</button>");
                 td.appendTo(tr);
-                tr.appendTo(table);
+                tr.appendTo(table);*/
             }
 
             table.appendTo(this.element);

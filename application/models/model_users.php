@@ -794,6 +794,18 @@ $this->db->update('table as a, table2 as b');
 		}
 		
 		return false;
+	}
+	
+	public function get_calendar_app(){
+		
+	$this->db->where('patient_id',$this->session->userdata('p_id'));
+	$this->db->group_by('date');
+	$this->db->select('date');
+	$this->db->from('appointments');
+	$query = $this->db->get();
+	
+	
+	return  $query->result();
 	}	
 
 	
