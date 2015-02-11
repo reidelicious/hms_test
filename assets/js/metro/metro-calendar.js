@@ -426,6 +426,10 @@
             this.element.data('_storage').splice(index, 1);
         },
 
+		 _removeD: function(d){
+            var index = this.element.data('_store').indexOf(d);
+            this.element.data('_store').splice(index, 1);
+        },
         setDate: function(d){
             var r;
             d = new Date(d);
@@ -447,7 +451,7 @@
             var r;
             d = new Date(d);
             r = (new Date(d.getFullYear()+"-"+ (d.getMonth()+1)+"-"+ d.getDate())).format('yyyy-mm-dd');
-            this._removeDate(r);
+            this._removeD(r);
             this._renderCalendar();
         },
 
