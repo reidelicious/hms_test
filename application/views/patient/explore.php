@@ -5,6 +5,7 @@
 	 font-weight: bold;
 	};
 </style>
+<?php echo $notif; ?>
 <div class="container">
     <div class="grid fluid">
         <div class="row">	
@@ -114,14 +115,14 @@ var date = "Last Sync: "+ currentdate.getFullYear() + " / "
 		var $bla = $(this).parents('td').prev();	
 		var lname = $(this).siblings('#lname').val();
 		var fname = $(this).siblings('#fname').val();
-		var email = $(this).siblings('#id').val();
+		var id = $(this).siblings('#id').val();
 		var specialization = $(this).siblings('#specialization').val();
 		var Cnum = $(this).siblings('#room_num').val();
 		var Rnum = $(this).siblings('#cont_num').val();
 		var avatar = $(this).siblings('#avatar').val();
 		
 		var currentdate = new Date(); 
-var date =currentdate.getFullYear() + "/" 
+        var date =currentdate.getFullYear() + "/" 
                 + (currentdate.getMonth()+1)  + "/"
 				+ currentdate.getDate()  ;
                 
@@ -145,23 +146,24 @@ var date =currentdate.getFullYear() + "/"
 											'<dt>Room num:</dt>'+
 												'<dd>'+Rnum+'</dd>'+
 											'<dt></dt>'+
-												'<dd><button class="default makeAppointment">lalala</button></dd>'+
+												'<dd><button class="default makeAppointment">Make an Appointment</button></dd>'+
 										'</dl>'+			
-										'<form action="<?php echo base_url('admin/blabla'); ?>" method="POST"  class="appointmentForm" hidden="hidden">' +
-											'<label>id</label>' +
-											'<div class="input-control text" id="datepicker" data-role="datepicker" data-date="'+date+'"  data-format="dddd, mmmm d, yyyy" data-effect="fade">'+
-                                   ' <input type="text" placeholder="please enter date" >'+
-                                   ' <button class="btn-date"></button>'+
-                              '  </div> '+
-											'<label>email</label>' +
+										'<form action="<?php echo base_url('patient/makeAppointmentFromExplore'); ?>" method="POST"  class="appointmentForm" hidden="hidden">' +
+											'<label>Date</label>' +
+											'<div class="input-control text" id="datepicker" data-role="datepicker" data-date="'+date+'"  data-format="yyyy-mm-dd" data-effect="fade">'+
+                                               ' <input type="text" name="date" placeholder="please enter date" >'+
+                                               ' <button class="btn-date"></button>'+
+                                          '  </div> '+
+											'<label>Time</label>' +
 											'<div class="input-control text"><input type="time"  value= "" name="time" required>'+
+                                            '<input type="hidden" value='+id+' name="doctorid" required>'+
 											'</div> ' +
-										
+									      '<button type="submit" class="primary">Make an Appointment</button>'+
 										'</form>'+
 									'</div>'+
 									'<div class="modal-footer appointmentForm" hidden="hidden">'+
-										'<button type="button" class=" closemdl btn btn-default" data-dismiss="modal">Close</button>'+
-										'<button type="button" class=" closemdl btn btn-primary">Save changes</button>'+
+										'<button type="button" class=" closemdl default" data-dismiss="modal">Close</button>'+
+										
 									'</div>'+
 								'</div>'+
 							'</div>'+

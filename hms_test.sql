@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2015 at 04:50 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Feb 07, 2015 at 07:00 AM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.16
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `hms_test`
 --
+CREATE DATABASE IF NOT EXISTS `hms_test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `hms_test`;
 
 -- --------------------------------------------------------
 
@@ -33,19 +35,18 @@ CREATE TABLE IF NOT EXISTS `announcement` (
   `announcement_details` longtext,
   `fk_clinic_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `announcement`
 --
 
 INSERT INTO `announcement` (`id`, `announcement_datetime_made`, `announcement_subject`, `announcement_details`, `fk_clinic_id`) VALUES
-(1, '2015-01-28 14:37:30', 'lala', 'hehehe', 0),
 (23, '2015-01-28 15:50:38', 'kjh', 'kjh', 2),
-(24, '2015-01-28 15:51:53', 'admin', 'admin', 0),
 (25, '2015-01-29 14:34:46', 'reid hersehl', 'lreeee ippsssuum', 1),
 (26, '2015-01-29 14:35:45', 'torayno ka?', 'ryno', 1),
-(27, '2015-01-29 14:35:52', 'galanido ka?', 'nideo', 1);
+(27, '2015-01-29 14:35:52', 'galanido ka?', 'nideo', 1),
+(28, '2015-01-30 04:53:11', 'Change Schedule', 'change change change', 2);
 
 -- --------------------------------------------------------
 
@@ -54,13 +55,28 @@ INSERT INTO `announcement` (`id`, `announcement_datetime_made`, `announcement_su
 --
 
 CREATE TABLE IF NOT EXISTS `appointments` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `appoint_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `time` time NOT NULL,
   `doctor_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `status` enum('Pending','Approved','Reject','') NOT NULL,
+  `message` varchar(500) DEFAULT NULL COMMENT 'if rejected',
+  PRIMARY KEY (`appoint_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`appoint_id`, `date`, `time`, `doctor_id`, `patient_id`, `status`, `message`) VALUES
+(13, '2015-02-09', '13:00:00', 1, 1, 'Reject', 'sige man ka ug balik2 oy? unsa diay problema nimo???? tubaga ko!'),
+(14, '2015-02-09', '09:50:00', 1, 1, 'Approved', NULL),
+(15, '2015-02-09', '13:00:00', 1, 1, 'Approved', NULL),
+(16, '2015-02-09', '13:00:00', 1, 1, 'Approved', NULL),
+(17, '2015-02-09', '09:00:00', 1, 1, 'Approved', NULL),
+(19, '2015-02-11', '12:00:00', 2, 1, 'Pending', NULL),
+(20, '2015-02-12', '12:59:00', 3, 1, 'Approved', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `doctors` (
   UNIQUE KEY `u_id` (`u_id`),
   KEY `specialization` (`specialization`),
   KEY `clinic` (`clinic`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `doctors`
@@ -115,7 +131,12 @@ CREATE TABLE IF NOT EXISTS `doctors` (
 
 INSERT INTO `doctors` (`d_id`, `contact_num`, `clinic`, `u_id`, `specialization`) VALUES
 (1, '123', 2, 3, 1),
-(2, '123456', 1, 4, 1);
+(2, '123456', 1, 4, 1),
+(3, '09258552005', 2, 5, 2),
+(4, '09258552005', 1, 6, 2),
+(5, '09258552005', 2, 7, 1),
+(6, '09258552005', 2, 8, 2),
+(7, '09258552005', 8, 9, 6);
 
 -- --------------------------------------------------------
 
@@ -131,7 +152,34 @@ CREATE TABLE IF NOT EXISTS `doctor_schedule` (
   `time_end` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `d_id` (`d_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+
+--
+-- Dumping data for table `doctor_schedule`
+--
+
+INSERT INTO `doctor_schedule` (`id`, `d_id`, `date`, `time_start`, `time_end`) VALUES
+(1, 2, '2015-02-02', '08:00:00', '16:00:00'),
+(2, 2, '2015-02-03', '08:00:00', '16:00:00'),
+(3, 2, '2015-02-04', '08:00:00', '16:00:00'),
+(4, 2, '2015-02-05', '08:00:00', '16:00:00'),
+(5, 6, '2015-02-02', '09:00:00', '15:00:00'),
+(6, 6, '2015-02-03', '09:00:00', '15:00:00'),
+(7, 6, '2015-02-04', '09:00:00', '15:00:00'),
+(8, 6, '2015-02-05', '09:00:00', '15:00:00'),
+(9, 6, '2015-02-06', '09:00:00', '15:00:00'),
+(10, 1, '2015-02-09', '09:00:00', '16:30:00'),
+(11, 1, '2015-02-10', '08:30:00', '17:00:00'),
+(12, 1, '2015-02-11', '08:30:00', '17:00:00'),
+(13, 1, '2015-02-12', '08:30:00', '14:00:00'),
+(14, 1, '2015-02-13', '08:30:00', '17:30:00'),
+(15, 1, '2015-02-16', '11:00:00', '18:00:00'),
+(16, 1, '2015-01-29', '08:00:00', '17:30:00'),
+(17, 2, '2015-02-09', '09:00:00', '16:30:00'),
+(18, 2, '2015-02-10', '09:00:00', '16:30:00'),
+(19, 2, '2015-02-11', '09:00:00', '16:30:00'),
+(20, 2, '2015-02-12', '09:00:00', '16:30:00'),
+(21, 2, '2015-02-13', '09:00:00', '16:30:00');
 
 -- --------------------------------------------------------
 
@@ -178,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
 --
 
 INSERT INTO `patients` (`p_id`, `p_address`, `p_gender`, `p_age`, `u_id`) VALUES
-(1, 'bacayan', 'FEMALE', 20, 1),
+(1, 'bacayan', 'FEMALE', 21, 1),
 (2, '0', '', 0, 2);
 
 -- --------------------------------------------------------
@@ -216,17 +264,22 @@ CREATE TABLE IF NOT EXISTS `users` (
   `avatar` varchar(255) DEFAULT 'assets/images/icon-user-default.png',
   `utype` enum('USER','DOCTOR','ADMIN') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `utype`) VALUES
-(1, 'zzz123.cb@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'christine grace', 'bacatan', 'assets/images/icon-user-default.png', 'USER'),
+(1, 'zzz123.cb@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Kiko', 'Mizuhara', 'uploads/1456721_512575042215819_2081641341463869525_n.jpg', 'USER'),
 (2, 'james_naruto2000@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Angel James', 'Torayono', 'assets/images/icon-user-default.png', 'ADMIN'),
 (3, 'A@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'ariels', 'angeles', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(4, 'B@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Bryan', 'Borces', 'assets/images/icon-user-default.png', 'DOCTOR');
+(4, 'B@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Bryan', 'Borces', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(5, 'C@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Camille', 'Canete', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(6, 'D@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Derek', 'Del Castillo', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(7, 'E@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Erik', 'Enriquez', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(8, 'F@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Freddy', 'Fabian', 'assets/images/icon-user-default.png', 'DOCTOR'),
+(9, 'G@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Glory', 'Giordano', 'assets/images/icon-user-default.png', 'DOCTOR');
 
 --
 -- Constraints for dumped tables

@@ -166,6 +166,7 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+
 	public function getPatientsAppointments($d){
 		$this->db->where('doctor_id', $this->session->userdata('id'));
 		$this->db->where('date', $d);
@@ -209,6 +210,18 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+	public function checkDuplicateAppointments($id, $d){
+		$this->db->where('doctor_id', $id);
+		$this->db->where('date', $d);
+		$this->db->where('patient_id', $this->session->userdata('id'));
+		$this->db->from('appointments');
+		$query = $this->db->get();
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else
+			return true;
+	}
 	public function getSchedule($id, $d){
 		$this->db->where('d_id', $id);
 		$this->db->where('date', $d);
@@ -219,19 +232,26 @@ class Model_users extends CI_Model{
 		else
 			return false;
 	}
-	public function updateStatus_appointment($id, $flag){
-		
-		if($flag == 0) //approved
-			$data = array( 'status' => 2);
-		else //rejected
-			$data = array('status' => 3);
-		$this->db->where('id', $id);
+	public function approveStatus_appointment($id){
+		$data = array('status' => 2);
+		$this->db->where('appoint_id', $id);
 		$query = $this->db->update('appointments', $data);
 		if($query)
 			return true;
 		else
 			return false;
-
+	}
+	public function rejectStatus_appointment(){
+		$data = array(
+				'status' => 3,
+				'message' => $this->input->post('message')
+			);
+		$this->db->where('appoint_id', $this->input->post('appointid'));
+		$query = $this->db->update('appointments', $data);
+		if($this->db->affected_rows()>0)
+			return true;
+		else
+			return false;
 	}
 	public function countAppointments($flag){
 		$this->db->where('patient_id', $this->session->userdata('id'));
@@ -270,12 +290,30 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
-
+	public function fetchAnnouncementsByID($id){
+		$this->db->select('announcement_details');
+		$this->db->from('announcement');
+		$this->db->where('id', $id);
+		$query = $this->db->get();
+		return $query->result();
+	}
 	public function fetchAppointments(){
 		$this->db->where('patient_id', $this->session->userdata('id'));
 		$this->db->from('appointments');
-		$this->db->join('users', 'appointments.doctor_id = users.id');
+		$this->db->join('doctors', 'appointments.doctor_id = doctors.d_id');
+		$this->db->join('users', 'doctors.u_id = users.id');
 		$this->db->order_by('date', 'DESC');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function fetchAppointmentsToGenerate(){
+		$this->db->where('date', $this->input->post('deyt'));
+		$this->db->where('status', 'Approved');
+		$this->db->from('appointments');
+		$this->db->join('users', 'appointments.patient_id = users.id');
+		$this->db->join('patients', 'patients.u_id = users.id');
+		$this->db->order_by('time');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -284,6 +322,21 @@ class Model_users extends CI_Model{
 				'date' => $arr[0],
 				'time' => $arr[1],
 				'doctor_id' => $arr[2],
+				'patient_id' => $this->session->userdata('id'),
+				'status' => 1
+			);
+		$query = $this->db->insert('appointments', $data);
+		if($query)
+			return true;
+		else
+			return false;
+	}
+	public function explore_addAppointment(){
+		$id = $this->db->select('d_id')->from('doctors')->where('u_id', $this->input->post('doctorid'))->get()->result();
+		$data = array(
+				'date' => $this->input->post('date'),
+				'time' => $this->input->post('time'),
+				'doctor_id' => $id[0]->d_id,
 				'patient_id' => $this->session->userdata('id'),
 				'status' => 1
 			);
