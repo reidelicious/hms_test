@@ -29,11 +29,20 @@ class Doctor extends CI_Controller {
 		}
 	}
 	public function manage_schedules(){
+		$this->load->model('model_users');
 		$data['success'] = '';
+		//$data['appointments'] = $this->model_users->doctor_calendar_app();
 		$data['title'] = 'Manage Schedules';
 		$this->load->view('templates/header/header_all',$data);	
 		$this->load->view('templates/header/header_doctor');
 		$this->load->view('doctor/manage_schedules', $data);	
+	}
+	
+	public function doc_calendar_app(){
+		$this->load->model('model_users');	
+		$data['appointments'] = $this->model_users->doctor_calendar_app();
+		echo json_encode($data['appointments']);
+		//print_r($data['appointments']);		
 	}
 
 	public function is_schedule_unique(){
