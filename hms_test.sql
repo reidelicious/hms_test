@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2015 at 07:00 AM
+-- Generation Time: Feb 13, 2015 at 03:47 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `announcement` (
   `announcement_details` longtext,
   `fk_clinic_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `announcement`
@@ -46,7 +46,8 @@ INSERT INTO `announcement` (`id`, `announcement_datetime_made`, `announcement_su
 (25, '2015-01-29 14:34:46', 'reid hersehl', 'lreeee ippsssuum', 1),
 (26, '2015-01-29 14:35:45', 'torayno ka?', 'ryno', 1),
 (27, '2015-01-29 14:35:52', 'galanido ka?', 'nideo', 1),
-(28, '2015-01-30 04:53:11', 'Change Schedule', 'change change change', 2);
+(28, '2015-01-30 04:53:11', 'Change Schedule', 'change change change', 2),
+(29, '2015-02-07 07:40:32', 'Marjhun cHRISTOHER GALANIDO', 'GALANIDO KA?', 1);
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `status` enum('Pending','Approved','Reject','') NOT NULL,
   `message` varchar(500) DEFAULT NULL COMMENT 'if rejected',
   PRIMARY KEY (`appoint_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `appointments`
@@ -75,8 +76,18 @@ INSERT INTO `appointments` (`appoint_id`, `date`, `time`, `doctor_id`, `patient_
 (15, '2015-02-09', '13:00:00', 1, 1, 'Approved', NULL),
 (16, '2015-02-09', '13:00:00', 1, 1, 'Approved', NULL),
 (17, '2015-02-09', '09:00:00', 1, 1, 'Approved', NULL),
-(19, '2015-02-11', '12:00:00', 2, 1, 'Pending', NULL),
-(20, '2015-02-12', '12:59:00', 3, 1, 'Approved', NULL);
+(19, '2015-02-11', '12:00:00', 2, 1, 'Reject', 'sending message to the patient...'),
+(20, '2015-02-12', '12:59:00', 3, 1, 'Approved', NULL),
+(21, '2015-02-09', '09:00:00', 2, 1, 'Approved', NULL),
+(22, '2015-02-12', '12:59:00', 1, 1, 'Approved', NULL),
+(23, '2015-02-10', '13:00:00', 1, 1, 'Reject', 'asfasoidflaskdfklajsdfkl'),
+(24, '2015-02-10', '16:00:00', 2, 1, 'Approved', NULL),
+(25, '2015-02-07', '07:00:00', 1, 1, 'Pending', NULL),
+(26, '2015-02-16', '11:00:00', 3, 1, 'Approved', NULL),
+(27, '2015-02-18', '12:59:00', 3, 1, 'Reject', 'asdfasdfasdf'),
+(28, '2015-02-09', '13:00:00', 1, 1, 'Pending', NULL),
+(29, '2015-02-12', '13:00:00', 2, 1, 'Pending', NULL),
+(30, '2015-02-27', '13:00:00', 1, 1, 'Approved', NULL);
 
 -- --------------------------------------------------------
 
@@ -152,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `doctor_schedule` (
   `time_end` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `d_id` (`d_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `doctor_schedule`
@@ -173,13 +184,22 @@ INSERT INTO `doctor_schedule` (`id`, `d_id`, `date`, `time_start`, `time_end`) V
 (12, 1, '2015-02-11', '08:30:00', '17:00:00'),
 (13, 1, '2015-02-12', '08:30:00', '14:00:00'),
 (14, 1, '2015-02-13', '08:30:00', '17:30:00'),
-(15, 1, '2015-02-16', '11:00:00', '18:00:00'),
+(15, 1, '2015-02-16', '09:00:00', '12:00:00'),
 (16, 1, '2015-01-29', '08:00:00', '17:30:00'),
 (17, 2, '2015-02-09', '09:00:00', '16:30:00'),
 (18, 2, '2015-02-10', '09:00:00', '16:30:00'),
 (19, 2, '2015-02-11', '09:00:00', '16:30:00'),
 (20, 2, '2015-02-12', '09:00:00', '16:30:00'),
-(21, 2, '2015-02-13', '09:00:00', '16:30:00');
+(21, 2, '2015-02-13', '09:00:00', '16:30:00'),
+(22, 1, '2015-02-07', '11:00:00', '17:00:00'),
+(23, 3, '2015-02-16', '10:00:00', '16:30:00'),
+(24, 3, '2015-02-17', '10:00:00', '17:00:00'),
+(25, 3, '2015-02-18', '10:00:00', '17:00:00'),
+(26, 1, '2015-02-23', '09:00:00', '16:30:00'),
+(27, 1, '2015-02-24', '09:00:00', '16:30:00'),
+(28, 1, '2015-02-25', '09:00:00', '16:30:00'),
+(29, 1, '2015-02-26', '09:00:00', '16:30:00'),
+(30, 1, '2015-02-27', '09:00:00', '16:30:00');
 
 -- --------------------------------------------------------
 
@@ -271,8 +291,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `utype`) VALUES
-(1, 'zzz123.cb@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Kiko', 'Mizuhara', 'uploads/1456721_512575042215819_2081641341463869525_n.jpg', 'USER'),
-(2, 'james_naruto2000@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Angel James', 'Torayono', 'assets/images/icon-user-default.png', 'ADMIN'),
+(1, 'zzz123.cb@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Kiko', 'Mizuhara', 'uploads/Sid-Gasp-ice-age-27887681-500-2751.png', 'USER'),
+(2, 'james_naruto2000@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Angel James', 'Torayono', 'uploads/998782_326474667487992_2099506665_n.jpg', 'ADMIN'),
 (3, 'A@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'ariels', 'angeles', 'assets/images/icon-user-default.png', 'DOCTOR'),
 (4, 'B@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Bryan', 'Borces', 'assets/images/icon-user-default.png', 'DOCTOR'),
 (5, 'C@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Camille', 'Canete', 'assets/images/icon-user-default.png', 'DOCTOR'),
