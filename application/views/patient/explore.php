@@ -97,10 +97,7 @@
 </div> <!-- end of container -->
 <script type="text/javascript">
 $( document ).ready(function() {	
-var currentdate = new Date(); 
-var date = "Last Sync: "+ currentdate.getFullYear() + " / " 
-                + (currentdate.getMonth()+1)  + "/"
-				+ currentdate.getDate() + "@" ;
+
 
 
 			   
@@ -122,11 +119,11 @@ var date = "Last Sync: "+ currentdate.getFullYear() + " / "
 		var Cnum = $(this).siblings('#room_num').val();
 		var Rnum = $(this).siblings('#cont_num').val();
 		var avatar = $(this).siblings('#avatar').val();
-		
 		var currentdate = new Date(); 
-        var date =currentdate.getFullYear() + "/" 
-                + (currentdate.getMonth()+1)  + "/"
-				+ currentdate.getDate()  ;
+var date = currentdate.getFullYear() + "-" 
+                + (currentdate.getMonth()+1) + "-"
+				+ currentdate.getDate();
+	
                 
 		var id = $(this).siblings('#id').val();	
 		var cont= 		'<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
@@ -152,7 +149,7 @@ var date = "Last Sync: "+ currentdate.getFullYear() + " / "
 										'</dl>'+			
 										'<form action="<?php echo base_url('patient/makeAppointmentFromExplore'); ?>" method="POST"  class="appointmentForm" hidden="hidden">' +
 											'<label>Date</label>' +
-											'<div class="input-control text" id="datepicker" data-role="datepicker" data-date="'+date+'"  data-format="yyyy-mm-dd" data-effect="fade">'+
+											'<div class="input-control text" id="datepicker" data-role="datepicker"  data-format="yyyy-mm-dd" data-effect="fade">'+
                                                ' <input type="text" name="date" placeholder="please enter date" >'+
                                                ' <button class="btn-date"></button>'+
                                           '  </div> '+

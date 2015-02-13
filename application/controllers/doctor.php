@@ -44,6 +44,13 @@ class Doctor extends CI_Controller {
 		echo json_encode($data['appointments']);
 		//print_r($data['appointments']);		
 	}
+	
+	public function doctor_calendar_appointments(){
+		$this->load->model('model_users');	
+		$data['appointments'] = $this->model_users->doctor_calendar_appointments();
+		echo json_encode($data['appointments']);
+		//print_r($data['appointments']);		
+	}
 
 	public function is_schedule_unique(){
 		$this->load->model('model_users');
@@ -157,7 +164,7 @@ class Doctor extends CI_Controller {
 		$d = $_POST['d'];
 		$data['appointment'] = $this->model_users->getPatientsAppointments($d);
 		if($data['appointment']){
-			$this->load->view('templates/header/header_all');
+			//$this->load->view('templates/header/header_all');
 			$this->load->view('doctor/appointment_details_doctor', $data);
 		}
 		else{

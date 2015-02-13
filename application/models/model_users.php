@@ -818,6 +818,18 @@ $this->db->update('table as a, table2 as b');
 	return  $query->result();
 		
 	}
+	public function doctor_calendar_appointments(){
+		$this->db->where('doctor_id',$this->session->userdata('id'));
+		$this->db->where('status', 2);
+		$this->db->group_by('date');
+		$this->db->select('date');
+		$this->db->from('appointments');
+		$this->db->join('users', 'appointments.patient_id = users.id', 'inner');
+		$query = $this->db->get();
+		
+		return  $query->result();
+		
+	}
 	
 	public function edit_user(){
 			$data = array(

@@ -72,8 +72,7 @@
 
 		</div>
         
-        <?php echo $this->session->userdata('p_id');
-?>	</div>
+	</div>
     
 
 
@@ -185,14 +184,12 @@ $(document).ready(function(){
     });
 		
 
-	<?php foreach($appointments as $apps) :	?>
+	<?php if($appointments){foreach($appointments as $apps) :	?>
 
 	  cal.calendar('setDate', '<?php echo $apps->date?> ');
 	  cal2.calendar('setDate', '<?php echo $apps->date?> ');
-	 <?php  endforeach; ?>
+	 <?php  endforeach;} ?>
 	
-
-	 alert(today);
     $(document).on('click','#makeAppointment', function(){ 
         $('#myMod').modal('show');
         $('#myMod').data('modal', null);

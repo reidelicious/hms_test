@@ -71,7 +71,6 @@
 
 <div id="bla"></div>
 	
-<?php echo $this->session->userdata('d_id'); ?>
 
 <script>
 
