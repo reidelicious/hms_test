@@ -190,9 +190,8 @@ $(document).ready(function(){
 	  cal.calendar('setDate', '<?php echo $apps->date?> ');
 	  cal2.calendar('setDate', '<?php echo $apps->date?> ');
 	 <?php  endforeach; ?>
-	 cal.calendar('setDate', '2015-02-15 ');
-	 cal.calendar('unsetDate', today);
-	 cal2.calendar('unsetDate', today);
+	
+
 	 alert(today);
     $(document).on('click','#makeAppointment', function(){ 
         $('#myMod').modal('show');
