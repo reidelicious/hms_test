@@ -56,7 +56,7 @@
                     <ul id="products" class="grid clearfix">          
         
 
-                    <?php foreach($results as $data) { 	?>                    
+                    <?php if($results){ foreach($results as $data) { 	?>                    
                         <li class="clearfix dims">
                             <div class="ui dimmer">
                                 <div class="content">
@@ -79,7 +79,7 @@
                             	<span class="price"><?php echo $data->specialist ?> </span> 
                             </section>
                         </li>                    
-                    <?php } ?>              
+                    <?php }}else{ echo "no doctore here";} ?>              
                     </ul>
                     <footer>   
                     	<br />                 

@@ -59,6 +59,7 @@ hr.style-eight {
 						<header>
 							<legend><h3>Update</h3></legend>
 						</header>
+                        	<?php if($update){?>
 							<div class="notice marker-on-top <?php if($update[0]->status == "Approved"){ ?>bg-green<?php }else if($update[0]->status == "Reject"){ ?> bg-red <?php }else if($update[0]->status == "Pending"){ ?> bg-amber <?php } ?>">
 								Appointment on <br/><?php echo $update[0]->date ." ". $update[0]->time ?><br/><br/>
 								<p>
@@ -89,7 +90,7 @@ hr.style-eight {
 									<?php } ?>
 									<?php if($update[0]->status == "Pending"){ ?>
 										is still <strong>PENDING</strong>.
-									<?php } ?>
+									<?php } }?>
 								</p>
 							</div>
 					</div>

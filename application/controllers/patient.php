@@ -153,7 +153,7 @@ class Patient extends CI_Controller {
 		$config = array();
 		$config['base_url'] = base_url('patient/doctors/page/');
 		$config["total_rows"] = $this->model_users->doctor_count();
-        $config['per_page'] = 1;
+        $config['per_page'] = 10;
         $config["uri_segment"] = '4';
 		$config['use_page_numbers'] = TRUE;				
 		$config['full_tag_open'] = '<ul>';
@@ -182,7 +182,7 @@ class Patient extends CI_Controller {
 		
 		if($this->uri->segment(3) == "page" ||$this->uri->segment(3) === FALSE){
 			if($this->uri->segment(4)){		
-				$page = ( $this->uri->segment(4)* $config['per_page'])-1;
+				$page = ( $this->uri->segment(4)* $config['per_page'])-10;
 			}else{ $page = 0;}
 	
 		

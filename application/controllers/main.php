@@ -138,12 +138,11 @@ class Main extends CI_Controller {
 			
 			if($this->input->post('usertype') == 1){
 				$key = md5(uniqid());		
-				$config = array(
-					'mailtype' => 'html',
-				);		
-				$this->load->library('email', $config);
+				
+$this->load->library('email');	
+			
 				$this->load->model('model_users');	
-				$this->email->from('hms_administrator@gmail.com',"Administrator");
+				$this->email->from('reideliciouss@gmail.com',"Administrator");
 				$this->email->to($this->input->post('email'));
 				$this->email->subject("Confirm you account.");
 				$message  = "Hello ".$this->input->post('fname')." ".$this->input->post('lname')."!";
@@ -204,15 +203,7 @@ class Main extends CI_Controller {
 		if($this->model_users->is_key_valid($key)){
 			if($newemail =  $this->model_users->add_user($key)){
 				
-				$data = array(
-				'email' => $newemail,
-				'is_logged_in' => 1,
-				'usertype' => 'USER' ,
-				);
-			
-				
-				$this->session->set_userdata($data);
-				redirect('main/members');
+				redirect('main/index');
 			}else{
 				show_404();
 			}
@@ -359,11 +350,23 @@ class Main extends CI_Controller {
 				}else{}
 			}else{
 					$data['success'] = $this->editpass_notif_error();		
-			}
+			}	
+				if($this->session->userdata('usertype') == "USER"){
+					$this->load->view('templates/header/header_all',$data);
+					$this->load->view('templates/header/header_patient');
+					$this->load->view('settings',$data);		
+				}else if($this->session->userdata('usertype') == "ADMIN"){
 					$this->load->view('templates/header/header_all',$data);
 					$this->load->view('templates/header/navbar_admin');
 					$this->load->view('settings',$data);
-					$this->load->view('templates/footer/footer_admin');
+					$this->load->view('templates/footer/footer_admin');	
+				}else if($this->session->userdata('usertype') == "DOCTOR"){
+					$this->load->view('templates/header/header_all',$data);
+					$this->load->view('templates/header/header_doctor');
+					$this->load->view('settings',$data);
+		
+					
+				}
 		}// end of editPassword
 	
 	public function check_passmatch(){

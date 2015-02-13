@@ -15,19 +15,7 @@
                     <li>
                     	<li><a href="<?php echo base_url()."explore"?>">Explore </a></li>
                     </li>
-                    <li>
-                        <div class="element input-element">
-                            <form>
-                                <div class="input-control text">
-                                    <input type="text"  name="search" placeholder="Search...">
-                                    <button class="btn-search"></button>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
-                    
-                    
-                    
+    
                 </ul>
                  <ul class="element-menu place-right">
                  	<li>
@@ -40,10 +28,7 @@
                  	<li>
                         <a class="dropdown-toggle" href="#"><span class="icon-cog"></span></a>
                         <ul class="dropdown-menu place-right" data-role="dropdown">
-                        	<li><a href="<?php echo base_url()."main/settings" ?>" id="editProfile">Edit Profile</a></li>
-                            <li><a href="#">Products</a></li>
-                            <li><a href="#">Download</a></li>
-                            <li><a href="#">Support</a></li>
+                        	<li><a href="<?php echo base_url()."main/settings" ?>" id="editProfile">Edit Profile</a></li>    
                             <li><a href="<?php echo base_url()."main/logout" ?>"> Log out</a></li>
                         </ul>
                

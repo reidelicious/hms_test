@@ -154,7 +154,7 @@ class Model_users extends CI_Model{
 	}
 	public function getAppointments($d){
 		$this->db->where('date', $d);
-		$this->db->where('patient_id', $this->session->userdata('id'));
+		$this->db->where('patient_id', $this->session->userdata('p_id'));
 		$this->db->from('appointments');
 		$this->db->join('doctors', 'appointments.doctor_id = doctors.d_id', 'inner');
 		$this->db->join('users', 'doctors.u_id = users.id', 'inner');
@@ -293,7 +293,7 @@ class Model_users extends CI_Model{
 
 	public function fetchAnnouncements(){
 		$this->db->from('announcement');
-		$this->db->join('clinic', 'clinic_id = announcement.fk_clinic_id');
+		$this->db->join('clinic', 'clinic_id = announcement.fk_clinic_id','left');
 		$this->db->order_by('announcement_datetime_made', 'DESC');
 		$query = $this->db->get();
 		return $query->result();
@@ -330,7 +330,7 @@ class Model_users extends CI_Model{
 				'date' => $arr[0],
 				'time' => $arr[1],
 				'doctor_id' => $arr[2],
-				'patient_id' => $this->session->userdata('id'),
+				'patient_id' => $this->session->userdata('p_id'),
 				'status' => 1
 			);
 		$query = $this->db->insert('appointments', $data);
@@ -358,6 +358,7 @@ class Model_users extends CI_Model{
 		$id = $this->input->post('id');
 		$data = array(
 		'clinic_name' => $this->input->post('clinicname'),
+		'room_num' =>  $this->input->post('room_num')
 	    );
 
 		$this->db->where('clinic_id', $id);
@@ -815,6 +816,25 @@ $this->db->update('table as a, table2 as b');
 	$query = $this->db->get();
 	
 	return  $query->result();
+		
+	}
+	
+	public function edit_user(){
+			$data = array(
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+	        );
+
+			$this->db->where('id', $this->input->post('id'));
+			$this->db->update('users', $data);
+		
+			if($this->db->affected_rows()>0){
+				$this->session->set_userdata($data);
+				return true;
+			}
+			else
+			 return false;
+		
 		
 	}
 

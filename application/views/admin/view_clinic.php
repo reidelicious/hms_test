@@ -74,7 +74,7 @@ $(document).on('click','.editInfo', function(){
                 '<div class="input-control text"><input type="text" value = "'+specialization.text()+'" name="specialization" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
 			           '<label>room_num</label>' +
-				'<div class="input-control text"><input type="text" value = "'+room_num.text()+'" name="room_num" readOnly="true">'+
+				'<div class="input-control text"><input type="text" value = "'+room_num.text()+'" name="room_num" >'+
                ' <button class="btn-clear"></button></div> ' +
 			  
                 '<div class="form-actions">' +
