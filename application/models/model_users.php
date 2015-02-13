@@ -78,7 +78,7 @@ class Model_users extends CI_Model{
 
 	public function add_schedule_forDoctor($a){
 		$data = array(
-				'd_id' => $this->session->userdata('id'),
+				'd_id' => $this->session->userdata('d_id'),
 				'date' => $a[0],
 				'time_start' => $a[1],
 				'time_end' => $a[2]
@@ -804,9 +804,19 @@ $this->db->update('table as a, table2 as b');
 	$this->db->from('appointments');
 	$query = $this->db->get();
 	
-	
 	return  $query->result();
 	}	
+	
+	public function doctor_calendar_app(){
+	$this->db->where('d_id',$this->session->userdata('d_id'));
+	$this->db->group_by('date');
+	$this->db->select('date');
+	$this->db->from('doctor_schedule');
+	$query = $this->db->get();
+	
+	return  $query->result();
+		
+	}
 
 	
 	

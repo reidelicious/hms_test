@@ -1,9 +1,9 @@
 <?php echo link_tag('assets/css/l&g.css');echo link_tag('assets/css/dimmer.min.css');?>
 <script src="<?php echo base_url('assets/js/dimmer.min.js')?>"></script>
 <style type="text/css">
-.alphabetical li .active a{
+#alphabetical  .active a{
 	 font-weight: bold;
-	};
+	}
 </style>
 <?php echo $notif; ?>
 <div class="container">
@@ -23,9 +23,9 @@
                     <header>                 
                     	<h1>Doctors</h1>   
                         <strong>
-					<ul style="list-style:none;" class="inline alphabetical">
+					<ul style="list-style:none;" id="alphabetical" class="inline">
                         <li><a  href="<?php echo base_url('patient/doctors/sort_by/A'); ?>">A</a></li>
-                        <li class="active"><a  href="<?php echo base_url('patient/doctors/sort_by/B'); ?>">B</a></li>
+                        <li class=""><a  href="<?php echo base_url('patient/doctors/sort_by/B'); ?>">B</a></li>
                         <li><a href="<?php echo base_url('patient/doctors/sort_by/C'); ?>">C</a></li>
                         <li><a  href="<?php echo base_url('patient/doctors/sort_by/D'); ?>">D</a></li>
                         <li><a  href="<?php echo base_url('patient/doctors/sort_by/E'); ?>">E</a></li>
@@ -92,6 +92,8 @@
         </div>
     </div><!-- end of grid -->
 	<div id="modal_cont"></div>  
+    
+ 
 </div> <!-- end of container -->
 <script type="text/javascript">
 $( document ).ready(function() {	
@@ -184,11 +186,19 @@ var date = "Last Sync: "+ currentdate.getFullYear() + " / "
 	  $(".appointmentForm").hide();
 	});
 	
-	<?php if($this->uri->segment(3) == "sort_by"){
+	<?php if($this->uri->segment(3) == "sort_by"){ ?>
+		var ul = document.getElementById("alphabetical");
+		var items = ul.getElementsByTagName("li");
+		for (var i = 0; i < items.length; ++i) {
+		  // do something with items[i], which is a <li> element
+		     if( $(items[i]).children('a').html() == '<?php echo $this->uri->segment(4) ?>')
+			 		$(items[i]).addClass('active');
+		}
+
+   					//echo  $this->uri->segment(4);
+
 		
-		
-		
-		} ?>
+	<?php	} ?>
 				
    
 

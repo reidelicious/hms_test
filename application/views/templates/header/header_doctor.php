@@ -22,16 +22,7 @@
                     <li>
                         <li><a href="<?php echo base_url()."manage_schedules"?>">Manage Schedules </a></li>
                     </li>
-                    <li>
-                        <div class="element input-element">
-                                <div class="input-control text">                            <form>
-
-                                    <input type="text" placeholder="Search...">
-                                    <button class="btn-search"></button>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
+                    
                     
                     
                     

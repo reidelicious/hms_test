@@ -143,7 +143,7 @@ $(document).ready(function(){
                 });
         } // fired when user clicked on day, in "d" stored date
     });
-     $('#component_id2').calendar({
+    var cal2 = $('#component_id2').calendar({
         format: 'yyyy-mm-dd',
         multiSelect: false, //default true (multi select date)
         startMode: 'day', //year, month, day
@@ -186,8 +186,10 @@ $(document).ready(function(){
 	<?php foreach($appointments as $apps) :	?>
 
 	  cal.calendar('setDate', '<?php echo $apps->date?> ');
+	  cal2.calendar('setDate', '<?php echo $apps->date?> ');
 	 <?php  endforeach; ?>
 	 cal.calendar('unsetDate', today);
+	 cal2.calendar('unsetDate', today);
     $(document).on('click','#makeAppointment', function(){ 
         $('#myMod').modal('show');
         $('#myMod').data('modal', null);

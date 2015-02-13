@@ -91,7 +91,8 @@ class Main extends CI_Controller {
 				$row = $this->model_users->getDoctor_sessions($row->id);
 
 				$data1 = array(
-					'id' => $row->d_id,
+					'id' =>	$row->id,
+					'd_id' => $row->d_id,
 					'contactnum' => $row->contact_num,
 					'clinic_id' => $row->clinic
 				);
@@ -443,6 +444,12 @@ public function do_upload()
 				$this->load->view('templates/header/navbar_admin');
 				$this->load->view('settings',$data);
 				$this->load->view('templates/footer/footer_admin');	
+		}else if($this->session->userdata('usertype') == "DOCTOR"){
+				$this->load->view('templates/header/header_all',$data);
+				$this->load->view('templates/header/header_doctor');
+				$this->load->view('settings',$data);
+
+			
 		}
 	}
 	public function makeAnnouncement_validation(){

@@ -1,4 +1,4 @@
-<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>    
+ 
     <div class = "container">
     <h2 id="_default"><i class="icon-accessibility on-left"></i>Add Schedules</h2>
 	<div class="grid fluid">
@@ -69,14 +69,29 @@
 </div>
 
 
-
-
-
-
+<div id="bla"></div>
+	
+<?php echo $this->session->userdata('d_id'); ?>
 
 <script>
+
 $(document).ready(function(){
     var day = '';
+	
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	
+	if(dd<10) {
+		dd='0'+dd
+	} 
+	
+	if(mm<10) {
+		mm='0'+mm
+	} 
+	
+	today = yyyy+'-'+mm+'-'+dd;
     var arr = [];
     var flag = 0;
     var cal = $('#component_id').calendar({
@@ -106,8 +121,15 @@ $(document).ready(function(){
             } // fired when user clicked on day, in "d" stored date
         
     });
-    
+
+	//<?php// foreach($appointments as $apps) :	?>
+	//	setCalendar('<?php// echo $apps->date ?>');
+		//	$('#bla').append(<?php// echo $apps->date ?>+'  ');
+	// <?php//  endforeach; ?>
+	 //	setCalendar(today);
+     cal.calendar('unsetDate', today);
     $(document).on('submit', '#timeform', function(){
+		
 
         if(day != ''){
             var start_time = $("#start_time").val();
@@ -157,6 +179,8 @@ $(document).ready(function(){
                                 $.Metro.initInputs();
                             }
                         });
+						
+							
                     }
                     else{
                         $.ajax({
@@ -172,6 +196,9 @@ $(document).ready(function(){
                                         timeout: 10000 // 10 seconds
                                        });
                         });
+							setCalendar(arr[0]);
+							 cal.calendar('unsetDate', today);
+						
                     }
                 });
             }
@@ -210,6 +237,33 @@ $(document).ready(function(){
                             timeout: 10000 // 10 seconds
                            });
             });
-    }
-})
+    };
+	
+	
+	   $.ajax({
+                    type: "GET",
+                    url: "<?php echo base_url('doctor/doc_calendar_app'); ?>",
+					dataType: "json"
+              //      data: {day: day}
+          }).done(function(data){		 
+				 for(var k in data) {
+				   setCalendar(data[k].date);
+				}
+				 cal.calendar('unsetDate', today);
+			  
+		 });
+
+function setCalendar(d){
+		
+		 cal.calendar('setDate', d);
+		 
+}
+
+
+});
+
+
+
 </script>
+
+
