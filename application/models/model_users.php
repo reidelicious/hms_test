@@ -165,7 +165,7 @@ class Model_users extends CI_Model{
 	}
 
 	public function getPatientsAppointments($d){
-		$this->db->where('doctor_id', $this->session->userdata('id'));
+		$this->db->where('doctor_id', $this->session->userdata('d_id'));
 		$this->db->where('date', $d);
 		$this->db->where('status', 2);
 		$this->db->from('appointments');
@@ -176,7 +176,7 @@ class Model_users extends CI_Model{
 	}
 	public function getPendingActiveAppointments(){
 		$this->db->where('date >=', 'CURDATE()', FALSE);
-		$this->db->where('doctor_id', $this->session->userdata('id'));
+		$this->db->where('doctor_id', $this->session->userdata('d_id'));
 		$this->db->where('status', 1);
 		$this->db->from('appointments');
 		$this->db->order_by('date');
@@ -186,7 +186,7 @@ class Model_users extends CI_Model{
 	}
 	public function getPendingInActiveAppointments(){
 		$this->db->where('date <', 'CURDATE()', FALSE);
-		$this->db->where('doctor_id', $this->session->userdata('id'));
+		$this->db->where('doctor_id', $this->session->userdata('d_id'));
 		$this->db->where('status', 1);
 		$this->db->from('appointments');
 		$this->db->order_by('date');
@@ -819,7 +819,7 @@ $this->db->update('table as a, table2 as b');
 		
 	}
 	public function doctor_calendar_appointments(){
-		$this->db->where('doctor_id',$this->session->userdata('id'));
+		$this->db->where('doctor_id',$this->session->userdata('d_id'));
 		$this->db->where('status', 2);
 		$this->db->group_by('date');
 		$this->db->select('date');

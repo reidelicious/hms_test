@@ -1,4 +1,4 @@
-<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>    
+
     <div class = "container">
     <h2 id="_default"><i class="icon-accessibility on-left"></i>Appointments</h2>
     <?php echo $notif; ?>

@@ -159,7 +159,7 @@ $this->load->library('email');
 					else{ 
 						$data['mail'] = $this->ret_succmail_notif(); 
 						$data['notif'] = "<script>var not = $.Notify({
-										style: {background: 'BLUE', color: 'white'},
+										style: {background: '#008287' , color: 'white'},
 										caption: 'CONFIRMATION',
 										content: 'CHECK YOUR EMAIL TO ACTIVATE YOUR ACCOUNT',
 										timeout: 10000 // 10 seconds
@@ -515,7 +515,7 @@ public function do_upload()
 	
 	public function ret_succmail_notif(){
 	 return "<script>var not = $.Notify({
-				 	style: {background: '#00EEFF', color: 'white'},
+				 	style: {background: '#4390df', color: 'white'},
     				caption: 'MAIL SUCCESS',
        				content: 'SEND to EMAIL  SUCCESS!!!',
       			  	timeout: 10000 // 10 seconds
