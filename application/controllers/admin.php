@@ -111,7 +111,21 @@ public function add_user(){
  
         echo $this->datatables->generate();
     }
+
+    public function datatable_announcement(){
+		
+        $this->datatables->select('announcement.id, announcement.announcement_datetime_made, announcement.announcement_subject, clinic.clinic_name,announcement.announcement_details')
+        	->unset_column('announcement.announcement_details')
+			->add_column('action', get_buttons_wdetails('$1', '$2'), 'announcement.id, announcement.announcement_details')
+			//->add_column('details', '<p value="$1" style="display:none;">$1</p>', 'announcement.announcement_details')
+            ->from('announcement')
+            ->join('clinic', 'clinic.clinic_id = announcement.fk_clinic_id', 'left');
+ 
+        echo $this->datatables->generate();
+    }
 	
+
+
 	public function deleteUser($id){
 		$this->load->model('model_users');
 		if($this->model_users->deleteUserFromDB($id)){
@@ -127,6 +141,15 @@ public function add_user(){
 		if($this->model_users->deleteClinicFromDB($id)){
 			
 				echo "success";
+		}else{
+			echo "fail";
+		}	
+	}
+
+	public function deleteAnnouncement($id){
+		$this->load->model('model_users');
+		if($this->model_users->deleteAnnouncmentfromDb($id)){
+			echo "success";
 		}else{
 			echo "fail";
 		}	
@@ -149,6 +172,16 @@ public function add_user(){
 	public function editClinicInfo(){		
 		$this->load->model('model_users');
 		if($this->model_users->edit_clinic()){
+			echo "success";			
+		}else{
+			echo $this->input->post('uiD');
+			echo "error";
+		}	
+	}
+
+	public function editAnnouncement(){		
+		$this->load->model('model_users');
+		if($this->model_users->edit_announcement()){
 			echo "success";			
 		}else{
 			echo $this->input->post('uiD');
@@ -317,7 +350,23 @@ public function add_user(){
 		}
 	}
 
-
+	//start view announcement
+	public function view_announcement(){
+		$data['title'] = 'View Announcements';
+		if($this->session->userdata('usertype') == "ADMIN"){
+			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
+			$this->table->set_template($tmpl);
+			$this->table->set_heading('id', 'Date and Time Made', 'Announcement Subject', 'Made From', 'Action');
+			
+			$this->load->view('templates/header/header_all',$data);	
+			$this->load->view('templates/header/navbar_admin');
+			$this->load->view('admin/view_announcement');
+			$this->load->view('templates/footer/footer_admin');
+		}else{
+			show_404();
+		}		
+	}
+	//end announcement
 
 
 

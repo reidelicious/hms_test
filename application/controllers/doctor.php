@@ -63,6 +63,17 @@ class Doctor extends CI_Controller {
 			return 0;
 	}
 
+	public function datatable_announcementDoctor(){
+		$query = $this->db->select('clinic')->from('doctors')->where('d_id', $this->session->userdata('d_id'))->get()->result();
+        $this->datatables->select('announcement.id, announcement.announcement_datetime_made, announcement.announcement_subject, announcement.announcement_details')
+        	->unset_column('announcement.announcement_details')
+			->add_column('action', get_buttons_wdetails('$1', '$2'), 'announcement.id, announcement.announcement_details')
+			->where('fk_clinic_id', $query[0]->clinic)
+            ->from('announcement');
+ 
+        echo $this->datatables->generate();
+    }
+
 	public function manage_schedule_toDB(){
 		$this->load->model('model_users');
 		$a = $_POST['arr'];		
@@ -116,6 +127,21 @@ class Doctor extends CI_Controller {
 		else{
 			echo "Failed";
 		}
+	}
+
+	public function viewAnnouncement(){
+		$data['title'] = 'View Announcements';
+		if($this->session->userdata('usertype') == "DOCTOR"){
+			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
+			$this->table->set_template($tmpl);
+			$this->table->set_heading('id', 'Date and Time Made', 'Announcement Subject', 'Action');
+			
+			$this->load->view('templates/header/header_all',$data);	
+			$this->load->view('templates/header/header_doctor');
+			$this->load->view('doctor/viewAnnouncement_doctor');
+		}else{
+			show_404();
+		}		
 	}
 
 	public function changeStat_appointmentToReject(){

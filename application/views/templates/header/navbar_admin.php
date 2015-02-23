@@ -6,9 +6,7 @@
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">
-                    <li>
-                    	<li><a href="<?php echo base_url()."admin/makeAnnouncement"?>">Make Announcement</a></li>
-                    </li>
+
                     <li><span class="element-divider"></span></li>
                     <li>
                         <a class="dropdown-toggle"  href="#">Manage Users</a>
@@ -24,10 +22,13 @@
                             <li><a href="<?php echo base_url()."admin/view_clinic"?>">View Clinic</a></li>   
                         </ul>
                     </li>                   
-                   
-                    
-                    
-                    
+                    <li>
+                        <a class="dropdown-toggle" href="#">Manage Announcement</a>
+                        <ul class="dropdown-menu" data-role="dropdown">
+                           <li><a href="<?php echo base_url()."admin/makeAnnouncement"?>">Make Announcement</a></li>
+                           <li><a href="<?php echo base_url()."admin/view_announcement"?>">View Announcements</a></li>
+                        </ul>
+                    </li>
                 </ul>
                  <ul class="element-menu place-right">
                  	<li>

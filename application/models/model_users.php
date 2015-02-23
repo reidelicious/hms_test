@@ -492,7 +492,29 @@ class Model_users extends CI_Model{
 		return false;
 	}
 
+	public function edit_announcement(){
+		$data = array(
+				'announcement_subject' => $this->input->post('subject'),
+				'announcement_details' => $this->input->post('details'),
+			);	
 
+		$query = $this->db->update('announcement', $data);
+		if($query)
+			return true;
+		else
+			return false;
+	}
+
+	public function deleteAnnouncmentfromDb($id){
+	
+		$this->db->where('id',$id);
+		
+		$query = $this->db->delete('announcement');
+		
+		if($this->db->affected_rows()>0){
+			return true;
+		}else{ return false;}
+	}
 
 
 

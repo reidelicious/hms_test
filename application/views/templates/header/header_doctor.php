@@ -2,7 +2,7 @@
     <header class="bg-dark">
         <div class="navbar fixed-top ">
             <div class="navbar-content">
-                <a href="#" class="element"><span class="icon-grid-view"></span> Hospital Management System <sup>Alpha v1.0</sup></a>
+                <a href="<?php echo base_url()."home_doctor"?>" class="element"><span class="icon-grid-view"></span> Hospital Management System <sup>Alpha v1.0</sup></a>
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">
@@ -17,7 +17,11 @@
                         </ul>
                     </li>
                     <li>
-                    	<li><a href="<?php echo base_url()."makeAnnouncement_doctor"?>">Make Announcement </a></li>
+                        <a class="dropdown-toggle"  href="#">Manage Announcement </a>
+                        <ul class="dropdown-menu" data-role="dropdown">
+                            <li><a href="<?php echo base_url()."makeAnnouncement_doctor"?>">Make Announcement</a></li>
+                            <li><a href="<?php echo base_url()."viewAnnouncement"?>">View Announcement</a></li>   
+                        </ul>
                     </li>
                     <li>
                         <li><a href="<?php echo base_url()."manage_schedules"?>">Manage Schedules </a></li>
@@ -29,10 +33,10 @@
                 </ul>
                  <ul class="element-menu place-right">
                  	<li>
-                    	<button class="element image-button image-left">
+                        <a href="<?php echo base_url()."home_doctor"?>"  class="element image-button image-left">
                        	<?php echo $this->session->userdata('fname') ."  " .$this->session->userdata('lname') ;  ?>
                        <?php echo  img(''.$this->session->userdata('avatar').''); ?>
-                        </button>
+                        </a>
                     </li>
                     
                  	<li>

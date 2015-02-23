@@ -30,32 +30,17 @@ width: 100%;
             <div class="span5 offset4">
             <h2 id="_default"><i class="icon-accessibility on-left"></i>Make Annoucement</h2>
                 <?php 
-                
-                echo form_open('main/makeAnnouncement_validation');
-                
-
-                echo validation_errors();
-            
-            
+                    echo form_open('main/makeAnnouncement_validation');
+                    echo validation_errors();
                 ?>
-                 <label>subject </label>
-                    <div class="input-control text" data-role="input-control">
-                        <?php $data = array( 'name'=> 'subject');?>
-                        <?php echo form_input($data, $this->input->post('subject')); ?>
-                        <button class="btn-clear" tabindex="-1"></button>
-                    </div>
-                <?php
-                echo "<p> More Information: </br>";
-                $data = array( 'name'=> 'details', 'required'=>'required', 'class' => 'btn-block');
-                echo form_textarea($data);
-                echo "</p>";
-                
-                echo "<p>";
-                echo form_submit('announcement_submit','Save');
-                echo "</p>";
-                
-                echo form_close();
-                ?>
+                <label> Subject: </label>
+                <div class="input-control text" data-role="input-control">
+                    <input type="text" name="subject" value="<?php echo $this->input->post('subject') ?>" required>
+                    <button class="btn-clear" tabindex="-1"></button>
+                </div>
+                <label> More Information: </label>
+                <textarea name="details" style="display:block; width:100%; max-width:100%;" required></textarea><br/>
+                    <button type="submit" name="announcement_submit" class="primary button">Save</button>
             </div>
         </div>
     </div>
