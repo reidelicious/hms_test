@@ -126,7 +126,7 @@ $(document).ready(function(){
 		//	$('#bla').append(<?php// echo $apps->date ?>+'  ');
 	// <?php//  endforeach; ?>
 	 //	setCalendar(today);
-     cal.calendar('unsetDate', today);
+
     $(document).on('submit', '#timeform', function(){
 		
 
@@ -196,7 +196,7 @@ $(document).ready(function(){
                                        });
                         });
 							setCalendar(arr[0]);
-							cal.calendar('unsetDate', today);
+						
 						
                     }
                 });
@@ -248,7 +248,7 @@ $(document).ready(function(){
 				 for(var k in data) {
 				   setCalendar(data[k].date);
 				}
-				 cal.calendar('unsetDate', today);
+				  cal.calendar('unsetDate', today);
 			  
 		 });
 

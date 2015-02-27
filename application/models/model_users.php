@@ -87,7 +87,7 @@ class Model_users extends CI_Model{
 	}
 
 	public function overwrite_schedule_forDoctor($a){
-		$array = array('d_id' => $this->session->userdata('id'), 'date' => $a[0]);
+		$array = array('d_id' => $this->session->userdata('d_id'), 'date' => $a[0]);
 		$this->db->where($array); 
 		$data = array(
 				'time_start' => $a[1],
