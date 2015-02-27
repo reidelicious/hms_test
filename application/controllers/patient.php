@@ -210,14 +210,14 @@ class Patient extends CI_Controller {
 		$this->load->view('patient/appointment', $data);
 		
 	}
-	public function appointmentv2(){
+	public function appointmentv3(){
 		$this->load->model('model_users');
 		$data['title'] = 'appointment';
 		$data['specialization'] = $this->model_users->get_Specialists();
 		$data['appointments'] = $this->model_users->get_calendar_app();
 		$this->load->view('templates/header/header_all',$data);
 		$this->load->view('templates/header/header_patient');
-		$this->load->view('patient/appointmentv2', $data);
+		$this->load->view('patient/appointmentv3', $data);
 	}
 	public function build_timeline_appointment(){
 		$this->load->model('model_users');

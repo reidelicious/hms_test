@@ -51,9 +51,9 @@
                                                 <div id="ndoctor" class="readable-text subheader"></div>
                                                 <div id="sched" class="readable-text subheader text-warning"></div><br/>
                                                 <form id="makeAppointmentHere">
-                                                <center><input id="gimme" type="time" step="1800" style="display:none;" required></center><br/>
+                                                <center><input id="gimme" type="time" step="900" style="display:none;" required></center><br/>
                                                 <div id="notice" style="display:none;" class="notice marker-on-top">
-                                                  Please input time before 15 minutes of end time.
+                                                  Note: Time interval is 15 minutes and does not accept 15 minutes before the closing time
                                                 </div>
                                             </div>
                                         </div>
@@ -158,32 +158,54 @@ $(document).ready(function(){
                 var out = $("#calendar-output2").html("");
                 out.html(d);
                 day = d;
-                
                 $('#begin').show();
-                if($('#doctor').val() != ''){
-                     
-                              $.ajax({
-                                url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
-                                data: {doctor:$(this).val(), day:day},
-                                type: "POST",
-                                success: function(data){
-                                  $("#sched").html("");
-                                  $("#sched").html(data);
-
-                                  if(data == "Not Yet Available!"){
-                                      $('#gimme').hide();
-                                      $('#notice').hide();
-                                      $('#footer').hide();
-                                  }
-                                  else{
-                                      $('#gimme').show();
-                                      $('#notice').show();
-                                      $('#footer').show();
-                                  }
-                                }
-                              });
+                if($('#doctor').val() != null){  
+                  $.ajax({
+                    url:"<?php echo base_url(); ?>patient/build_drop_schedule",    
+                    data: {doctor:$('#doctor').val(), day:day},
+                    type: "POST",
+                      success: function(data){
+                        $("#sched").html("");
+                        $("#sched").html(data);
+                        if(data == "Not Yet Available!"){
+                            $('#gimme').hide();
+                            $('#notice').hide();
+                            $('#footer').hide();
+                        }
+                        else{ //new
+                          $.ajax({
+                            url: "<?php echo base_url(); ?>patient/build_time_start",
+                            data: {doctor:$('#doctor').val(), day:day},
+                            type: "POST",
+                            success:function(time_start){
+                              $('#gimme').attr('min', time_start);
                             }
-        } // fired when user clicked on day, in "d" stored date
+                          });
+                          $.ajax({
+                            url: "<?php echo base_url(); ?>patient/build_time_end",
+                            data: {doctor:$('#doctor').val(), day:day},
+                            type: "POST",
+                            success:function(time_end){
+                              var fifteen = new Date("Thu, 01 Jan 1970 " + time_end);
+                              if(fifteen.getMinutes() == "00"){
+                                fifteen.setHours(fifteen.getHours() - 1);
+                                fifteen.setMinutes(45);
+                              }else{
+                                fifteen.setMinutes(15);
+                              }
+                              var x = fifteen.getHours() + ":" + fifteen.getMinutes() + ":" + fifteen.getSeconds() + fifteen.getMilliseconds();
+                              $('#gimme').attr('max', x);
+                            }
+                          });
+
+                            $('#gimme').show();
+                            $('#notice').show();
+                            $('#footer').show();
+                        }
+                      }
+                  });
+                }
+        }
     });
 		
 
@@ -236,13 +258,37 @@ $(document).ready(function(){
           success: function(data){
             $("#sched").html("");
             $("#sched").html(data);
-            
             if(data == "Not Yet Available!"){
                 $('#gimme').hide();
                 $('#notice').hide();
                 $('#footer').hide();
             }
-            else{
+            else{ //new
+              $.ajax({
+                url: "<?php echo base_url(); ?>patient/build_time_start",
+                data: {doctor:$('#doctor').val(), day:day},
+                type: "POST",
+                success:function(time_start){
+                  $('#gimme').attr('min', time_start);
+                }
+              });
+              $.ajax({
+                url: "<?php echo base_url(); ?>patient/build_time_end",
+                data: {doctor:$('#doctor').val(), day:day},
+                type: "POST",
+                success:function(time_end){
+                  var fifteen = new Date("Thu, 01 Jan 1970 " + time_end);
+                  if(fifteen.getMinutes() == "00"){
+                    fifteen.setHours(fifteen.getHours() - 1);
+                    fifteen.setMinutes(45);
+                  }else{
+                    fifteen.setMinutes(15);
+                  }
+                  var x = fifteen.getHours() + ":" + fifteen.getMinutes() + ":" + fifteen.getSeconds() + fifteen.getMilliseconds();
+                  $('#gimme').attr('max', x);
+                }
+              });
+
                 $('#gimme').show();
                 $('#notice').show();
                 $('#footer').show();
@@ -251,85 +297,26 @@ $(document).ready(function(){
         });
     });
     $("#makeAppointmentHere").submit(function(){
-        
-       if($('#gimme').val() != ''){
             var time_input = document.getElementById("gimme").value + ":00";
+            var arr = [];
+            arr.push(day);
+            arr.push(time_input);
+            arr.push($('#doctor').val());
             $.ajax({
-              url: "<?php echo base_url(); ?>patient/build_time_start",
-              data: {doctor:$('#doctor').val(), day:day},
+              url:"<?php echo base_url(); ?>patient/saveAppointmentToDB",    
+              data: {arr:arr},
               type: "POST",
-              success:function(data){
-                if(data != "Not Yet Available!"){
-                  if(time_input < data){
-                      var not = $.Notify({
-                              style: {background: 'red', color: 'white'}, 
-                              caption: 'STILL NOT OPEN AT THAT TIME',
-                              timeout: 10000 // 10 seconds
-                          });
-                  }
-                  else{ //if time_input > time_start then start check time_end
-                    $.ajax({
-                      url:"<?php echo base_url(); ?>patient/build_time_end",    
-                      data: {doctor:$('#doctor').val(), day:day},
-                      type: "POST",
-                      success: function(data){
-                        if(data != "Not Yet Available!"){
-                          if(time_input > data || time_input == data){
-                              var not = $.Notify({
-                                      style: {background: 'red', color: 'white'}, 
-                                      caption: 'DOCTOR IS ALREADY OUT AT THAT TIME',
-                                      timeout: 10000 // 10 seconds
-                                  });
-                          }
-                          else{ // if time input < time_end and time_input != data
-                              var arr = [];
-                              arr.push(day);
-                              arr.push(time_input);
-                              arr.push($('#doctor').val());
-                              $.ajax({
-                                url:"<?php echo base_url(); ?>patient/saveAppointmentToDB",    
-                                data: {arr:arr},
-                                type: "POST",
-                              }).done(function(){    
-                                  var not = $.Notify({
-                                          style: {background: 'green', color: 'white'}, 
-                                          caption: 'SUCCESSFULLY SAVED!',
-                                          content: "Please wait for the secretary to approve your request",
-                                          timeout: 10000 // 10 seconds
+              success:function(){
+                var not = $.Notify({
+                        style: {background: 'green', color: 'white'}, 
+                        caption: 'SUCCESSFULLY SAVED!',
+                        content: "Please wait for the secretary to approve your request",
+                        timeout: 10000 // 10 seconds
 
-                                      });
-                                      $('#myMod').modal('hide');
-
-                                      //location.reload(10000);
-                              });
-                          }
-                        }
-                         else{
-                              $('#gimme').hide();
-                              $('#notice').hide();
-                              $('#footer').hide();
-                          }
-                      }
                     });
-                  }
-                }
-                else{
-                    $('#gimme').hide();
-                    $('#notice').hide();
-                    $('#footer').hide();
-                }
+                    $('#myMod').modal('hide');
               }
             });
-                
-        }
-        else{
-            var not = $.Notify({
-                        style: {background: 'red', color: 'white'}, 
-                        caption: 'MISSING TIME',
-                        content: "Please Input Time",
-                        timeout: 10000 // 10 seconds
-                    });
-        }
     });
     
 })

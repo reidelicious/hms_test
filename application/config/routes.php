@@ -46,7 +46,7 @@ $route['new_user/signup'] = 'main/signup';
 $route['home'] = 'patient/home';
 $route['explore'] = 'patient/explore';
 $route['appointment'] = 'patient/appointment';
-$route['appointmentv2'] = 'patient/appointmentv2';
+$route['appointmentv3'] = 'patient/appointmentv3';
 
 
 $route['home_doctor'] = 'doctor/home_doctor';
