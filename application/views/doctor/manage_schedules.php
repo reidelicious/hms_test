@@ -144,7 +144,6 @@ $(document).ready(function(){
                 arr.push(day);
                 arr.push($("#start_time").val());
                 arr.push($("#end_time").val());
-                
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url('doctor/is_schedule_unique'); ?>",
@@ -182,6 +181,7 @@ $(document).ready(function(){
 							
                     }
                     else{
+                        flag = 0;
                         $.ajax({
                             type: "POST",
                             url: "<?php echo base_url('doctor/manage_schedule_toDB'); ?>",
@@ -196,7 +196,7 @@ $(document).ready(function(){
                                        });
                         });
 							setCalendar(arr[0]);
-							 cal.calendar('unsetDate', today);
+							cal.calendar('unsetDate', today);
 						
                     }
                 });

@@ -72,7 +72,7 @@ class Model_users extends CI_Model{
 	}
 
 	public function check_schedule($d){
-		$query = $this->db->get_where('doctor_schedule', array('d_id' => $this->session->userdata('id'), 'date' => $d));
+		$query = $this->db->get_where('doctor_schedule', array('d_id' => $this->session->userdata('d_id'), 'date' => $d));
 		return $query->num_rows();
 	}
 

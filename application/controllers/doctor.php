@@ -56,11 +56,11 @@ class Doctor extends CI_Controller {
 		$this->load->model('model_users');
 		$date = $_POST['day'];
 		$result = $this->model_users->check_schedule($date);
-		print_r($result);
+
 		if($result > 0)
-			return 1;
+			echo '1';
 		else
-			return 0;
+			echo '0';
 	}
 
 	public function datatable_announcementDoctor(){
