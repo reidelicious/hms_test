@@ -14,7 +14,11 @@
                         <ul class="dropdown-menu" data-role="dropdown">
                             <li><a href="<?php echo base_url()."manage_appointment"?>">Manage Appointment</a></li>
                             <li><a href="<?php echo base_url()."view_appointment"?>">View Timeline</a></li>   
+                            <li><a href="<?php echo base_url()."view_allrejected_doctor"?>">View All Rejected Appointments</a></li>   
                         </ul>
+                    </li>
+                    <li>
+                        <li><a href="<?php echo base_url()."manage_schedules"?>">Manage Schedules </a></li>
                     </li>
                     <li>
                         <a class="dropdown-toggle"  href="#">Manage Announcement </a>
@@ -23,13 +27,6 @@
                             <li><a href="<?php echo base_url()."viewAnnouncement"?>">View Announcement</a></li>   
                         </ul>
                     </li>
-                    <li>
-                        <li><a href="<?php echo base_url()."manage_schedules"?>">Manage Schedules </a></li>
-                    </li>
-                    
-                    
-                    
-                    
                 </ul>
                  <ul class="element-menu place-right">
                  	<li>

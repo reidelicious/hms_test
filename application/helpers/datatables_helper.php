@@ -31,3 +31,15 @@ function get_buttons_wdetails($id, $det)
  
     return $html;
 }
+
+function getbutton_rejected($mes)
+{
+    $ci = & get_instance();
+    $html = '<span class="actions">';
+    $html .= '<button class="default showMsg"><i class="icon-pencil on-left"></i> Show Message</button>';
+   // $html .= ' <a href="' . base_url() . 'subscriber/delete/' . $id . '"><button class="primary"><i class="icon-cancel-2 on-left"></i> Edit</button></a>';
+    $html .= '<div style="display:none;">'.$mes.'</div>';
+    $html .= '</span>';
+ 
+    return $html;
+}

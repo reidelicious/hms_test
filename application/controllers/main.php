@@ -288,6 +288,29 @@ $this->load->library('email');
 			}else{}
 		
 	}// end of adduservalidation
+
+	public function changeColor(){
+		$data['title'] = "Settings";	
+		$data['error'] = '';
+		$this->load->model('model_users');
+		if($this->model_users->changeColor()){
+			$data['success'] = $this->editinfo_notif_succ();					
+		}else{
+			$data['success'] = $this->editinfo_notif_fail();	
+		}
+		$this->load->view('templates/header/header_all',$data);			
+		if($this->session->userdata('usertype') == "USER"){
+			$this->load->view('templates/header/header_patient');
+			$this->load->view('settings',$data);				
+		}else if($this->session->userdata('usertype') == "ADMIN"){
+			$this->load->view('templates/header/navbar_admin');
+			$this->load->view('settings',$data);
+			$this->load->view('templates/footer/footer_admin');	
+		}else if($this->session->userdata('usertype') == "DOCTOR"){
+			$this->load->view('templates/header/header_doctor');
+			$this->load->view('settings',$data);
+		}
+	}
 	
 	public function settings(){
 		$data['title'] = "settings";

@@ -142,6 +142,174 @@
 
         </div>
     </div>	
+    <?php if($this->session->userdata('usertype') != "ADMIN"){ ?>
+      <div class="accordion-frame">
+        <a href="#" class="heading">Change Appointment Timeline Color</a>
+        <div class="content">
+          <div class="grid">
+          <div class="row">
+            <form action="<?php echo base_url('main/changeColor'); ?>" method="POST">
+              <div class="span3 offset3">
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-black" />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-black on-left"></span>  Black
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-lime" />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-lime on-left"></span>  Lime
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-green" />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-green on-left"></span>  Green
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-emerald"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-emerald on-left"></span>  Emerald
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-teal" />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-teal on-left"></span>  Teal
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio"  value="bg-cyan" name="r1" />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-cyan on-left"></span>  Cyan
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-cobalt" />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-cobalt on-left"></span>  Cobalt
+                    </label>
+                </div><br/>
+              </div>
+              <div class="span3">
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-indigo"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-indigo on-left"></span>  Indigo
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-violet"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-violet on-left"></span>  Violet
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-pink"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-pink on-left"></span>  Pink
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-magenta"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-magenta on-left"></span>  Magenta
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-crimson"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-crimson on-left"></span>  Crimson
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-red" />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-red on-left"></span>  Red
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1"  value="bg-orange" />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-orange on-left"></span>  Orange
+                    </label>
+                </div><br/>
+              </div>
+              <div class="span3">
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1"  value="bg-amber"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-amber on-left"></span>  Amber
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-brown"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-brown on-left"></span>  Brown
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-olive"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-olive on-left"></span>  Olive
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-steel"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-steel on-left"></span>  Steel
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1" value="bg-mauve"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-mauve on-left"></span>  Mauve
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1"  value="bg-taupe"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-taupe on-left"></span>  Taupe
+                    </label>
+                </div><br/>
+                <div class="input-control radio default-style margin10" data-role="input-control">
+                    <label>
+                        <input type="radio" name="r1"  value="bg-gray"  />
+                        <span class="check"></span>
+                        <span class="square10 inline-block bg-gray on-left"></span>  Gray
+                    </label>
+                </div><br/>
+              </div>
+
+        </div><br/>
+        <center>
+                <button type="submit" class="large primary"><i class="icon-floppy on-left">   Save</i></button>
+        </center>
+        </div>
+      </div>
+    <?php } ?>
 </div>
     
  

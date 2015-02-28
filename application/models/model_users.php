@@ -737,10 +737,18 @@ $this->db->update('table as a, table2 as b');
 			return true;
 		}
 		else
-		 return false;
-		
-		
-		
+		 return false;	
+	}
+
+	public function changeColor(){
+		$data = array(
+					'timeline' => $this->input->post('r1')
+				);
+		$query = $this->db->where('id', $this->session->userdata('id'))->update('users', $data);
+		if($query)
+			return true;
+		else
+			return false;
 	}
 	
 	public function search_doctors($item){

@@ -9,7 +9,7 @@
             </div>
         </div>
         <?php foreach ($appointment as $doctors): ?>
-        <div class="stream bg-teal">
+        <div class="stream <?php echo $doctors->timeline; ?>">
             <div class="stream-title">DR. <?php echo $doctors->lname; ?><br /><?php echo $doctors->specialist; ?></div>
             <div class="stream-number">Clinic: <?php echo $doctors->clinic_name; ?></div>
         </div>

@@ -63,6 +63,19 @@ class Doctor extends CI_Controller {
 			echo '0';
 	}
 
+	public function datatable_rejectedAppointments(){
+		$this->datatables->select('appointments.date, appointments.time, users.lname, users.fname, appointments.message')
+			->unset_column('appointments.message')
+			->add_column('action', getbutton_rejected('$1'), 'appointments.message')
+			->where('appointments.status', "Reject")
+			->where('doctor_id', $this->session->userdata('d_id'))
+			->from('appointments')
+			->join('patients', 'patients.p_id = appointments.patient_id ', 'inner')
+			->join('users', 'users.id = patients.u_id', 'inner');
+
+		echo $this->datatables->generate();
+	}
+
 	public function datatable_announcementDoctor(){
 		$query = $this->db->select('clinic')->from('doctors')->where('d_id', $this->session->userdata('d_id'))->get()->result();
         $this->datatables->select('announcement.id, announcement.announcement_datetime_made, announcement.announcement_subject, announcement.announcement_details')
@@ -143,6 +156,21 @@ class Doctor extends CI_Controller {
 			show_404();
 		}		
 	}
+
+	public function viewRejectedAppointments(){
+		$data['title'] = 'View Rejected Appointments';
+		if($this->session->userdata('usertype') == "DOCTOR"){
+			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
+			$this->table->set_template($tmpl);
+			$this->table->set_heading('Date', 'Time', 'Last Name', 'First Name', 'Action');
+			
+			$this->load->view('templates/header/header_all',$data);	
+			$this->load->view('templates/header/header_doctor');
+			$this->load->view('doctor/view_allrejected_doctor');
+		}else{
+			show_404();
+		}		
+	}	
 
 	public function changeStat_appointmentToReject(){
 		$this->load->model('model_users');

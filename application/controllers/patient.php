@@ -408,6 +408,34 @@ class Patient extends CI_Controller {
 		$this->load->view('patient/explore',$data);
 	}
 
+	public function datatable_rejectedAppointments_Patients(){
+		$this->datatables->select('appointments.date, appointments.time, users.lname, appointments.message')
+			->unset_column('appointments.message')
+			->add_column('action', getbutton_rejected('$1'), 'appointments.message')
+			->where('appointments.status', "Reject")
+			->where('patient_id', $this->session->userdata('p_id'))
+			->from('appointments')
+			->join('doctors', 'doctors.d_id = appointments.doctor_id ', 'inner')
+			->join('users', 'users.id = doctors.u_id', 'inner');
+
+		echo $this->datatables->generate();
+	}
+
+	public function viewRejectedAppointments(){
+		$data['title'] = 'View Rejected Appointments';
+		if($this->session->userdata('usertype') == "USER"){
+			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
+			$this->table->set_template($tmpl);
+			$this->table->set_heading('Date', 'Time', 'Doctor', 'Action');
+			
+			$this->load->view('templates/header/header_all',$data);	
+			$this->load->view('templates/header/header_patient');
+			$this->load->view('patient/view_allrejected_patient');
+		}else{
+			show_404();
+		}		
+	}
+
 	public function saveAppointmentToDB(){
 		$arr = $_POST['arr'];
 		$this->load->model('model_users');
