@@ -336,21 +336,18 @@ $(document).ready(function(){
 	    rules: {
 	      password: {
 	        minlength: 6,
-			number: true,
 	        required: true,
 			notEqualtoOldPass: true
 	      },
 		  cPassword: {
 	        minlength: 6,
 	        required: true,
-			 number: true,
 			 equalTo: "#pass"
 
 	      },
 		  oldPassword: {
 	    	 minlength: 6,
 	        required: true,
-			number: true,
 	      }
 		
 		  

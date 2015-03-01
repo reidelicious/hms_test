@@ -73,7 +73,7 @@ $(document).on('click','.editInfo', function(){
                 '<div class="input-control text"><input type="text" name="id" value="'+id+'" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
 			     '<label>email</label>' +
-                '<div class="input-control text"><input type="email"  value= "'+email.text()+'"name="email" required>'+
+                '<div class="input-control text"><input type="email"  value= "'+email.text()+'"name="email" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
 			     '<label>first name</label>' +
                 '<div class="input-control text"><input type="text" value = "'+fname.text()+'" name="fname"  required>'+

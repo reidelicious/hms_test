@@ -675,6 +675,27 @@ $this->db->update('table as a, table2 as b');
 		
 	}
 	
+	
+	public function edit_doctorinfo(){
+		
+			$data = array(
+			'fname' => $this->input->post('fname'),
+			'lname' => $this->input->post('lname'),
+			
+            );
+			
+		$this->db->where('id', $this->session->userdata('id'));
+		$this->db->update('users', $data);
+		
+		if($this->db->affected_rows()>0){
+		$this->session->set_userdata($data);
+			return true;
+		}
+		else
+		 return false;
+		
+	}
+	
 	public function edit_admininfo(){
 			$data = array(
 			'fname' => $this->input->post('fname'),

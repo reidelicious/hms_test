@@ -76,13 +76,13 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
 <div id="1" style="visibility:hidden;">
  		<label>Age </label>
     	<div class="input-control text" data-role="input-control">
-        	<?php $data = array( 'name'=> 'age', 'placeholder'=>'enter your Age','required'=>'required');?>
+        	<?php $data = array( 'name'=> 'age', 'placeholder'=>'enter your age','required'=>'required');?>
          	<?php echo form_input($data, $this->input->post('age')); ?>
     		<button class="btn-clear" tabindex="-1"></button>
     	</div>
         <label>Address </label>
     
-        	<?php $data = array( 'name'=> 'address', 'placeholder'=>'enter your Address','required'=>'required','data-transform'=>'input-control');?>
+        	<?php $data = array( 'name'=> 'address', 'placeholder'=>'enter your address','required'=>'required','data-transform'=>'input-control');?>
          	<?php echo form_input($data, $this->input->post('address')); ?>
 
     
@@ -100,7 +100,7 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
 		<label>Specialization  </label>
     	<div class="input-control select">
             <select name="Specialization" id="Specialization"  required>
-                <option value=''<?php echo set_select('utype', '', TRUE); ?> disabled="disabled"> Select Specialist</option>
+                <option value=''<?php echo set_select('utype', '', TRUE); ?> disabled="disabled"> select specialization</option>
             	<?php foreach($specialists as $row): ?>
 					<option value="<?php echo $row->specialist_id; ?>"> <?php echo $row->specialist; ?></option>
                 <?php endforeach; ?>
@@ -169,7 +169,8 @@ $(document).ready(function(){
 	      },
 	      lname: {
 	         minlength: 2,
-	         required: true
+	         required: true,
+			 lettersonly :true
 	      },
 	      email: {
 	      	minlength: 2,
@@ -194,7 +195,13 @@ $(document).ready(function(){
 		   address: {
 	        minlength: 2,
 	        required: true
-	      }
+	      },
+		  C_num:{
+			  minlength: 7,
+			  number:true,
+			  required: true
+			  
+		  }
 		  
 	    },
 			highlight: function(element) {
@@ -211,7 +218,7 @@ $(document).ready(function(){
 				  required: "We need your email address to contact you",
 				  email: "Your email address must be in the format of name@domain.com"
 			  },
-			 cPassword:{equalTo: "Password doesnt match"}
+			 cPassword:{equalTo: "The Confirm Password field does not match the Password field"}
 			}
 	  });
 

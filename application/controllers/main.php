@@ -283,7 +283,16 @@ $this->load->library('email');
 			}else if($this->session->userdata('usertype') == "DOCTOR"){
 				if($this->form_validation->run()){		
 					if($this->model_users->edit_doctorinfo()){		
-					}else{}
+					
+						$data['success'] = $this->editinfo_notif_succ();
+					}else{
+							$data['success'] = $this->editinfo_notif_fail();
+					}
+					
+					$this->load->view('templates/header/header_all',$data);
+					$this->load->view('templates/header/header_doctor');
+					$this->load->view('settings',$data);
+				
 				}else{}
 			}else{}
 		
@@ -366,7 +375,7 @@ $this->load->library('email');
 			$this->load->model('model_users');		
 		
 			$this->form_validation->set_message('check_passmatch', 'the password must not be the same as the old password');
-			$this->form_validation->set_message('check_oldpass', 'the old password is incorrect');
+			$this->form_validation->set_message('check_oldpass', 'Please enter correct old password');
 			if($this->form_validation->run('edit_password')){		
 				if($this->model_users->edit_password($this->session->userdata('id'))){
 					$data['success'] = $this->editpass_notif_succ();
@@ -412,7 +421,7 @@ $this->load->library('email');
 		return"<script>var not = $.Notify({
 						style: {background: 'green', color: 'white'},
 						caption: 'avatar ',
-						content: 'avatar successfully changed!!!',
+						content: 'Avatar successfully changed',
 						timeout: 10000 // 10 seconds
 							});
 						
