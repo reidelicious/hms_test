@@ -60,7 +60,7 @@ $(document).on('click','.editInfo', function(){
         icon: '<img src="<?php echo base_url('assets/images/Windows-8-Logo.png')?>">',
         title: 'Flat window',
         content: '',
-		width: 500,
+		    width: 500,
         padding: 10,
         onShow: function(_dialog){
             var content = '<form action="<?php echo base_url('admin/editClinicInfo'); ?>" method="POST" id="editform">' +
@@ -74,7 +74,7 @@ $(document).on('click','.editInfo', function(){
                 '<div class="input-control text"><input type="text" value = "'+specialization.text()+'" name="specialization" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
 			           '<label>room_num</label>' +
-				'<div class="input-control text"><input type="text" value = "'+room_num.text()+'" name="room_num" >'+
+				        '<div class="input-control text"><input type="text" value = "'+room_num.text()+'" name="room_num" required>'+
                ' <button class="btn-clear"></button></div> ' +
 			  
                 '<div class="form-actions">' +
@@ -88,6 +88,38 @@ $(document).on('click','.editInfo', function(){
             $.Metro.initInputs();
         }
     });
+    
+    $('#editform').validate({
+        rules: {
+          clinicname: {
+            minlength: 2,
+            required: true,
+            lettersonly: true
+          },
+          room_num: {
+             minlength: 2,
+             required: true,
+             alphanumeric: true
+          }
+        },
+            highlight: function(element) {
+                $(element).closest('.input-control').removeClass('success-state').addClass('error-state');
+            },
+            success: function(element) {
+                element
+                    .closest('.input-control').removeClass('error-state').addClass('success-state');
+            },
+            
+            messages: {
+              name: "Please specify your name",
+              email: {
+                  required: "We need your email address to contact you",
+                  email: "Your email address must be in the format of name@domain.com"
+              },
+             cPassword:{equalTo: "Password doesnt match"}
+            }
+      });
+  
 });					
 		
 		

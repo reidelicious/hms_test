@@ -65,6 +65,7 @@ public function add_user(){
 			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/navbar_admin');
 			$this->load->view('admin/add_clinic',$data);
+			$this->load->view('templates/footer/footer_admin');
 		}else{
 			show_404();
 		}	

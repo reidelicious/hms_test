@@ -495,10 +495,10 @@ class Model_users extends CI_Model{
 	public function edit_announcement(){
 		$data = array(
 				'announcement_subject' => $this->input->post('subject'),
-				'announcement_details' => $this->input->post('details'),
+				'announcement_details' => $this->input->post('details')
 			);	
 
-		$query = $this->db->update('announcement', $data);
+		$query = $this->db->where('id', $this->input->post('id'))->update('announcement', $data);
 		if($query)
 			return true;
 		else

@@ -46,8 +46,7 @@ $( document ).ready(function() {
 
           
 $(document).on('click','.editInfo', function(){
-  var madefrom = $(this).parents('td').prev();  
-  var subject = madefrom.prev();  
+  var subject = $(this).parents('td').prev();  
   
   var id = $(this).siblings('input').val();
   var details = $(this).siblings('div').html();
@@ -85,7 +84,39 @@ $(document).on('click','.editInfo', function(){
             $.Metro.initInputs();
         }
     });
-});         
+
+     $('#editform').validate({
+        rules: {
+          subject: {
+            minlength: 2,
+            required: true,
+            alphanumeric: true
+          },
+          details: {
+             minlength: 2,
+             required: true,
+          }
+        },
+            highlight: function(element) {
+                $(element).closest('.input-control').removeClass('success-state').addClass('error-state');
+            },
+            success: function(element) {
+                element
+                    .closest('.input-control').removeClass('error-state').addClass('success-state');
+            },
+            
+            messages: {
+              name: "Please specify your name",
+              email: {
+                  required: "We need your email address to contact you",
+                  email: "Your email address must be in the format of name@domain.com"
+              },
+             cPassword:{equalTo: "Password doesnt match"}
+            }
+      });       
+});
+
+       
     
     
   

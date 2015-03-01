@@ -74,8 +74,8 @@ $.validator.addMethod("accept", function(value, element, param) {
 }, $.validator.format("Please enter a value with a valid mimetype."));
 
 $.validator.addMethod("alphanumeric", function(value, element) {
-	return this.optional(element) || /^\w+$/i.test(value);
-}, "Letters, numbers, and underscores only please");
+	return this.optional(element) || /^[a-z\d\-_\s]+$/i.test(value);
+}, "Letters, numbers, and spaces only please");
 
 /*
  * Dutch bank account numbers (not 'giro' numbers) have 9 digits
