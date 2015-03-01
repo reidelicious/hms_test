@@ -186,7 +186,7 @@ $this->load->library('email');
 		if($this->model_users->can_log_in()){
 			return true;
 		}else{
-			$this->form_validation->set_message('validate_credentials', 'Incorrect username/passowrd.');
+			$this->form_validation->set_message('validate_credentials', 'Incorrect username/password.');
 			return false;
 		}
 	}

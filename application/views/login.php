@@ -46,7 +46,7 @@ width: 100%;
                // echo form_open('main/login_validation'); 
                 echo validation_errors();
 			         ?>  
-             </fieldset>
+             <fieldset>
               </br>
                 <div class="input-control text" data-role="input-control">
                    

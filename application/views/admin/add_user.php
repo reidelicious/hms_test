@@ -152,6 +152,71 @@ $(document).ready(function() {
   		echo $mail;
    ?>
   
+<script type="text/javascript">
+$(document).ready(function(){
 
+	// Validate
+	// http://bassistance.de/jquery-plugins/jquery-plugin-validation/
+	// http://docs.jquery.com/Plugins/Validation/
+	// http://docs.jquery.com/Plugins/Validation/validate#toptions
+
+		$('#AdduserForm').validate({
+	    rules: {
+	      fname: {
+	        minlength: 2,
+	        required: true,
+			lettersonly :true
+	      },
+	      lname: {
+	         minlength: 2,
+	         required: true
+	      },
+	      email: {
+	      	minlength: 2,
+	        required: true
+	      },
+	      password: {
+	        minlength: 6,
+	        required: true
+	      },
+		  cPassword: {
+	        minlength: 6,
+	        required: true,
+			 equalTo: "#pass"
+
+	      },
+		  age: {
+	        minlength: 1,
+	        required: true,
+			number: true,
+    		maxlength: 2
+	      },
+		   address: {
+	        minlength: 2,
+	        required: true
+	      }
+		  
+	    },
+			highlight: function(element) {
+				$(element).closest('.input-control').removeClass('success-state').addClass('error-state');
+			},
+			success: function(element) {
+				element
+					.closest('.input-control').removeClass('error-state').addClass('success-state');
+			},
+			
+			messages: {
+  			  name: "Please specify your name",
+  			  email: {
+				  required: "We need your email address to contact you",
+				  email: "Your email address must be in the format of name@domain.com"
+			  },
+			 cPassword:{equalTo: "Password doesnt match"}
+			}
+	  });
+
+}); // end document.ready
+
+</script>
 </body>
 </html>
