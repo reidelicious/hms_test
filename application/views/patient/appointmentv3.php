@@ -51,9 +51,9 @@
                                                 <div id="ndoctor" class="readable-text subheader"></div>
                                                 <div id="sched" class="readable-text subheader text-warning"></div><br/>
                                                 <form id="makeAppointmentHere">
-                                                <center><input id="gimme" type="time" step="900" style="display:none;" required></center><br/>
+                                                <center><input id="gimme" type="time" step="1800" style="display:none;" required></center><br/>
                                                 <div id="notice" style="display:none;" class="notice marker-on-top">
-                                                  Note: Time interval is 15 minutes and does not accept 15 minutes before the closing time
+                                                  <strong>Note:</strong> Time should be in 30 minute intervals and should be at least 30 minutes before the closing time
                                                 </div>
                                             </div>
                                         </div>
@@ -189,11 +189,11 @@ $(document).ready(function(){
                               var fifteen = new Date("Thu, 01 Jan 1970 " + time_end);
                               if(fifteen.getMinutes() == "00"){
                                 fifteen.setHours(fifteen.getHours() - 1);
-                                fifteen.setMinutes(45);
+                                fifteen.setMinutes(30);
+                                var x = fifteen.getHours() + ":" + fifteen.getMinutes() + ":" + fifteen.getSeconds() + fifteen.getMilliseconds();
                               }else{
-                                fifteen.setMinutes(15);
+                                var x = fifteen.getHours() + ":00:00";
                               }
-                              var x = fifteen.getHours() + ":" + fifteen.getMinutes() + ":" + fifteen.getSeconds() + fifteen.getMilliseconds();
                               $('#gimme').attr('max', x);
                             }
                           });
@@ -280,11 +280,11 @@ $(document).ready(function(){
                   var fifteen = new Date("Thu, 01 Jan 1970 " + time_end);
                   if(fifteen.getMinutes() == "00"){
                     fifteen.setHours(fifteen.getHours() - 1);
-                    fifteen.setMinutes(45);
+                    fifteen.setMinutes(30);
+                    var x = fifteen.getHours() + ":" + fifteen.getMinutes() + ":" + fifteen.getSeconds() + fifteen.getMilliseconds();
                   }else{
-                    fifteen.setMinutes(15);
+                    var x = fifteen.getHours() + ":00:00";
                   }
-                  var x = fifteen.getHours() + ":" + fifteen.getMinutes() + ":" + fifteen.getSeconds() + fifteen.getMilliseconds();
                   $('#gimme').attr('max', x);
                 }
               });

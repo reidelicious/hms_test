@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2015 at 03:47 AM
+-- Generation Time: Feb 28, 2015 at 07:20 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -35,19 +35,14 @@ CREATE TABLE IF NOT EXISTS `announcement` (
   `announcement_details` longtext,
   `fk_clinic_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `announcement`
 --
 
 INSERT INTO `announcement` (`id`, `announcement_datetime_made`, `announcement_subject`, `announcement_details`, `fk_clinic_id`) VALUES
-(23, '2015-01-28 15:50:38', 'kjh', 'kjh', 2),
-(25, '2015-01-29 14:34:46', 'reid hersehl', 'lreeee ippsssuum', 1),
-(26, '2015-01-29 14:35:45', 'torayno ka?', 'ryno', 1),
-(27, '2015-01-29 14:35:52', 'galanido ka?', 'nideo', 1),
-(28, '2015-01-30 04:53:11', 'Change Schedule', 'change change change', 2),
-(29, '2015-02-07 07:40:32', 'Marjhun cHRISTOHER GALANIDO', 'GALANIDO KA?', 1);
+(5, '2015-02-23 06:54:49', 'Admin Making Announcement', 'yeah', 0);
 
 -- --------------------------------------------------------
 
@@ -64,30 +59,14 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `status` enum('Pending','Approved','Reject','') NOT NULL,
   `message` varchar(500) DEFAULT NULL COMMENT 'if rejected',
   PRIMARY KEY (`appoint_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `appointments`
 --
 
 INSERT INTO `appointments` (`appoint_id`, `date`, `time`, `doctor_id`, `patient_id`, `status`, `message`) VALUES
-(13, '2015-02-09', '13:00:00', 1, 1, 'Reject', 'sige man ka ug balik2 oy? unsa diay problema nimo???? tubaga ko!'),
-(14, '2015-02-09', '09:50:00', 1, 1, 'Approved', NULL),
-(15, '2015-02-09', '13:00:00', 1, 1, 'Approved', NULL),
-(16, '2015-02-09', '13:00:00', 1, 1, 'Approved', NULL),
-(17, '2015-02-09', '09:00:00', 1, 1, 'Approved', NULL),
-(19, '2015-02-11', '12:00:00', 2, 1, 'Reject', 'sending message to the patient...'),
-(20, '2015-02-12', '12:59:00', 3, 1, 'Approved', NULL),
-(21, '2015-02-09', '09:00:00', 2, 1, 'Approved', NULL),
-(22, '2015-02-12', '12:59:00', 1, 1, 'Approved', NULL),
-(23, '2015-02-10', '13:00:00', 1, 1, 'Reject', 'asfasoidflaskdfklajsdfkl'),
-(24, '2015-02-10', '16:00:00', 2, 1, 'Approved', NULL),
-(25, '2015-02-07', '07:00:00', 1, 1, 'Pending', NULL),
-(26, '2015-02-16', '11:00:00', 3, 1, 'Approved', NULL),
-(27, '2015-02-18', '12:59:00', 3, 1, 'Reject', 'asdfasdfasdf'),
-(28, '2015-02-09', '13:00:00', 1, 1, 'Pending', NULL),
-(29, '2015-02-12', '13:00:00', 2, 1, 'Pending', NULL),
-(30, '2015-02-27', '13:00:00', 1, 1, 'Approved', NULL);
+(8, '2015-03-09', '13:30:00', 1, 1, 'Pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -101,22 +80,14 @@ CREATE TABLE IF NOT EXISTS `clinic` (
   `clinic_category` int(11) NOT NULL,
   `room_num` varchar(20) NOT NULL,
   PRIMARY KEY (`clinic_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `clinic`
 --
 
 INSERT INTO `clinic` (`clinic_id`, `clinic_name`, `clinic_category`, `room_num`) VALUES
-(1, 'Anesthesiologists', 1, 'lb442'),
-(2, 'Anesthetic equipment', 1, 'lb132'),
-(3, 'Cardiac procedures', 2, 'lb120'),
-(4, 'Heart diseases', 2, 'lb152'),
-(5, 'BELO', 3, 'lb168'),
-(6, 'skin derma', 3, 'lb123'),
-(7, 'Adolescence?', 4, 'lb555'),
-(8, 'Vaccination?', 4, 'lb900'),
-(9, 'uro LAb', 8, 'gb 100');
+(1, 'anesthiss', 1, 'lb445');
 
 -- --------------------------------------------------------
 
@@ -125,29 +96,20 @@ INSERT INTO `clinic` (`clinic_id`, `clinic_name`, `clinic_category`, `room_num`)
 --
 
 CREATE TABLE IF NOT EXISTS `doctors` (
-  `d_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `d_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `contact_num` varchar(20) NOT NULL,
   `clinic` int(11) unsigned NOT NULL,
-  `u_id` int(11) NOT NULL,
+  `u_id` int(11) unsigned NOT NULL,
   `specialization` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`d_id`),
-  UNIQUE KEY `u_id` (`u_id`),
-  KEY `specialization` (`specialization`),
-  KEY `clinic` (`clinic`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  PRIMARY KEY (`d_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `doctors`
 --
 
 INSERT INTO `doctors` (`d_id`, `contact_num`, `clinic`, `u_id`, `specialization`) VALUES
-(1, '123', 2, 3, 1),
-(2, '123456', 1, 4, 1),
-(3, '09258552005', 2, 5, 2),
-(4, '09258552005', 1, 6, 2),
-(5, '09258552005', 2, 7, 1),
-(6, '09258552005', 2, 8, 2),
-(7, '09258552005', 8, 9, 6);
+(1, '1111', 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -161,45 +123,16 @@ CREATE TABLE IF NOT EXISTS `doctor_schedule` (
   `date` date NOT NULL,
   `time_start` time NOT NULL,
   `time_end` time NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `d_id` (`d_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `doctor_schedule`
 --
 
 INSERT INTO `doctor_schedule` (`id`, `d_id`, `date`, `time_start`, `time_end`) VALUES
-(1, 2, '2015-02-02', '08:00:00', '16:00:00'),
-(2, 2, '2015-02-03', '08:00:00', '16:00:00'),
-(3, 2, '2015-02-04', '08:00:00', '16:00:00'),
-(4, 2, '2015-02-05', '08:00:00', '16:00:00'),
-(5, 6, '2015-02-02', '09:00:00', '15:00:00'),
-(6, 6, '2015-02-03', '09:00:00', '15:00:00'),
-(7, 6, '2015-02-04', '09:00:00', '15:00:00'),
-(8, 6, '2015-02-05', '09:00:00', '15:00:00'),
-(9, 6, '2015-02-06', '09:00:00', '15:00:00'),
-(10, 1, '2015-02-09', '09:00:00', '16:30:00'),
-(11, 1, '2015-02-10', '08:30:00', '17:00:00'),
-(12, 1, '2015-02-11', '08:30:00', '17:00:00'),
-(13, 1, '2015-02-12', '08:30:00', '14:00:00'),
-(14, 1, '2015-02-13', '08:30:00', '17:30:00'),
-(15, 1, '2015-02-16', '09:00:00', '12:00:00'),
-(16, 1, '2015-01-29', '08:00:00', '17:30:00'),
-(17, 2, '2015-02-09', '09:00:00', '16:30:00'),
-(18, 2, '2015-02-10', '09:00:00', '16:30:00'),
-(19, 2, '2015-02-11', '09:00:00', '16:30:00'),
-(20, 2, '2015-02-12', '09:00:00', '16:30:00'),
-(21, 2, '2015-02-13', '09:00:00', '16:30:00'),
-(22, 1, '2015-02-07', '11:00:00', '17:00:00'),
-(23, 3, '2015-02-16', '10:00:00', '16:30:00'),
-(24, 3, '2015-02-17', '10:00:00', '17:00:00'),
-(25, 3, '2015-02-18', '10:00:00', '17:00:00'),
-(26, 1, '2015-02-23', '09:00:00', '16:30:00'),
-(27, 1, '2015-02-24', '09:00:00', '16:30:00'),
-(28, 1, '2015-02-25', '09:00:00', '16:30:00'),
-(29, 1, '2015-02-26', '09:00:00', '16:30:00'),
-(30, 1, '2015-02-27', '09:00:00', '16:30:00');
+(33, 1, '2015-03-09', '09:30:00', '13:30:00'),
+(34, 1, '2015-03-10', '09:30:00', '12:00:00');
 
 -- --------------------------------------------------------
 
@@ -232,13 +165,12 @@ INSERT INTO `medical_specialist` (`specialist_id`, `specialist`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `patients` (
-  `p_id` int(11) NOT NULL AUTO_INCREMENT,
+  `p_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `p_address` varchar(255) NOT NULL,
   `p_gender` enum('MALE','FEMALE') NOT NULL,
   `p_age` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
-  PRIMARY KEY (`p_id`),
-  UNIQUE KEY `u_id` (`u_id`)
+  PRIMARY KEY (`p_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
@@ -246,8 +178,8 @@ CREATE TABLE IF NOT EXISTS `patients` (
 --
 
 INSERT INTO `patients` (`p_id`, `p_address`, `p_gender`, `p_age`, `u_id`) VALUES
-(1, 'bacayan', 'FEMALE', 21, 1),
-(2, '0', '', 0, 2);
+(1, 'blabla', 'MALE', 25, 1),
+(2, 'blabla', 'MALE', 16, 2);
 
 -- --------------------------------------------------------
 
@@ -282,50 +214,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `avatar` varchar(255) DEFAULT 'assets/images/icon-user-default.png',
+  `timeline` varchar(50) NOT NULL DEFAULT 'bg-teal',
   `utype` enum('USER','DOCTOR','ADMIN') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `utype`) VALUES
-(1, 'zzz123.cb@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Kiko', 'Mizuhara', 'uploads/Sid-Gasp-ice-age-27887681-500-2751.png', 'USER'),
-(2, 'james_naruto2000@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Angel James', 'Torayono', 'uploads/998782_326474667487992_2099506665_n.jpg', 'ADMIN'),
-(3, 'A@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'ariels', 'angeles', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(4, 'B@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Bryan', 'Borces', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(5, 'C@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Camille', 'Canete', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(6, 'D@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Derek', 'Del Castillo', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(7, 'E@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Erik', 'Enriquez', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(8, 'F@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Freddy', 'Fabian', 'assets/images/icon-user-default.png', 'DOCTOR'),
-(9, 'G@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Glory', 'Giordano', 'assets/images/icon-user-default.png', 'DOCTOR');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `doctors`
---
-ALTER TABLE `doctors`
-  ADD CONSTRAINT `doctors_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `doctors_ibfk_2` FOREIGN KEY (`specialization`) REFERENCES `medical_specialist` (`specialist_id`),
-  ADD CONSTRAINT `doctors_ibfk_3` FOREIGN KEY (`clinic`) REFERENCES `clinic` (`clinic_id`);
-
---
--- Constraints for table `doctor_schedule`
---
-ALTER TABLE `doctor_schedule`
-  ADD CONSTRAINT `doctor_schedule_ibfk_1` FOREIGN KEY (`d_id`) REFERENCES `doctors` (`d_id`);
-
---
--- Constraints for table `patients`
---
-ALTER TABLE `patients`
-  ADD CONSTRAINT `patients_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `timeline`, `utype`) VALUES
+(1, 'chung_bobo@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'hemo joshua', 'bobo', 'uploads/Untitled.png', 'bg-crimson', 'USER'),
+(2, 'james_naruto2000@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'angel', 'torayno', 'assets/images/icon-user-default.png', 'bg-teal', 'ADMIN'),
+(3, 'henoheno@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'heno', 'bobo', 'assets/images/icon-user-default.png', 'bg-pink', 'DOCTOR');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*blabla*/
