@@ -155,6 +155,7 @@ class Model_users extends CI_Model{
 	public function getAppointments($d){
 		$this->db->where('date', $d);
 		$this->db->where('patient_id', $this->session->userdata('p_id'));
+		$this->db->where('status !=', "Reject");
 		$this->db->from('appointments');
 		$this->db->join('doctors', 'appointments.doctor_id = doctors.d_id', 'inner');
 		$this->db->join('users', 'doctors.u_id = users.id', 'inner');
@@ -170,7 +171,8 @@ class Model_users extends CI_Model{
 		$this->db->where('status', 2);
 		$this->db->from('appointments');
 		$this->db->order_by('date');
-		$this->db->join('users', 'appointments.patient_id = users.id', 'inner');
+		$this->db->join('patients', 'appointments.patient_id = patients.p_id', 'inner');
+		$this->db->join('users', 'patients.u_id = users.id', 'inner');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -180,7 +182,8 @@ class Model_users extends CI_Model{
 		$this->db->where('status', 1);
 		$this->db->from('appointments');
 		$this->db->order_by('date');
-		$this->db->join('users', 'appointments.patient_id = users.id', 'inner');
+		$this->db->join('patients', 'appointments.patient_id = patients.p_id', 'inner');
+		$this->db->join('users', 'patients.u_id = users.id', 'inner');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -319,8 +322,9 @@ class Model_users extends CI_Model{
 		$this->db->where('date', $this->input->post('deyt'));
 		$this->db->where('status', 'Approved');
 		$this->db->from('appointments');
-		$this->db->join('users', 'appointments.patient_id = users.id');
-		$this->db->join('patients', 'patients.u_id = users.id');
+		$this->db->join('patients', 'appointments.patient_id = patients.p_id');
+		$this->db->join('users', 'patients.u_id = users.id');
+		
 		$this->db->order_by('time');
 		$query = $this->db->get();
 		return $query->result();

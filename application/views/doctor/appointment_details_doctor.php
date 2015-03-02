@@ -1,12 +1,6 @@
  <div class="streamer" data-role="streamer" data-scroll-bar="true" data-slide-speed="500">      
         <div class="streams">
             <div class="streams-title">
-                <div class="toolbar">
-                    <button class="button small js-show-all-streams" title="Show all streams" data-role=""><span class="icon-eye"></span></button>
-                    <button class="button small js-schedule-mode" title="On|Off schedule mode" data-role=""><span class="icon-history"></span></button>
-                    <button class="button small js-go-previous-time" title="Go to previous time interval" data-role=""><span class="icon-previous"></span></button>
-                    <button class="button small js-go-next-time" title="Go to next time interval" data-role=""><span class="icon-next"></span></button>
-                </div>
             </div>
             <?php foreach ($appointment as $patients): ?>
                             <div class="stream <?php echo $patients->timeline; ?>">
@@ -46,7 +40,7 @@
                                                 <div class="time"><?php echo date("g:i", strtotime($app->time)); ?></div>
                                             </div>
                                             <div class="event-content-data">
-                                                <div class="title"><?php echo $patients->lname; ?>  <?php echo $patients->fname; ?></div>
+                                                <div class="title"><?php echo $app->lname; ?>  <?php echo $app->fname; ?></div>
                                                 <div class="subtitle">on <?php echo date("g:i a", strtotime($app->time)); ?></div>
                                             </div>
                                         </div>

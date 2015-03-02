@@ -218,7 +218,6 @@ class Doctor extends CI_Controller {
 		$d = $_POST['d'];
 		$data['appointment'] = $this->model_users->getPatientsAppointments($d);
 		if($data['appointment']){
-			//$this->load->view('templates/header/header_all');
 			$this->load->view('doctor/appointment_details_doctor', $data);
 		}
 		else{

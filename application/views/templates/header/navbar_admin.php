@@ -2,7 +2,7 @@
     <header class="bg-dark">
         <div class="navbar fixed-top ">
             <div class="navbar-content">
-                <a href="#" class="element"><span class="icon-grid-view"></span> hospital management system <sup>2.0</sup></a>
+                <a href="#" class="element"><span class="icon-grid-view"></span> Hospital Management System <sup>beta</sup></a>
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">

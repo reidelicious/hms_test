@@ -439,7 +439,11 @@ class Patient extends CI_Controller {
 	public function saveAppointmentToDB(){
 		$arr = $_POST['arr'];
 		$this->load->model('model_users');
-		$this->model_users->patient_addAppointment($arr);
+		if($this->model_users->patient_addAppointment($arr)){
+			echo "Success";
+		}else{
+			echo "Fail";
+		}
 	}
 	public function arrange_alphabetically($letter){
 		$data['notif'] = '';

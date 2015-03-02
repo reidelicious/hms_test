@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div id="footer" class="modal-footer" style="display:none;">
-                                <button id="savedata" type="click" name="addlist" class="primary button"> Make an Appointment </button>
+                                <button id="savedata" type="click" class="primary button"> Make an Appointment </button>
                             </div>
                           </form>
                     	</div>
@@ -306,17 +306,20 @@ $(document).ready(function(){
               url:"<?php echo base_url(); ?>patient/saveAppointmentToDB",    
               data: {arr:arr},
               type: "POST",
-              success:function(){
-                var not = $.Notify({
-                        style: {background: 'green', color: 'white'}, 
-                        caption: 'SUCCESSFULLY SAVED!',
-                        content: "Please wait for the secretary to approve your request",
-                        timeout: 10000 // 10 seconds
+              success:function(data){
+                if(data == "Success"){
+                  var not = $.Notify({
+                          style: {background: 'green', color: 'white'}, 
+                          caption: 'SUCCESSFULLY SAVED!',
+                          content: "Please wait for the secretary to approve your request",
+                          timeout: 10000 // 10 seconds
 
-                    });
-                    $('#myMod').modal('hide');
+                      });
+                      $('#myMod').modal('hide');
+                }
               }
             });
+            return false;
     });
     
 })

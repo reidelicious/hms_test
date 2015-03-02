@@ -30,7 +30,7 @@
             
             <br /><br />
             
-            <input type="submit" value="upload" />
+            <input type="submit" class="primary" value="Upload Picture" />
             
             </form>
         
@@ -69,7 +69,7 @@
        	<button class="btn-reveal" tabindex="-1"></button>
         </div>
              
-             	 <?php echo form_submit('signup_submit','Change password'); ?>
+             	 <?php echo form_submit('signup_submit','Change password', 'class="primary"'); ?>
                  
                 </fieldset>
             <?php echo form_close();?>
@@ -77,7 +77,7 @@
         </div>
     </div>
     <div class="accordion-frame">
-        <a href="#" class="heading">Edit Details</a>
+        <a href="#" class=" bg-lightBlue fg-white heading">Edit Details</a>
         <div class="content">
          <?php
 			$attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'editUser_form');
@@ -126,9 +126,12 @@
                 <label>Gender </label>
                 <div class="input-control select" >
                     <select name="gender" required>
-                        <option value=''<?php echo set_select('gender', '', TRUE); ?> disabled="disabled"> Select Gender</option>
-                        <option value='1'<?php echo set_select('gender', '1'); ?>> Male</option>
-                        <option value='2' <?php echo set_select('gender', '2'); ?>> Female</option>
+                        <option value=''<?php echo set_select('gender', '', TRUE); ?> disabled="disabled"> <?php echo $this->session->userdata('gender'); ?></option>
+                        <?php if($this->session->userdata('gender') != "MALE"){ ?>
+                            <option value='MALE'<?php echo set_select('gender', '1'); ?>> MALE</option>
+                        <?php }else{ ?>
+                            <option value='FEMALE' <?php echo set_select('gender', '2'); ?>> FEMALE</option>
+                        <?php } ?>
                     </select>
                 </div>	
 				<?php	
@@ -136,7 +139,7 @@
                 }
              ?>
 
-			 <?php echo form_submit('signup_submit','Edit Info'); ?>
+			 <?php echo form_submit('signup_submit','Edit Info', 'class="primary"'); ?>
                 </fieldset>
             <?php echo form_close();?>
 
@@ -144,7 +147,7 @@
     </div>	
     <?php if($this->session->userdata('usertype') != "ADMIN"){ ?>
       <div class="accordion-frame">
-        <a href="#" class="heading">Change Appointment Timeline Color</a>
+        <a href="#" class=" bg-lightBlue fg-white heading">Change Appointment Timeline Theme</a>
         <div class="content">
           <div class="grid">
           <div class="row">
@@ -305,7 +308,7 @@
 
         </div><br/>
         <center>
-                <button type="submit" class="large primary"><i class="icon-floppy on-left">   Save</i></button>
+                <button type="submit" class="primary">Save</button>
         </center>
         </div>
       </div>
@@ -370,11 +373,13 @@ $(document).ready(function(){
 	    rules: {
 	      fname: {
 	        minlength: 2,
-	        required: true
+	        required: true,
+            lettersonly: true
 	      },
 	      lname: {
 	         minlength: 2,
-	         required: true
+	         required: true,
+             lettersonly: true
 	      },<?php if($this->session->userdata('usertype') == "USER"){?>
 		  age: {
 	        minlength: 1,
@@ -384,7 +389,8 @@ $(document).ready(function(){
 	      },
 		   address: {
 	        minlength: 2,
-	        required: true
+	        required: true,
+            alphanumeric: true
 	      }<?php }?>
 		  
 	    },

@@ -71,7 +71,7 @@ $(document).on('click','.editInfo', function(){
                 '<div class="input-control text"><input type="text"  value= "'+subject.text()+'" name="subject" required>'+
                ' <button class="btn-clear"></button></div> ' +
 			          '<label>Details</label>' +
-                '<div class="input-control text"><textarea name="details" style="display:block; width:100%; max-width:100%;" required>'+details+'</textarea>'+
+                '<textarea name="details" style="display:block; width:100%; max-width:100%;" required>'+details+'</textarea>'+
                ' <button class="btn-clear"></button></div> ' +
 			  
                 '<div class="form-actions">' +
@@ -95,7 +95,7 @@ $(document).on('click','.editInfo', function(){
           },
           details: {
              minlength: 2,
-             required: true,
+             required: true
           }
         },
             highlight: function(element) {
