@@ -43,3 +43,16 @@ function getbutton_rejected($mes)
  
     return $html;
 }
+
+function getbutton_appointments($id){
+    $ci = & get_instance();
+    $html = '<span class="actions">';
+    $html .= '<button class="success approve"><i class="icon-pencil on-left"></i> Approve</button>';
+    $html .= ' <button class="danger reject"><i class="icon-cancel-2 on-left"></i> Reject</button>';
+   // $html .= ' <a href="' . base_url() . 'subscriber/delete/' . $id . '"><button class="primary"><i class="icon-cancel-2 on-left"></i> Edit</button></a>';
+    
+    $html .= '<input type="hidden" value="'.$id.'" />';
+    $html .= '</span>';
+ 
+    return $html;
+} 

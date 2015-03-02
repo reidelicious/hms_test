@@ -104,7 +104,8 @@ class Main extends CI_Controller {
 				'usertype'=> $row->utype,
 				'fname' => $row->fname,
 				'lname' => $row->lname,
-				'avatar' => $row->avatar
+				'avatar' => $row->avatar,
+				'timeline' => $row->timeline
 				 
 			);
 			$data = array_merge($data1, $data2);
@@ -139,7 +140,7 @@ class Main extends CI_Controller {
 			if($this->input->post('usertype') == 1){
 				$key = md5(uniqid());		
 				
-$this->load->library('email');	
+				$this->load->library('email');	
 			
 				$this->load->model('model_users');	
 				$this->email->from('reideliciouss@gmail.com',"Administrator");
@@ -303,7 +304,9 @@ $this->load->library('email');
 		$data['error'] = '';
 		$this->load->model('model_users');
 		if($this->model_users->changeColor()){
-			$data['success'] = $this->editinfo_notif_succ();					
+			$color = array('timeline' => $this->input->post('r1'));
+			$data['success'] = $this->editinfo_notif_succ();
+			$this->session->set_userdata($color);
 		}else{
 			$data['success'] = $this->editinfo_notif_fail();	
 		}

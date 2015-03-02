@@ -38,7 +38,7 @@ hr.style-eight {
 							<?php foreach($announcements as $row): ?>
 								<hr class="style-eight">
 								<div class="panel">
-								    <div class="panel-header bg-darkBlue fg-white">
+								    <div class="panel-header <?php echo $this->session->userdata('timeline'); ?> fg-white">
 								    	
 								    	<?php if($row->fk_clinic_id != 0){ echo $row->room_num; }else{ echo "Admin"; } ?>
 								    	<span class="place-right" style="font-size:14px">

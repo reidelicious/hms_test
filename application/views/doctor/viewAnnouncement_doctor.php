@@ -156,7 +156,7 @@ $(document).on('click','.deleteUser', function(){
 
 $(document).on('submit','#editform', function(e){
     var postData = $(this).serializeArray();
-  var formURL = $(this).attr("action");
+    var formURL = $(this).attr("action");
   
      $.ajax({
         url : formURL,

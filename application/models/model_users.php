@@ -22,8 +22,8 @@ class Model_users extends CI_Model{
 		$data = array(
 			'email' => $this->input->post('email'),
 			'password' => md5($this->input->post('password')),
-			'fname' => $this->input->post('fname'),
-			'lname' => $this->input->post('lname'),
+			'fname' => ucfirst($this->input->post('fname')),
+			'lname' => ucfirst($this->input->post('lname')),
 			'age' => $this->input->post('age'),
 			'gender' => $this->input->post('gender'),
 			'address' => $this->input->post('address'),
@@ -112,8 +112,8 @@ class Model_users extends CI_Model{
 					$data = array(
 					'email' =>$row->email,
 					'password' => $row->password,
-					'fname' => $row->fname,
-					'lname' => $row->lname,
+					'fname' => ucfirst($row->fname),
+					'lname' => ucfirst($row->lname),
 					'utype' => $row->utype,
 				);
 				$did_add_user = $this->db->insert('users', $data);
@@ -264,8 +264,16 @@ class Model_users extends CI_Model{
 		else
 			return false;
 	}
+	public function countAppointmentsForToday(){
+		$this->db->where('patient_id', $this->session->userdata('p_id'));
+		$this->db->where('appointment_made = CURDATE()');
+		$this->db->from('appointments');
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
 	public function countAppointments($flag){
-		$this->db->where('patient_id', $this->session->userdata('id'));
+		$this->db->where('patient_id', $this->session->userdata('p_id'));
 		if($flag == 1){
 			$this->db->where('status', 1);	
 		} // Pending
@@ -337,6 +345,7 @@ class Model_users extends CI_Model{
 				'patient_id' => $this->session->userdata('p_id'),
 				'status' => 1
 			);
+		$this->db->set('appointment_made', 'CURDATE()', FALSE);
 		$query = $this->db->insert('appointments', $data);
 		if($query)
 			return true;

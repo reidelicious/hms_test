@@ -63,6 +63,33 @@ class Doctor extends CI_Controller {
 			echo '0';
 	}
 
+	public function datatable_activeAppointments(){
+			$this->datatables->select('appointments.appoint_id, appointments.date, appointments.time, users.lname, users.fname, appointments.appointment_made')
+							->unset_column('appointments.appoint_id')
+							->add_column('action', getbutton_appointments('$1'), 'appointments.appoint_id')
+							->where('appointments.date >=', 'CURDATE()', FALSE)
+							->where('appointments.doctor_id', $this->session->userdata('d_id'))
+							->where('appointments.status', 1)
+							->from('appointments')
+							->join('patients', 'patients.p_id = appointments.patient_id ', 'inner')
+							->join('users', 'users.id = patients.u_id', 'inner');
+		echo $this->datatables->generate();
+		
+	}
+
+	public function datatable_inactiveAppointments(){
+		$this->datatables->select('appointments.appoint_id, appointments.date, appointments.time, users.lname, users.fname, appointments.appointment_made')
+							->unset_column('appointments.appoint_id')
+							->add_column('action', getbutton_appointments('$1'), 'appointments.appoint_id')
+							->where('appointments.date <', 'CURDATE()', FALSE)
+							->where('appointments.doctor_id', $this->session->userdata('d_id'))
+							->where('appointments.status', 1)
+							->from('appointments')
+							->join('patients', 'patients.p_id = appointments.patient_id ', 'inner')
+							->join('users', 'users.id = patients.u_id', 'inner');
+		echo $this->datatables->generate();
+	}
+
 	public function datatable_rejectedAppointments(){
 		$this->datatables->select('appointments.date, appointments.time, users.lname, users.fname, appointments.message')
 			->unset_column('appointments.message')
@@ -131,6 +158,24 @@ class Doctor extends CI_Controller {
 		}	
 	}
 
+	public function manage_appointmentv2(){
+		$this->load->model('model_users');
+		$data['title'] = 'Manage Appointment';
+		$data['notif'] = '';
+		if($this->session->userdata('is_logged_in')){
+			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
+			$this->table->set_template($tmpl);
+			$this->table->set_heading('Date', 'Time', 'Last Name', 'First Name', 'Appointment Made', 'Actions');
+			
+
+			$this->load->view('templates/header/header_all', $data);
+			$this->load->view('templates/header/header_doctor');
+			$this->load->view('doctor/manage_appointmentv2', $data);
+		}else{
+			redirect('main/restricted');
+		}	
+	}
+
 	public function changeStat_appointmentToApprove(){
 		$id = $_POST['id'];
 		$this->load->model('model_users');
@@ -175,32 +220,10 @@ class Doctor extends CI_Controller {
 	public function changeStat_appointmentToReject(){
 		$this->load->model('model_users');
 		if($this->model_users->rejectStatus_appointment()){
-			$data['notif'] = "<script>var not = $.Notify({
-										style: {background: 'green', color: 'white'},
-										caption: 'Success Rejecting Appointment',
-										content: 'The message already been sent',
-										timeout: 10000 // 10 seconds
-											});					
-										</script>";
+			echo "success";
 		}
 		else{
-			$data['notif'] = "<script>var not = $.Notify({
-										style: {background: 'red', color: 'white'},
-										caption: 'Error Rejecting Appointment',
-										content: '',
-										timeout: 10000 // 10 seconds
-											});					
-										</script>";
-		}
-		$data['title'] = 'Manage Appointment';
-		if(!$this->input->get('show'))
-			$data['pending'] = $this->model_users->getPendingActiveAppointments();
-		else if($this->input->get('show') == '1')
-			$data['pending'] = $this->model_users->getPendingInActiveAppointments();
-		if($this->session->userdata('is_logged_in')){
-			$this->load->view('templates/header/header_all', $data);
-			$this->load->view('templates/header/header_doctor');
-			$this->load->view('doctor/manage_appointment', $data);
+			echo "error";
 		}
 	}
 

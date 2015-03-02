@@ -72,13 +72,13 @@ $(document).on('click','.editInfo', function(){
                 '<label>id</label>' +
                 '<div class="input-control text"><input type="text" name="id" value="'+id+'" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
-			     '<label>email</label>' +
+			     '<label>Email</label>' +
                 '<div class="input-control text"><input type="email"  value= "'+email.text()+'"name="email" readOnly="true">'+
                ' <button class="btn-clear"></button></div> ' +
-			     '<label>first name</label>' +
+			     '<label>First Name</label>' +
                 '<div class="input-control text"><input type="text" value = "'+fname.text()+'" name="fname"  required>'+
                ' <button class="btn-clear"></button></div> ' +
-			      '<label>lastname</label>' +
+			      '<label>Last Name</label>' +
                 '<div class="input-control text"><input type="text" name="lname" value = "'+lname.text()+'"  required>'+
                ' <button class="btn-clear"></button></div> ' +
 			   
@@ -94,6 +94,29 @@ $(document).on('click','.editInfo', function(){
             $.Metro.initInputs();
         }
     });
+    
+     $('#editform').validate({
+        rules: {
+          fname: {
+            minlength: 2,
+            required: true,
+            lettersonly: true
+          },
+          lname: {
+             minlength: 2,
+             required: true,
+             lettersonly: true
+          }
+        },
+            highlight: function(element) {
+                $(element).closest('.input-control').removeClass('success-state').addClass('error-state');
+            },
+            success: function(element) {
+                element
+                    .closest('.input-control').removeClass('error-state').addClass('success-state');
+            }
+      });
+
 });					
 		
 		

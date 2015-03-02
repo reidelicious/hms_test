@@ -82,7 +82,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
     var day = '';
-	
 		var today = new Date();
 	var dd = today.getDate();
 	var mm = today.getMonth()+1; //January is 0!
@@ -216,8 +215,22 @@ $(document).ready(function(){
 	 <?php  endforeach;} ?>
 	
     $(document).on('click','#makeAppointment', function(){ 
-        $('#myMod').modal('show');
-        $('#myMod').data('modal', null);
+        $.ajax({
+          url: "<?php echo base_url(); ?>patient/countAppointmentsForTheDay",
+          type: "POST",
+          success:function(result){
+            if(result < 5){
+              $('#myMod').modal('show');
+            }
+            else{
+              alert('Sorry, You can\'t appoint for today. You already made an appointment 5 times in a row for this day.');
+              $('#makeAppointment').hide();
+            }
+          }
+        })
+
+        
+        //
     }); 
     $('#category').change(function(){
         
@@ -313,8 +326,9 @@ $(document).ready(function(){
                           caption: 'SUCCESSFULLY SAVED!',
                           content: "Please wait for the secretary to approve your request",
                           timeout: 10000 // 10 seconds
-
                       });
+                  
+                      
                       $('#myMod').modal('hide');
                 }
               }

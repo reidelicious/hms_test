@@ -1,7 +1,7 @@
 <body class="metro">
     <header class="bg-dark">
-        <div class="navbar fixed-top ">
-            <div class="navbar-content">
+        <div class="navbar fixed-top <?php echo $this->session->userdata('timeline'); ?>">
+            <div class="navbar-content <?php echo $this->session->userdata('timeline'); ?>">
                 <a href="<?php echo base_url()."home_doctor"?>" class="element"><span class="icon-grid-view"></span> Hospital Management System <sup>Alpha v1.0</sup></a>
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>

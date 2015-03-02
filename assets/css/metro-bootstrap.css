@@ -10727,3 +10727,84 @@ textarea:focus, input:focus {
 }
 
 .streamer-block{width:2968px !important}
+
+/* black */
+ .metro .navigation-bar .bg-black .element-menu > li,.metro .navbar .bg-black .element-menu > li:hover{background-color: #323232;}
+.metro .navigation-bar .bg-black .dropdown-menu > li,.metro .navbar .bg-black .dropdown-menu > li:hover{background-color: #b2b2b2;}
+
+
+/* lime */
+ .metro .navigation-bar .bg-lime .element-menu > li,.metro .navbar .bg-lime .element-menu > li:hover{background-color: #b6cf32;}
+.metro .navigation-bar .bg-lime .dropdown-menu > li,.metro .navbar .bg-lime .dropdown-menu > li:hover{background-color: #e3edb2;}
+
+/* green */
+ .metro .navigation-bar .bg-green .element-menu > li,.metro .navbar .bg-green .element-menu > li:hover{background-color: #7fba45;}
+.metro .navigation-bar .bg-green .dropdown-menu > li,.metro .navbar .bg-green .dropdown-menu > li:hover{background-color: #cfe5b9;}
+
+/* emerald */
+ .metro .navigation-bar .bg-emerald .element-menu > li,.metro .navbar .bg-emerald .element-menu > li:hover{background-color: #32a132;}
+.metro .navigation-bar .bg-emerald .dropdown-menu > li,.metro .navbar .bg-emerald .dropdown-menu > li:hover{background-color: #b2dbb2;}
+
+/* teal */
+ .metro .navigation-bar .bg-teal .element-menu > li,.metro .navbar .bg-teal .element-menu > li:hover{background-color: #32bbba;}
+.metro .navigation-bar .bg-teal .dropdown-menu > li,.metro .navbar .bg-teal .dropdown-menu > li:hover{background-color: #b2e5e5;}
+
+/* cobalt */
+ .metro .navigation-bar .bg-cobalt .element-menu > li,.metro .navbar .bg-cobalt .element-menu > li:hover{background-color: #3272f2;}
+.metro .navigation-bar .bg-cobalt .dropdown-menu > li,.metro .navbar .bg-cobalt .dropdown-menu > li:hover{background-color: #b2cafa;}
+
+/* indigo */
+ .metro .navigation-bar .bg-indigo .element-menu > li,.metro .navbar .bg-indigo .element-menu > li:hover{background-color: #8732ff;}
+.metro .navigation-bar .bg-indigo .dropdown-menu > li,.metro .navbar .bg-indigo .dropdown-menu > li:hover{background-color: #d2b2ff;}
+
+/* violet */
+.metro .navigation-bar .bg-violet .element-menu > li,.metro .navbar .bg-violet .element-menu > li:hover{background-color: #bb32ff;}
+.metro .navigation-bar .bg-violet .dropdown-menu > li,.metro .navbar .bg-violet .dropdown-menu > li:hover{background-color: #e5b2ff;}
+
+/* pink */
+.metro .navigation-bar .bg-pink .element-menu > li,.metro .navbar .bg-pink .element-menu > li:hover{background-color: #e372bd;}
+.metro .navigation-bar .bg-pink .dropdown-menu > li,.metro .navbar .bg-pink .dropdown-menu > li:hover{background-color: #f4cae6;}
+
+/* magenta */
+.metro .navigation-bar .bg-magenta .element-menu > li,.metro .navbar .bg-magenta .element-menu > li:hover{background-color: #df328f;}
+.metro .navigation-bar .bg-magenta .dropdown-menu > li,.metro .navbar .bg-magenta .dropdown-menu > li:hover{background-color: #f3b2d5;}
+
+/* crimson */
+.metro .navigation-bar .bg-crimson .element-menu > li,.metro .navbar .bg-crimson .element-menu > li:hover{background-color: #b43250;}
+.metro .navigation-bar .bg-crimson .dropdown-menu > li,.metro .navbar .bg-crimson .dropdown-menu > li:hover{background-color: #e3b2bd;}
+
+/* red */
+.metro .navigation-bar .bg-red .element-menu > li,.metro .navbar .bg-red .element-menu > li:hover{background-color: #ea4232;}
+.metro .navigation-bar .bg-red .dropdown-menu > li,.metro .navbar .bg-red .dropdown-menu > li:hover{background-color: #f7b8b2;}
+
+/* orange */
+.metro .navigation-bar .bg-orange .element-menu > li,.metro .navbar .bg-orange .element-menu > li:hover{background-color: #fb8632;}
+.metro .navigation-bar .bg-orange .dropdown-menu > li,.metro .navbar .bg-orange .dropdown-menu > li:hover{background-color: #fdd1b2;}
+
+/* amber */
+.metro .navigation-bar .bg-amber .element-menu > li,.metro .navbar .bg-amber .element-menu > li:hover{background-color: #f3b53a;}
+.metro .navigation-bar .bg-amber .dropdown-menu > li,.metro .navbar .bg-amber .dropdown-menu > li:hover{background-color: #fae3b5;}
+
+/* brown */
+.metro .navigation-bar .bg-brown .element-menu > li,.metro .navbar .bg-brown .element-menu > li:hover{background-color: #9b7a56;}
+.metro .navigation-bar .bg-brown .dropdown-menu > li,.metro .navbar .bg-brown .dropdown-menu > li:hover{background-color: #d9cdbf;}
+
+/* olive */
+.metro .navigation-bar .bg-olive .element-menu > li,.metro .navbar .bg-olive .element-menu > li:hover{background-color: #8a9f83;}
+.metro .navigation-bar .bg-olive .dropdown-menu > li,.metro .navbar .bg-olive .dropdown-menu > li:hover{background-color: #d3dbd0;}
+
+/* steel */
+.metro .navigation-bar .bg-steel .element-menu > li,.metro .navbar .bg-steel .element-menu > li:hover{background-color: #83919f;}
+.metro .navigation-bar .bg-steel .dropdown-menu > li,.metro .navbar .bg-steel .dropdown-menu > li:hover{background-color: #d0d5db;}
+
+/* mauve */
+.metro .navigation-bar .bg-mauve .element-menu > li,.metro .navbar .bg-mauve .element-menu > li:hover{background-color: #917fa1;}
+.metro .navigation-bar .bg-mauve .dropdown-menu > li,.metro .navbar .bg-mauve .dropdown-menu > li:hover{background-color: #d5cfdb;}
+
+/* taupe */
+.metro .navigation-bar .bg-taupe .element-menu > li,.metro .navbar .bg-taupe .element-menu > li:hover{background-color: #9f9371;}
+.metro .navigation-bar .bg-taupe .dropdown-menu > li,.metro .navbar .bg-taupe .dropdown-menu > li:hover{background-color: #dbd6c9;}
+
+/* gray */
+.metro .navigation-bar .bg-gray .element-menu > li,.metro .navbar .bg-gray .element-menu > li:hover{background-color: #767676;}
+.metro .navigation-bar .bg-gray .dropdown-menu > li,.metro .navbar .bg-gray .dropdown-menu > li:hover{background-color: #cccccc;}

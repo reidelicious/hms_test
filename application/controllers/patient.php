@@ -219,6 +219,17 @@ class Patient extends CI_Controller {
 		$this->load->view('templates/header/header_patient');
 		$this->load->view('patient/appointmentv3', $data);
 	}
+	public function countAppointmentsForTheDay(){
+		$this->load->model('model_users');
+		$count = $this->model_users->countAppointmentsForToday();
+		if($count <= 5){
+			echo $count;
+		}
+		else{
+			echo "Disable";
+		}
+	}
+
 	public function build_timeline_appointment(){
 		$this->load->model('model_users');
 		$d = $_POST['d'];

@@ -50,13 +50,14 @@
 						</div>
 						</br>
 						<div class="input-control text" data-role="input-control">
-							<?php echo form_input('age', '', 'placeholder="Age"'); ?>
+							<?php echo form_input('age', '', 'placeholder="Age" min="0"'); ?>
                             <button class="btn-clear" tabindex="-1"></button>
 						</div>
 						</br>
 						<div class="input-control select">
-							<select name="gender">
-								<option value='1'<?php echo set_select('gender', '1', TRUE); ?>> Male</option>
+							<select name="gender" required>
+								<option value=''<?php echo set_select('gender', '', TRUE); ?> disabled="disabled"> Select Gender</option>
+								<option value='1'<?php echo set_select('gender', '1'); ?>> Male</option>
 								<option value='2' <?php echo set_select('gender', '2'); ?>> Female</option>						
 							</select>
 						</div>

@@ -16,7 +16,7 @@
     <?php echo validation_errors(); ?>
     <div class="accordion with-marker" data-role="accordion">
     <div class="accordion-frame active">
-        <a href="#" class=" bg-lightBlue fg-white heading">Edit Avatar </a>
+        <a href="#" class="<?php echo $this->session->userdata('timeline'); ?> fg-white heading">Edit Avatar </a>
         <div class="content">
         	<div class="thumb" style="margin: 0 auto;"><img  class="scale" src = "<?php echo base_url($this->session->userdata('avatar'))?>" ></div>
         <br />
@@ -38,7 +38,7 @@
     </div>
     </div>
     <div class="accordion-frame ">
-        <a href="#" class=" bg-lightBlue fg-white heading">Password</a>
+        <a href="#" class="<?php echo $this->session->userdata('timeline'); ?> fg-white heading">Password</a>
         <div class="content">
         <?php 
         $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'password_form');
@@ -77,7 +77,7 @@
         </div>
     </div>
     <div class="accordion-frame">
-        <a href="#" class=" bg-lightBlue fg-white heading">Edit Details</a>
+        <a href="#" class="<?php echo $this->session->userdata('timeline'); ?> fg-white heading">Edit Details</a>
         <div class="content">
          <?php
 			$attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'editUser_form');
@@ -147,7 +147,7 @@
     </div>	
     <?php if($this->session->userdata('usertype') != "ADMIN"){ ?>
       <div class="accordion-frame">
-        <a href="#" class=" bg-lightBlue fg-white heading">Change Appointment Timeline Theme</a>
+        <a href="#" class="<?php echo $this->session->userdata('timeline'); ?> fg-white heading">Change Theme</a>
         <div class="content">
           <div class="grid">
           <div class="row">
@@ -192,7 +192,7 @@
                     <label>
                         <input type="radio"  value="bg-cyan" name="r1" />
                         <span class="check"></span>
-                        <span class="square10 inline-block bg-cyan on-left"></span>  Cyan
+                        <span class="square10 inline-block bg-cyan on-left"></span>  Cyan (Default Color)
                     </label>
                 </div><br/>
                 <div class="input-control radio default-style margin10" data-role="input-control">
@@ -220,7 +220,7 @@
                 </div><br/>
                 <div class="input-control radio default-style margin10" data-role="input-control">
                     <label>
-                        <input type="radio" name="r1" value="bg-pink"  />
+                        <input type="radio" name="r1" value="bg-pink"  required />
                         <span class="check"></span>
                         <span class="square10 inline-block bg-pink on-left"></span>  Pink
                     </label>
