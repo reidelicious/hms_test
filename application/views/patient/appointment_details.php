@@ -1,4 +1,10 @@
-<div class="streamer" data-role="streamer" data-scroll-bar="true" data-slide-speed="500">
+<div class="input-control switch place-right">
+    <label>
+        <input id="change" type="checkbox" />
+        <span class="check"></span>
+    </label>
+</div>
+<div class="streamer" id="showTimeline" data-role="streamer" data-scroll-bar="true" data-slide-speed="500">
     <div class="streams">
         <div class="streams-title">
         </div>
@@ -32,10 +38,21 @@
                        				<div class="time"><center><?php echo date("g:i", strtotime($app->time)); ?></center></div>
                		 			</div>
                     			<div class="event-content-data">
-                        			<div class="title"><?php echo $app->status; ?></div>
+                                    <?php if($app->status == "Approved"){ ?>
+                                            <div class="title text-success">
+                                    <?php }else if($app->status == "Cancelled"){ ?>
+                                            <div class="title text-warning">
+                                    <?php }else if($app->status == "Reject"){ ?>
+                                            <div class="title text-alert">
+                                    <?php }else{ ?>
+                                            <div class="title text-primary">
+                                    <?php } ?>
+                                                <?php echo $app->status; ?>
+                                            </div>
+                        			<!--<div class="title text-success">-->
                         			<div class="subtitle">Contact Number: <?php echo $app->contact_num ?></div>
-                                    <?php if($app->date > date("Y-m-d")){ ?>
-                                        <div class="remark"><button class="small warning">Cancel Appointment</button></div>
+                                    <?php if($app->date > date("Y-m-d") && $app->status != "Cancelled"){ ?>
+                                        <div class="remark"><button id="cancel" rowid="<?php echo $app->appoint_id; ?>" class="small warning">Cancel Appointment</button></div>
                                     <?php } ?>
                     			</div>           
                 			</div>
@@ -64,3 +81,106 @@
         </div>
     </div>
 </div>
+
+<table class="striped" id="showTable" style="display:none;">
+    <thead>
+        <tr>
+            <th class="text-center">Time</th>
+            <th class="text-center">Doctor</th>
+            <th class="text-center">Clinic</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Action</th>
+        </tr> 
+    </thead>
+    <tbody>
+        <?php foreach($appointment as $row): ?>
+            <td><?php echo $row->time; ?></td>
+            <td><?php echo ucfirst($row->lname) ."(".$row->specialist.")"; ?></td>
+            <td><?php echo ucfirst($row->clinic_name); ?></td>
+            <td><?php echo $row->status; ?></td>
+            <?php if($app->date > date("Y-m-d") && $app->status != "Cancelled"){ ?>
+                <td><button id="cancel" rowid="<?php echo $app->appoint_id; ?>"  class="small warning">Cancel Appointment</button></td>
+            <?php }else{ ?>
+                <td></td>
+            <?php } ?>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    var flagger = 0; //timeline is active else 1 if table
+    $('#change').change(function(){
+        if(flagger == 0){
+            $('#showTable').show();
+            $('#showTimeline').hide();
+            flagger = 1;
+        }else{
+            $('#showTable').hide();
+            $('#showTimeline').show();
+            flagger = 0;
+        }
+    });
+
+    window.confirmCancel = function(id){
+        alert(id);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('patient/cancelappointment/')?>/"+id,
+                
+        }).done(function(msg){
+            if(msg=="success"){
+                 var not = $.Notify({
+                        style: {background: 'green', color: 'white'},
+                        caption: "CANCELLED APPOINTMENT",
+                        content: "Cancellation of Appointment is Successful!!",
+                        timeout: 10000 // 10 seconds
+                 });
+
+            }else if(msg=="fail"){
+              var not = $.Notify({
+                  style: {background: 'red', color: 'white'},
+                    caption: "Cancellation Failed",
+                      content: "There is some error runnning on the system! Sorry for the inconvenience",
+                        timeout: 10000 // 10 seconds
+                 });
+        }
+                    //alert(msg);
+        });
+
+    }
+
+    $(document).on('click','#cancel', function(){
+        var id = $(this).attr('rowid');
+        alert(id);
+        $.Dialog({
+            overlay: true,
+            shadow: true,
+            flat: true,
+            draggable: true,
+            icon: '<img src="images/excel2013icon.png">',
+            title: 'Cancel Appointment',
+            width: 300,
+            content: '',
+            padding: 10,
+            onShow: function(_dialog){
+                var content = '<div>Are you sure you want to Cancel this Appointment? </div></br>' +
+                              '<div class="grid fluid">'+
+                              '<div class="row">'+
+                              '<div class="span8 offset2"> <button class="warning large btn-close" onclick="$.Dialog.close()"><i class="icon-cancel-2 on-center"></i></button> '+
+                              '<button class="danger large confirmDelete" value="'+id+'" onclick="$.Dialog.close();confirmCancel(this.value); "><i class="icon-thumbs-up on-center"></i></button>'+
+                              '</div>'+
+                              '</div>'+
+                            '</div> ';
+                            
+     
+                $.Dialog.title("Cancel Appointment ");
+                $.Dialog.content(content);
+                $.Metro.initInputs();
+            }
+        });
+    }); 
+
+    
+});
+</script>

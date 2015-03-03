@@ -6,13 +6,13 @@
 function get_buttons($id)
 {
     $ci = & get_instance();
-    $html = '<span class="actions">';
+    $html = '<center><span class="actions">';
     $html .= '<button class="primary editInfo"><i class="icon-pencil on-center"></i></button>';
-	$html .= ' <button class="danger deleteUser"><i class="icon-cancel-2 on-center"></i> Delete</button>';
+	$html .= ' <button class="danger deleteUser"><i class="icon-cancel-2 on-center"></i></button>';
    // $html .= ' <a href="' . base_url() . 'subscriber/delete/' . $id . '"><button class="primary"><i class="icon-cancel-2 on-left"></i> Edit</button></a>';
     
     $html .= '<input type="hidden" value="'.$id.'" />';
-	$html .= '</span>';
+	$html .= '</span></center>';
  
     return $html;
 }
@@ -21,7 +21,7 @@ function get_buttons_wdetails($id, $det)
 {
     $ci = & get_instance();
     $html = '<center><span class="actions">';
-    $html .= '<button class="default editInfo"><i class="icon-pencil on-center"></i></button>';
+    $html .= '<button class="primary editInfo"><i class="icon-pencil on-center"></i></button>';
 	$html .= ' <button class="danger deleteUser"><i class="icon-remove on-center"></i></button>';
    // $html .= ' <a href="' . base_url() . 'subscriber/delete/' . $id . '"><button class="primary"><i class="icon-cancel-2 on-left"></i> Edit</button></a>';
     

@@ -36,7 +36,7 @@ width: 100%;
           <div class="row">
             <div class="span5 offset1">
               </br></br></br></br>
-              <strong><h2>Welcome to Hospital Management System.</h2></strong>
+              <strong><h2>Welcome to Doctor's Appointment System.</h2></strong>
               <p>Make and Schedule your appointment to a Doctor -- Know your doctor and many more.</p>
             </div>
             <div class="span4 offset1">

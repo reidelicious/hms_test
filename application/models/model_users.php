@@ -155,7 +155,7 @@ class Model_users extends CI_Model{
 	public function getAppointments($d){
 		$this->db->where('date', $d);
 		$this->db->where('patient_id', $this->session->userdata('p_id'));
-		$this->db->where('status !=', "Reject");
+		//$this->db->where('status !=', "Reject");
 		$this->db->from('appointments');
 		$this->db->join('doctors', 'appointments.doctor_id = doctors.d_id', 'inner');
 		$this->db->join('users', 'doctors.u_id = users.id', 'inner');
@@ -248,6 +248,15 @@ class Model_users extends CI_Model{
 			);
 		$this->db->where('appoint_id', $this->input->post('appointid'));
 		$query = $this->db->update('appointments', $data);
+		if($this->db->affected_rows()>0)
+			return true;
+		else
+			return false;
+	}
+
+	public function cancelAppointment($id){
+		$data = array('status' => "Cancelled");
+		$query = $this->db->where('appoint_id', $id)->update('appointments', $data);
 		if($this->db->affected_rows()>0)
 			return true;
 		else

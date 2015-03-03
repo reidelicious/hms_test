@@ -496,6 +496,14 @@ class Patient extends CI_Controller {
 			echo "Twice";
 		}
 	}
+	public function cancelappointment($id){
+		$this->load->model('model_users');
+		if($this->model_users->cancelAppointment($id)){
+			echo "success";
+		}else{
+			echo "fail";
+		}	
+	}
 	public function arrange_alphabetically($letter){
 		$data['notif'] = '';
 		if (ctype_alpha($letter)) {}

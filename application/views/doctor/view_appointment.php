@@ -31,7 +31,7 @@
                             $dateObj = DateTime::createFromFormat('m-d-Y', $d);
                          ?>
                          <div class="stream-title"><?php echo $dateObj->format('M d'); ?></div>
-                         <div class="stream-number"><button type="submit" id="gen" class="small primary" style="display:none;">Generate into .docx</button></div>
+                         <div class="stream-number"><input type="button" id="gen" class="small primary" style="display:none;">Generate into .docx</div>
                     </div>
                 <?php } ?>
             </div>
