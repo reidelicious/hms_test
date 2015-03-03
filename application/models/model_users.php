@@ -221,18 +221,7 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
-	public function checkDuplicateAppointments($id, $d){
-		$this->db->where('doctor_id', $id);
-		$this->db->where('date', $d);
-		$this->db->where('patient_id', $this->session->userdata('id'));
-		$this->db->from('appointments');
-		$query = $this->db->get();
-		if($query->num_rows() > 0){
-			return $query->result();
-		}
-		else
-			return true;
-	}
+	
 	public function getSchedule($id, $d){
 		$this->db->where('d_id', $id);
 		$this->db->where('date', $d);
@@ -337,6 +326,32 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+	public function patient_isAppointmentTwice($arr){
+		$this->db->where('appointment_made = CURDATE()');
+		$this->db->where('date', $arr[0]);
+		$this->db->where('doctor_id', $arr[2]);
+		$this->db->where('patient_id', $this->session->userdata('p_id'));
+		$this->db->from('appointments');
+		$query = $this->db->get();
+		if($query->num_rows() == 0)
+			return true;
+		else
+			return false;
+	}
+	public function checkAvailableAppointments($arr){
+		$this->db->where('doctor_id', $arr[2]);
+		$this->db->where('date', $arr[0]);
+		$this->db->where('time', $arr[1]);
+		$this->db->where('status', "Approved");
+		$this->db->from('appointments');
+		$query = $this->db->get();
+		if($query->num_rows() == 0){
+			return true;
+		}
+		else
+			return false;
+	}
+
 	public function patient_addAppointment($arr){
 		$data = array(
 				'date' => $arr[0],

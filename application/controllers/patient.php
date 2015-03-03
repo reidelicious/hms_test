@@ -201,15 +201,6 @@ class Patient extends CI_Controller {
 		$this->load->view('patient/explore',$data);
 		
 	}
-	public function appointment(){
-		$this->load->model('model_users');
-		$data['title'] = 'appointment';
-		$data['specialization'] = $this->model_users->get_Specialists();
-		$this->load->view('templates/header/header_all',$data);
-		$this->load->view('templates/header/header_patient');
-		$this->load->view('patient/appointment', $data);
-		
-	}
 	public function appointmentv3(){
 		$this->load->model('model_users');
 		$data['title'] = 'appointment';
@@ -218,6 +209,16 @@ class Patient extends CI_Controller {
 		$this->load->view('templates/header/header_all',$data);
 		$this->load->view('templates/header/header_patient');
 		$this->load->view('patient/appointmentv3', $data);
+		
+	}
+	public function appointmentv4(){
+		$this->load->model('model_users');
+		$data['title'] = 'Appointments';
+		$data['specialization'] = $this->model_users->get_Specialists();
+		$data['appointments'] = $this->model_users->get_calendar_app();
+		$this->load->view('templates/header/header_all',$data);
+		$this->load->view('templates/header/header_patient');
+		$this->load->view('patient/appointmentv4', $data);
 	}
 	public function countAppointmentsForTheDay(){
 		$this->load->model('model_users');
@@ -306,7 +307,7 @@ class Patient extends CI_Controller {
 		}
 		
 	}
-	public function checkdoctime(){
+	public function checkAppointment(){
 		$id = $_POST['doctor'];
 		$d = $_POST['day'];
 		$this->load->model('model_users');
@@ -450,10 +451,18 @@ class Patient extends CI_Controller {
 	public function saveAppointmentToDB(){
 		$arr = $_POST['arr'];
 		$this->load->model('model_users');
-		if($this->model_users->patient_addAppointment($arr)){
-			echo "Success";
+		if($this->model_users->patient_isAppointmentTwice($arr)){ 
+			if($this->model_users->checkAvailableAppointments($arr)){
+				if($this->model_users->patient_addAppointment($arr)){
+					echo "Success";
+				}else{
+					echo "Fail";
+				}
+			}else{
+				echo "Not Available";
+			}
 		}else{
-			echo "Fail";
+			echo "Twice";
 		}
 	}
 	public function arrange_alphabetically($letter){

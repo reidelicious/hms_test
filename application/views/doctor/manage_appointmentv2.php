@@ -1,6 +1,6 @@
 
 <div class="container">      
-  <h2 id="_default"><i class="icon-accessibility on-left"></i>Manage Appointment</h2>
+  <h2 id="_default"><i class="icon-accessibility on-left"></i>Manage Appointments</h2>
 
   <div class="input-control select span4">
       <span class="text-warning" style="font-family:verdana; font-size:14px;">SHOW: 
@@ -15,6 +15,8 @@
            </select>
       </span>
   </div>
+  <br/>
+  <button type="button" class="warning" id="refresh"><i class="icon-cycle"></i> Refresh</button>
   <input type="hidden" value="<?php echo $this->input->get('show'); ?>" id="filter" />
   <div class="grid fluid">   
   	<div class="row"> 
@@ -82,7 +84,9 @@ else{
 	 
 				   
  				
-		
+$(document).on('click', '#refresh', function(){
+  oTable.fnDraw();
+});
 
 
 

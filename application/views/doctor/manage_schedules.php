@@ -165,7 +165,7 @@ $(document).ready(function(){
                                 var content = '<div>This date already have a schedule. Do you want to overwrite it? </div></br>' +
                                               '<div class="grid fluid">'+
                                               '<div class="row">'+
-                                              '<div class="span8 offset2"> <button class="btn-close" onclick="$.Dialog.close()"><i class="icon-folder-2 on-left"></i>Cancel</button> '+
+                                              '<div class="span8 offset2"> <button class="btn-close" onclick="$.Dialog.close()"><i class="icon-cancel-2 on-left"></i>Cancel</button> '+
                                               '<button class="confirmOverwrite" id="overwrite" onclick="$.Dialog.close();overWriteSchedule(); "><i class="icon-floppy on-left"></i>Overwrite</button>'+
                                               '</div>'+
                                               '</div>'+

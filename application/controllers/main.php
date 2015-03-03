@@ -228,6 +228,18 @@ class Main extends CI_Controller {
 						
 						</script>";
 	}
+
+	public function edittheme_notif_succ(){
+		
+		return"<script>var not = $.Notify({
+						style: {background: 'green', color: 'white'},
+						caption: 'Update Theme Success',
+						timeout: 10000 // 10 seconds
+							});
+						
+						</script>";
+	}
+
 	public function editinfo_notif_fail(){
 		
 		return"<script>var not = $.Notify({
@@ -305,7 +317,7 @@ class Main extends CI_Controller {
 		$this->load->model('model_users');
 		if($this->model_users->changeColor()){
 			$color = array('timeline' => $this->input->post('r1'));
-			$data['success'] = $this->editinfo_notif_succ();
+			$data['success'] = $this->edittheme_notif_succ();
 			$this->session->set_userdata($color);
 		}else{
 			$data['success'] = $this->editinfo_notif_fail();	

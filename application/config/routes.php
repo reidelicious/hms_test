@@ -47,6 +47,7 @@ $route['home'] = 'patient/home';
 $route['explore'] = 'patient/explore';
 $route['appointment'] = 'patient/appointment';
 $route['appointmentv3'] = 'patient/appointmentv3';
+$route['appointmentv4'] = 'patient/appointmentv4';
 $route['view_allrejected_patient'] = 'patient/viewRejectedAppointments';
 
 
