@@ -12,7 +12,7 @@
                     <li>
                         <a class="dropdown-toggle"  href="#">Appointments </a>
                         <ul class="dropdown-menu" data-role="dropdown">
-                            <li><a href="<?php echo base_url()."appointmentv3"?>">Make Appointment</a></li>
+                            <li><a href="<?php echo base_url()."appointmentv4"?>">Make Appointment</a></li>
                             <li><a href="<?php echo base_url()."view_allrejected_patient"?>">View All Rejected Appointments</a></li>   
                         </ul>
                     </li>

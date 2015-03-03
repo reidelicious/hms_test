@@ -80,7 +80,7 @@ class Doctor extends CI_Controller {
 	public function datatable_inactiveAppointments(){
 		$this->datatables->select('appointments.appoint_id, appointments.date, appointments.time, users.lname, users.fname, appointments.appointment_made')
 							->unset_column('appointments.appoint_id')
-							->add_column('action', getbutton_appointments('$1'), 'appointments.appoint_id')
+							->add_column('action', '')
 							->where('appointments.date <', 'CURDATE()', FALSE)
 							->where('appointments.doctor_id', $this->session->userdata('d_id'))
 							->where('appointments.status', 1)
