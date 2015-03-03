@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2015 at 07:20 AM
+-- Generation Time: Mar 03, 2015 at 01:10 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -35,14 +35,18 @@ CREATE TABLE IF NOT EXISTS `announcement` (
   `announcement_details` longtext,
   `fk_clinic_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `announcement`
 --
 
 INSERT INTO `announcement` (`id`, `announcement_datetime_made`, `announcement_subject`, `announcement_details`, `fk_clinic_id`) VALUES
-(5, '2015-02-23 06:54:49', 'Admin Making Announcement', 'yeah', 0);
+(5, '2015-02-23 06:54:49', 'tarongon daw nato beh', 'dsfasdfasdfasfasdfasd', 0),
+(6, '2015-03-01 17:37:18', 'Nausab man ka hoy', 'asdfasd', 0),
+(7, '2015-03-01 17:38:58', 'si marimar gay', '<b>asdfasd</b> <br> echo $gay''''''""; "" ;;...;;;', 1),
+(8, '2015-03-01 17:47:27', 'Ayawg EDIT', 'asdfasd', 1),
+(9, '2015-03-01 17:56:04', 'From Admin', 'New Announcement daw', 0);
 
 -- --------------------------------------------------------
 
@@ -58,15 +62,19 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `patient_id` int(11) NOT NULL,
   `status` enum('Pending','Approved','Reject','') NOT NULL,
   `message` varchar(500) DEFAULT NULL COMMENT 'if rejected',
+  `appointment_made` date NOT NULL,
   PRIMARY KEY (`appoint_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`appoint_id`, `date`, `time`, `doctor_id`, `patient_id`, `status`, `message`) VALUES
-(8, '2015-03-09', '13:30:00', 1, 1, 'Pending', NULL);
+INSERT INTO `appointments` (`appoint_id`, `date`, `time`, `doctor_id`, `patient_id`, `status`, `message`, `appointment_made`) VALUES
+(1, '2015-03-10', '09:30:00', 1, 3, 'Pending', NULL, '2015-03-03'),
+(2, '2015-03-09', '09:30:00', 1, 3, 'Pending', NULL, '2015-03-03'),
+(3, '2015-03-09', '10:30:00', 1, 1, 'Pending', NULL, '2015-03-03'),
+(4, '2015-03-10', '09:30:00', 1, 1, 'Pending', NULL, '2015-03-03');
 
 -- --------------------------------------------------------
 
@@ -87,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `clinic` (
 --
 
 INSERT INTO `clinic` (`clinic_id`, `clinic_name`, `clinic_category`, `room_num`) VALUES
-(1, 'anesthiss', 1, 'lb445');
+(1, 'Asdfasdf', 1, 'lb445');
 
 -- --------------------------------------------------------
 
@@ -171,15 +179,16 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `p_age` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
   PRIMARY KEY (`p_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `patients`
 --
 
 INSERT INTO `patients` (`p_id`, `p_address`, `p_gender`, `p_age`, `u_id`) VALUES
-(1, 'blabla', 'MALE', 25, 1),
-(2, 'blabla', 'MALE', 16, 2);
+(1, 'blabla', 'FEMALE', 25, 1),
+(2, 'blabla', 'MALE', 16, 2),
+(3, 'Cantagay', 'MALE', 21, 4);
 
 -- --------------------------------------------------------
 
@@ -199,7 +208,15 @@ CREATE TABLE IF NOT EXISTS `temp_users` (
   `utype` enum('USER','DOCTOR','ADMIN') NOT NULL,
   `key` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `temp_users`
+--
+
+INSERT INTO `temp_users` (`id`, `email`, `password`, `fname`, `lname`, `age`, `gender`, `address`, `utype`, `key`) VALUES
+(2, 'glamburst04@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Ma. Princess', 'Bermoy', 21, 'FEMALE', 'Tagbilaran City', 'USER', '819288b6a8b37dbaac17f5bed9861231'),
+(3, 'conradogeromojr@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Conrado', 'Geromo', 20, 'MALE', 'Canjulao Jagna, Bohol', 'USER', '239fc2dc91061bfdf6962fc21f0e841e');
 
 -- --------------------------------------------------------
 
@@ -214,19 +231,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
   `avatar` varchar(255) DEFAULT 'assets/images/icon-user-default.png',
-  `timeline` varchar(50) NOT NULL DEFAULT 'bg-teal',
+  `timeline` varchar(50) NOT NULL DEFAULT 'bg-cyan',
   `utype` enum('USER','DOCTOR','ADMIN') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `fname`, `lname`, `avatar`, `timeline`, `utype`) VALUES
-(1, 'chung_bobo@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'hemo joshua', 'bobo', 'uploads/Untitled.png', 'bg-crimson', 'USER'),
-(2, 'james_naruto2000@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'angel', 'torayno', 'assets/images/icon-user-default.png', 'bg-teal', 'ADMIN'),
-(3, 'henoheno@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'heno', 'bobo', 'assets/images/icon-user-default.png', 'bg-pink', 'DOCTOR');
+(1, 'chung_bobo@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Heno', 'Joshua', 'uploads/10590693_512575072215816_3272211137704235041_n.jpg', 'bg-pink', 'USER'),
+(2, 'james_naruto2000@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Angel James', 'Torayno', 'uploads/1513831_512575075549149_352118089383852098_n.jpg', 'bg-teal', 'ADMIN'),
+(3, 'henoheno@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'heno', 'bobo', 'assets/images/icon-user-default.png', 'bg-brown', 'DOCTOR'),
+(4, 'marjhun.galanido@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Marjhun Christopher', 'Galanido', 'uploads/10913575_858206287534696_746184931_n.jpg', 'bg-black', 'USER');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
