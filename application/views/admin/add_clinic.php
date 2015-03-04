@@ -22,12 +22,12 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AddClinicForm')
             </select>
         </div>
 
-        <label>Clinic name </label>
+        <label>Clinic Name </label>
     	
         	<?php $data = array( 'name'=> 'clinicname', 'placeholder'=>'enter clinic name','required'=>'required', 'data-transform'=>'input-control');?>
          	<?php echo form_input($data, $this->input->post('clinicname')); ?>
     	
-        <label>Room  num</label>
+        <label>Room  Number</label>
             <?php $data = array( 'name'=> 'room_num', 'placeholder'=>'enter clinic room','required'=>'required', 'data-transform'=>'input-control');?>
          	<?php echo form_input($data, $this->input->post('room_num')); ?>
         	<?php echo form_submit('clinic_submit','Add Clinic'); ?>

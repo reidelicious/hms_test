@@ -7,8 +7,8 @@ function get_buttons($id)
 {
     $ci = & get_instance();
     $html = '<span class="actions">';
-    $html .= '<button class="default editInfo"><i class="icon-pencil on-left"></i> Edit</button>';
-	$html .= ' <button class="primary deleteUser"><i class="icon-cancel-2 on-left"></i> Delete</button>';
+    $html .= '<button class="primary editInfo"><i class="icon-pencil on-center"></i></button>';
+	$html .= ' <button class="danger deleteUser"><i class="icon-cancel-2 on-center"></i> Delete</button>';
    // $html .= ' <a href="' . base_url() . 'subscriber/delete/' . $id . '"><button class="primary"><i class="icon-cancel-2 on-left"></i> Edit</button></a>';
     
     $html .= '<input type="hidden" value="'.$id.'" />';
@@ -20,14 +20,14 @@ function get_buttons($id)
 function get_buttons_wdetails($id, $det)
 {
     $ci = & get_instance();
-    $html = '<span class="actions">';
-    $html .= '<button class="default editInfo"><i class="icon-pencil on-left"></i> Edit</button>';
-	$html .= ' <button class="primary deleteUser"><i class="icon-cancel-2 on-left"></i> Delete</button>';
+    $html = '<center><span class="actions">';
+    $html .= '<button class="default editInfo"><i class="icon-pencil on-center"></i></button>';
+	$html .= ' <button class="danger deleteUser"><i class="icon-remove on-center"></i></button>';
    // $html .= ' <a href="' . base_url() . 'subscriber/delete/' . $id . '"><button class="primary"><i class="icon-cancel-2 on-left"></i> Edit</button></a>';
     
     $html .= '<input type="hidden" value="'.$id.'" />';
     $html .= '<div style="display:none;">'.$det.'</div>';
-	$html .= '</span>';
+	$html .= '</span></center>';
  
     return $html;
 }
@@ -35,10 +35,10 @@ function get_buttons_wdetails($id, $det)
 function getbutton_rejected($mes)
 {
     $ci = & get_instance();
-    $html = '<span class="actions">';
-    $html .= '<button class="default showMsg"><i class="icon-pencil on-left"></i> Show Message</button>';
+    $html = '<center><span class="actions">';
+    $html .= '<button class="default showMsg"><i class="icon-mail on-center"></i></button>';
    // $html .= ' <a href="' . base_url() . 'subscriber/delete/' . $id . '"><button class="primary"><i class="icon-cancel-2 on-left"></i> Edit</button></a>';
-    $html .= '<div style="display:none;">'.$mes.'</div>';
+    $html .= '<div style="display:none;">'.$mes.'</div></center>';
     $html .= '</span>';
  
     return $html;
@@ -46,13 +46,13 @@ function getbutton_rejected($mes)
 
 function getbutton_appointments($id){
     $ci = & get_instance();
-    $html = '<span class="actions">';
-    $html .= '<button class="success approve"><i class="icon-pencil on-left"></i> Approve</button>';
-    $html .= ' <button class="danger reject"><i class="icon-cancel-2 on-left"></i> Reject</button>';
+    $html = '<center><span class="actions">';
+    $html .= '<button class="success approve"><i class="icon-checkmark on-center"></i></button>';
+    $html .= ' <button class="danger reject"><i class="icon-cancel-2 on-center"></i></button>';
    // $html .= ' <a href="' . base_url() . 'subscriber/delete/' . $id . '"><button class="primary"><i class="icon-cancel-2 on-left"></i> Edit</button></a>';
     
     $html .= '<input type="hidden" value="'.$id.'" />';
-    $html .= '</span>';
+    $html .= '</span></center>';
  
     return $html;
 } 

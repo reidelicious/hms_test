@@ -2,7 +2,7 @@
 
 class Patient extends CI_Controller {
 	public function home(){
-		$data['title'] = 'Hospital Management System';
+		$data['title'] = 'DAS';
 		if($this->session->userdata('is_logged_in')){
 			$this->load->model('model_users');
 			$data['countTotApp'] = $this->model_users->countAppointments(0);
@@ -433,8 +433,35 @@ class Patient extends CI_Controller {
 		echo $this->datatables->generate();
 	}
 
-	public function viewRejectedAppointments(){
-		$data['title'] = 'View Rejected Appointments';
+	public function datatable_history_Patients(){
+		$this->datatables->select('appointments.date, appointments.time, users.lname, appointments.message')
+			->unset_column('appointments.message')
+			->add_column('action', '')
+			->where('date <', "CURDATE()", FALSE)
+			->where('patient_id', $this->session->userdata('p_id'))
+			->from('appointments')
+			->join('doctors', 'doctors.d_id = appointments.doctor_id ', 'inner')
+			->join('users', 'users.id = doctors.u_id', 'inner');
+
+		echo $this->datatables->generate();
+	}
+
+	public function datatable_upcoming_Patients(){
+		$fivedays = Date("Y-m-d", strtotime("+5 days"));
+		$this->datatables->select('appointments.date, appointments.time, users.lname, appointments.message')
+			->unset_column('appointments.message')
+			->add_column('action', '')
+			->where('date >=', $fivedays)
+			->where('patient_id', $this->session->userdata('p_id'))
+			->from('appointments')
+			->join('doctors', 'doctors.d_id = appointments.doctor_id ', 'inner')
+			->join('users', 'users.id = doctors.u_id', 'inner');
+
+		echo $this->datatables->generate();
+	}
+
+	public function view_records_patient(){
+		$data['title'] = 'View Records';
 		if($this->session->userdata('usertype') == "USER"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
@@ -442,7 +469,7 @@ class Patient extends CI_Controller {
 			
 			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/header_patient');
-			$this->load->view('patient/view_allrejected_patient');
+			$this->load->view('patient/view_records_patient');
 		}else{
 			show_404();
 		}		
@@ -451,15 +478,19 @@ class Patient extends CI_Controller {
 	public function saveAppointmentToDB(){
 		$arr = $_POST['arr'];
 		$this->load->model('model_users');
-		if($this->model_users->patient_isAppointmentTwice($arr)){ 
-			if($this->model_users->checkAvailableAppointments($arr)){
-				if($this->model_users->patient_addAppointment($arr)){
-					echo "Success";
+		if($this->model_users->patient_isDoneAppointment($arr)){
+			if($this->model_users->patient_isAppointmentTwice($arr)){ 
+				if($this->model_users->checkAvailableAppointments($arr)){
+					if($this->model_users->patient_addAppointment($arr)){
+						echo "Success";
+					}else{
+						echo "Fail";
+					}
 				}else{
-					echo "Fail";
+					echo "Not Available";
 				}
 			}else{
-				echo "Not Available";
+				echo "Twice";
 			}
 		}else{
 			echo "Twice";

@@ -6,7 +6,7 @@ class Admin extends CI_Controller {
 	
 
 public function add_user(){
-		$data['title'] = 'add user';
+		$data['title'] = 'Add User';
 		$this->load->model('model_users');
 		$data['mail'] = '';
 		$data['success'] = '';
@@ -22,7 +22,7 @@ public function add_user(){
 		}		
 	}
 	public function view_user(){
-		$data['title'] = 'view user';
+		$data['title'] = 'View User';
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
@@ -39,7 +39,7 @@ public function add_user(){
 	
 		//start viewclinic
 	public function view_clinic(){
-		$data['title'] = 'view clinic';
+		$data['title'] = 'View Clinic';
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
@@ -57,7 +57,7 @@ public function add_user(){
 	
 	//start addclinic
 	public function add_clinic(){
-		$data['title'] = 'add clinic';
+		$data['title'] = 'Add Clinic';
 		$this->load->model('model_users');
 		$data['success'] =' ';
 		$data['specialists'] = $this->model_users->get_Specialists();
@@ -73,7 +73,7 @@ public function add_user(){
 	//end addclinic
 
 	public function addClinic_validation(){
-		$data['title'] = 'add clinic';
+		$data['title'] = 'Add Clinic';
 		$this->load->library('form_validation');		
 		$this->form_validation->set_rules('clinicname','Clinic Name','required|trim');
 		$this->form_validation->set_rules('room_num','Room num','required|trim');
@@ -235,7 +235,7 @@ public function add_user(){
 					</script>";	
 	}	
 	public function addUser_validation(){
-		$data['title'] = 'add user';
+		$data['title'] = 'Add User';
 		$this->load->library('form_validation');	
 			$config = array(
 					'mailtype' => 'html',
@@ -328,7 +328,7 @@ public function add_user(){
 	
 	public function makeAnnouncement(){
 		$data['success'] ='';
-		$data['title'] = 'make Announcement';
+		$data['title'] = 'Make Announcement';
 		$this->load->view('templates/header/header_all',$data);	
 		$this->load->view('templates/header/navbar_admin');
 		$this->load->view('makeAnnouncement');	

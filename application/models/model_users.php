@@ -165,12 +165,12 @@ class Model_users extends CI_Model{
 		return $query->result();
 	}
 
-	public function getPatientsAppointments($d){
+	public function getPatientsAppointments($date){
 		$this->db->where('doctor_id', $this->session->userdata('d_id'));
-		$this->db->where('date', $d);
+		$this->db->where('date', $date);
 		$this->db->where('status', 2);
 		$this->db->from('appointments');
-		$this->db->order_by('date');
+		$this->db->order_by('time');
 		$this->db->join('patients', 'appointments.patient_id = patients.p_id', 'inner');
 		$this->db->join('users', 'patients.u_id = users.id', 'inner');
 		$query = $this->db->get();
@@ -181,7 +181,6 @@ class Model_users extends CI_Model{
 		$this->db->where('doctor_id', $this->session->userdata('d_id'));
 		$this->db->where('status', 1);
 		$this->db->from('appointments');
-		$this->db->order_by('date');
 		$this->db->join('patients', 'appointments.patient_id = patients.p_id', 'inner');
 		$this->db->join('users', 'patients.u_id = users.id', 'inner');
 		$query = $this->db->get();
@@ -232,6 +231,7 @@ class Model_users extends CI_Model{
 		else
 			return false;
 	}
+
 	public function approveStatus_appointment($id){
 		$data = array('status' => 2);
 		$this->db->where('appoint_id', $id);
@@ -277,7 +277,7 @@ class Model_users extends CI_Model{
 	}
 
 	public function countDoctorAppointments($flag){
-		$this->db->where('doctor_id', $this->session->userdata('id'));
+		$this->db->where('doctor_id', $this->session->userdata('d_id'));
 		if($flag == 1){
 			$this->db->where('status', 1);	
 		} // Pending
@@ -326,11 +326,24 @@ class Model_users extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
-	public function patient_isAppointmentTwice($arr){
-		$this->db->where('appointment_made = CURDATE()');
+	public function patient_isDoneAppointment($arr){
+		$this->db->where('appointment_made', 'CURDATE()', FALSE);
 		$this->db->where('date', $arr[0]);
 		$this->db->where('doctor_id', $arr[2]);
 		$this->db->where('patient_id', $this->session->userdata('p_id'));
+		$this->db->from('appointments');
+		$query = $this->db->get();
+		if($query->num_rows() == 0)
+			return true;
+		else
+			return false;
+	}
+
+	public function patient_isAppointmentTwice($arr){
+		$this->db->where('date', $arr[0]);
+		$this->db->where('doctor_id', $arr[2]);
+		$this->db->where('patient_id', $this->session->userdata('p_id'));
+		$this->db->where('status', "Approved");
 		$this->db->from('appointments');
 		$query = $this->db->get();
 		if($query->num_rows() == 0)

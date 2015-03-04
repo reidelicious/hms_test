@@ -2,7 +2,7 @@
     <header class="bg-dark">
         <div class="navbar fixed-top ">
             <div class="navbar-content">
-                <a href="#" class="element"><span class="icon-grid-view"></span> Hospital Management System <sup>beta</sup></a>
+                <a href="<?php echo base_url()."add_user"?>" class="element"><span class="icon-accessibility"></span>    Doctor's Appointment System<sup>beta</sup></a>
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">

@@ -2,6 +2,17 @@
 <div class="container">      
   <h2 id="_default"><i class="icon-accessibility on-left"></i>All Rejected Appointments</h2>
 
+  <div class="input-control select span4">
+      <span class="text-warning" style="font-family:verdana; font-size:14px;">SHOW: 
+          <select style="margin-top:10px;" onChange="location = this.options[this.selectedIndex].value">
+              <?php if(!$this->input->get('show')) { ?>
+                  <option selected value="<?php echo base_url(); ?>view_table">History</option>
+                  <option value="<?php echo base_url(); ?>view_table?show=1">Upcoming</option>
+                  <option value="<?php echo base_url(); ?>view_table?show=2">Rejected</option>
+           </select>
+      </span>
+  </div>
+
   <div class="grid fluid">   
   	<div class="row"> 
   			<?php echo $this->table->generate();    ?>
@@ -15,7 +26,7 @@
 <script>
 
 $( document ).ready(function() {	
-	 oTable = $('#dataTables-1').dataTable( {
+	 oTable = $('#dataTables-1').dataTable({
 		"bProcessing": true,
 		"bServerSide": true,
 		"sAjaxSource": '<?php echo base_url('doctor/datatable_rejectedAppointments'); ?>',

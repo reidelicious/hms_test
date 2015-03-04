@@ -48,7 +48,7 @@ $route['explore'] = 'patient/explore';
 $route['appointment'] = 'patient/appointment';
 $route['appointmentv3'] = 'patient/appointmentv3';
 $route['appointmentv4'] = 'patient/appointmentv4';
-$route['view_allrejected_patient'] = 'patient/viewRejectedAppointments';
+$route['view_records_patient'] = 'patient/view_records_patient';
 
 
 $route['home_doctor'] = 'doctor/home_doctor';
@@ -57,7 +57,7 @@ $route['manage_schedules'] = 'doctor/manage_schedules';
 $route['manage_appointment'] = 'doctor/manage_appointment';
 $route['manage_appointmentv2'] = 'doctor/manage_appointmentv2';
 $route['view_appointment'] = 'doctor/view_appointment';
-$route['view_allrejected_doctor'] = 'doctor/viewRejectedAppointments';
+$route['view_records'] = 'doctor/view_records';
 $route['generateToDoc'] = 'doctor/generateToDoc';
 $route['viewAnnouncement'] = 'doctor/viewAnnouncement';
 

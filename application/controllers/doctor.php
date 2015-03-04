@@ -2,7 +2,7 @@
 
 class Doctor extends CI_Controller {
 	public function home_doctor(){
-		$data['title'] = 'Hospital Management System';
+		$data['title'] = 'DAS';
 		$this->load->model('model_users');
 		$data['countTotApp'] = $this->model_users->countDoctorAppointments(0);
 		$data['countPenApp'] = $this->model_users->countDoctorAppointments(1);
@@ -95,6 +95,33 @@ class Doctor extends CI_Controller {
 			->unset_column('appointments.message')
 			->add_column('action', getbutton_rejected('$1'), 'appointments.message')
 			->where('appointments.status', "Reject")
+			->where('doctor_id', $this->session->userdata('d_id'))
+			->from('appointments')
+			->join('patients', 'patients.p_id = appointments.patient_id ', 'inner')
+			->join('users', 'users.id = patients.u_id', 'inner');
+
+		echo $this->datatables->generate();
+	}
+
+	public function datatable_historyOfAppointments(){
+		$this->datatables->select('appointments.date, appointments.time, users.lname, users.fname, appointments.message')
+			->unset_column('appointments.message')
+			->add_column('action', '')
+			->where('date <', "CURDATE()", FALSE)
+			->where('doctor_id', $this->session->userdata('d_id'))
+			->from('appointments')
+			->join('patients', 'patients.p_id = appointments.patient_id ', 'inner')
+			->join('users', 'users.id = patients.u_id', 'inner');
+
+		echo $this->datatables->generate();
+	}
+
+	public function datatable_upcomingAppointments(){
+		$fivedays = Date("Y-m-d", strtotime("+5 days"));
+		$this->datatables->select('appointments.date, appointments.time, users.lname, users.fname, appointments.message')
+			->unset_column('appointments.message')
+			->add_column('action','')
+			->where('date >=', $fivedays)
 			->where('doctor_id', $this->session->userdata('d_id'))
 			->from('appointments')
 			->join('patients', 'patients.p_id = appointments.patient_id ', 'inner')
@@ -202,8 +229,8 @@ class Doctor extends CI_Controller {
 		}		
 	}
 
-	public function viewRejectedAppointments(){
-		$data['title'] = 'View Rejected Appointments';
+	public function view_records(){
+		$data['title'] = 'View Records';
 		if($this->session->userdata('usertype') == "DOCTOR"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
@@ -211,7 +238,7 @@ class Doctor extends CI_Controller {
 			
 			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/header_doctor');
-			$this->load->view('doctor/view_allrejected_doctor');
+			$this->load->view('doctor/view_records');
 		}else{
 			show_404();
 		}		
@@ -229,7 +256,14 @@ class Doctor extends CI_Controller {
 
 	public function view_appointment(){
 		$data['title'] = 'View Timeline';
+		$this->load->model('model_users');
 		if($this->session->userdata('is_logged_in')){
+			//$data['appointment'] = $this->model_users->getPatientsAppointments();
+			$data['appointment'] = array();
+			for($i=0; $i<=5; $i++){
+				$eachday = $this->model_users->getPatientsAppointments(Date("Y-m-d", strtotime("+".$i." days")));
+				array_push($data['appointment'], $eachday);
+			}
 			$this->load->view('templates/header/header_all', $data);
 			$this->load->view('templates/header/header_doctor');
 			$this->load->view('doctor/view_appointment');

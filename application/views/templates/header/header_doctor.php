@@ -2,7 +2,7 @@
     <header class="bg-dark">
         <div class="navbar fixed-top <?php echo $this->session->userdata('timeline'); ?>">
             <div class="navbar-content <?php echo $this->session->userdata('timeline'); ?>">
-                <a href="<?php echo base_url()."home_doctor"?>" class="element"><span class="icon-grid-view"></span> Hospital Management System <sup>Alpha v1.0</sup></a>
+                <a href="<?php echo base_url()."home_doctor"?>" class="element"><span class="icon-accessibility"></span>    Doctor's Appointment System<sup>beta</sup></a>
                 <span class="element-divider"></span>
                 <a class="pull-menu" href="#"></a>
                 <ul class="element-menu">
@@ -14,7 +14,7 @@
                         <ul class="dropdown-menu" data-role="dropdown">
                             <li><a href="<?php echo base_url()."manage_appointmentv2"?>">Manage Appointments</a></li>
                             <li><a href="<?php echo base_url()."view_appointment"?>">View Timeline</a></li>   
-                            <li><a href="<?php echo base_url()."view_allrejected_doctor"?>">View All Rejected Appointments</a></li>   
+                            <li><a href="<?php echo base_url()."view_records"?>">View Records</a></li>   
                         </ul>
                     </li>
                     <li>

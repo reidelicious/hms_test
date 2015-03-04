@@ -4,7 +4,7 @@
         </div>
         <?php foreach ($appointment as $doctors): ?>
         <div class="stream <?php echo $doctors->timeline; ?>">
-            <div class="stream-title">DR. <?php echo $doctors->lname; ?><br /><?php echo $doctors->specialist; ?></div>
+            <div class="stream-title">DR. <?php echo ucfirst($doctors->lname); ?><br /><?php echo $doctors->specialist; ?></div>
             <div class="stream-number">Clinic: <?php echo $doctors->clinic_name; ?></div>
         </div>
         <?php endforeach; ?>
@@ -14,12 +14,6 @@
     <div class="events">
         <div class="events-area" style="">
             <div class="events-grid">
-                <div class="event-group double">
-                    <div class="event-super padding20">
-                        <div>8:00 - 8:59</div>
-                        <h2 class="no-margin">Preparation</h2>
-                    </div>
-                </div>
                 <div class="event-group">
                 	<?php foreach($appointment as $app): ?>
                 	<div class="event-stream" >
@@ -35,12 +29,14 @@
                         	<div class="event-content ">
                         		<div class="event-content-logo">
                         			<img class="icon" src="<?php echo base_url().$app->avatar?>"> 
-                       				<div class="time"><?php echo date("g:i", strtotime($app->time)); ?></div>
+                       				<div class="time"><center><?php echo date("g:i", strtotime($app->time)); ?></center></div>
                		 			</div>
                     			<div class="event-content-data">
-                        			<div class="title">Appointment on <?php echo date("g:i a", strtotime($app->time)); ?></div>
-                        			<div class="subtitle"><?php echo $app->status; ?></div>
-                        			<div class="remark">Contact Number: <?php echo $app->contact_num ?></div>
+                        			<div class="title"><?php echo $app->status; ?></div>
+                        			<div class="subtitle">Contact Number: <?php echo $app->contact_num ?></div>
+                                    <?php if($app->date > date("Y-m-d")){ ?>
+                                        <div class="remark"><button class="small warning">Cancel Appointment</button></div>
+                                    <?php } ?>
                     			</div>           
                 			</div>
                			 </div>
