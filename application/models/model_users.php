@@ -226,7 +226,7 @@ class Model_users extends CI_Model{
 		$this->db->where('date', $d);
 		$this->db->from('doctor_schedule');
 		$query = $this->db->get();
-		if($this->db->count_all_results() > 0)
+		if($query->num_rows() > 0)
 			return $query->result();
 		else
 			return false;
@@ -444,6 +444,20 @@ class Model_users extends CI_Model{
 		$this->db->where('doctor_id', $arr[2]);
 		$this->db->where('date', $arr[0]);
 		$this->db->where('time', $arr[1]);
+		$this->db->where('status', "Approved");
+		$this->db->from('appointments');
+		$query = $this->db->get();
+		if($query->num_rows() == 0){
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public function is_AvailableSched($day, $time, $doctor){
+		$this->db->where('doctor_id', $doctor);
+		$this->db->where('date', $day);
+		$this->db->where('time', $time);
 		$this->db->where('status', "Approved");
 		$this->db->from('appointments');
 		$query = $this->db->get();
@@ -972,8 +986,7 @@ $this->db->update('table as a, table2 as b');
 	$query = $this->db->get();	
 
 		if($query->num_rows() > 0 ){
-		
-				return $query->result();	
+			return $query->result();	
 		}
 		
 		return false;

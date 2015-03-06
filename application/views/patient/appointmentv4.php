@@ -19,10 +19,9 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content" style="background-color: #e7e5e3;">
                         <div class="modal-header">
+                            <button type="button" class="danger close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">Appointment</h4>
-                            <blockquote class="place-right">
-                                <small> <cite title="* You can only make five(5) appointments per day<br/> * You can only make two(2) appointments per doctor per day <br/> * You can't make <u>Duplicate Appointments</u> to a Doctor">Hover here for rules on Making Appointment</cite></small>
-                            </blockquote>
+                            
                         </div>
                         <div class="modal-body">
                             <div class="grid">
@@ -56,16 +55,17 @@
                                                 <div id="sched" class="readable-text subheader text-warning"></div><br/>
                                                 <form id="makeAppointmentHere">
                                                 <center><input id="gimme" type="time" step="1800" style="display:none;" required></center><br/>
-                                                <div id="notice" style="display:none;" class="notice marker-on-top">
-                                                  <strong>Note:</strong> Time should be in 30 minute intervals and should be at least 30 minutes before the closing time
+                                                <div id="notice" style="display:none;">
+                                                  
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="footer" class="modal-footer" style="display:none;">
-                                <button id="savedata" type="click" class="primary button"> Make an Appointment </button>
+                            <div id="footer" class="modal-footer">
+                                <button id="reset" type="click" class="place-left warning button"> Reset</button>
+                                <button id="savedata" type="click" class="primary button"  style="display:none;"> Make an Appointment </button>
                             </div>
                           </form>
                     	</div>
@@ -173,7 +173,7 @@ $(document).ready(function(){
                         if(data == "Not Yet Available!"){
                             $('#gimme').hide();
                             $('#notice').hide();
-                            $('#footer').hide();
+                            $('#savedata').hide();
                         }
                         else{ //new
                           $.ajax({
@@ -201,9 +201,22 @@ $(document).ready(function(){
                             }
                           });
 
+                             $.ajax({
+                                type: "POST",
+                                url: "<?php echo base_url(); ?>patient/getAvailableSchedules",
+                                data: {day:day, doctor:$('#doctor').val()},
+                                success:function(data){
+                                  $('#notice').html(data);
+                                }
+                              });
+
                             $('#gimme').show();
                             $('#notice').show();
-                            $('#footer').show();
+                            $('#savedata').show();
+
+                          $.ajax({
+                            url: "<?php echo base_url(); ?>"
+                          });
                         }
                       }
                   });
@@ -211,6 +224,12 @@ $(document).ready(function(){
         }
     });
 		
+    $(document).on('click', '#reset', function(){
+        $('input').val(' ');
+        $('select').val('');
+        $('#begin').hide();
+        $('#availsched').hide();
+    })
 
 	<?php if($appointments){foreach($appointments as $apps) :	?>
 
@@ -276,11 +295,17 @@ $(document).ready(function(){
             $("#sched").html("");
             $("#sched").html(data);
             if(data == "Not Yet Available!"){
+                $("#sched").html("");
+                $("#ndoctor").html($('#doctor option:selected').text() + " is NOT Available");
                 $('#gimme').hide();
                 $('#notice').hide();
-                $('#footer').hide();
+                $('#savedata').hide();
             }
             else{ //new
+              $("#ndoctor").html($('#doctor option:selected').text() + " is Available at ");
+              $("#sched").html("");
+              $("#sched").html(data);
+
               $.ajax({
                 url: "<?php echo base_url(); ?>patient/build_time_start",
                 data: {doctor:$('#doctor').val(), day:day},
@@ -305,10 +330,19 @@ $(document).ready(function(){
                   $('#gimme').attr('max', x);
                 }
               });
+              $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>patient/getAvailableSchedules",
+                data: {day:day, doctor:$('#doctor').val()},
+                success:function(data){
+                  $('#notice').html(data);
+                }
+              });
+              
 
                 $('#gimme').show();
                 $('#notice').show();
-                $('#footer').show();
+                $('#savedata').show();
             }
           }
         });

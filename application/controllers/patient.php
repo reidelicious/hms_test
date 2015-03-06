@@ -293,6 +293,7 @@ class Patient extends CI_Controller {
 
 	public function build_drop_schedule(){
 		$id = $_POST['doctor'];
+
 		$d = $_POST['day'];
 		$this->load->model('model_users');
 		$row = $this->model_users->getSchedule($id, $d);
@@ -306,8 +307,51 @@ class Patient extends CI_Controller {
 		else{
 			echo "Not Yet Available!";
 		}
-		
 	}
+
+	public function getAvailableSchedules(){
+		$d = $_POST['day'];
+		$id = $_POST['doctor'];
+		$this->load->model('model_users');
+		$row = $this->model_users->getSchedule($id, $d);
+		$timex = array();
+		$temptime = $row[0]->time_start;
+		$temptime = date("H:i", strtotime($temptime));
+		while($temptime <= $row[0]->time_end){
+			if($this->model_users->is_AvailableSched($d, $temptime, $id)){
+				array_push($timex, $temptime);
+			}
+			$temptime = date("H:i", strtotime("+30 minutes", strtotime($temptime)));
+		}
+		if($timex){
+			echo "<p class='readable-text'>Available TimeSlots</p>";
+			echo "<div class='span6'><table class='table striped'>";
+			echo "<thead><tr><center><th>Morning Schedule</th></center></tr></thead>";
+			echo "<tbody>";
+			for($i = 0; $i < count($timex); $i++){ 
+				 if(strtotime($timex[$i]) < strtotime("12:30")){ 
+					echo "<tr><center><td>".date("h:i", strtotime($timex[$i]))."</td></center>";
+					echo "<td></td></tr>";
+				 }
+			} 
+			echo "</tbody></table></div>";
+
+			echo "<div class='span4'><table class='table striped'>";
+			echo "<thead><tr><center><th>Afternoon Schedule</th></center></tr></thead>";
+			echo "<tbody>";
+			for($i = 0; $i < count($timex); $i++){ 
+				 if(strtotime($timex[$i]) >= strtotime("12:30")){ 
+					echo "<tr><td></td>";
+					echo "<td><center>".date("h:i", strtotime($timex[$i]))."</center></td></tr>";
+				 }
+			} 
+			echo "</tbody></table></div>";
+
+		}else{
+			echo "<p class='readable-text'>Sorry! No More Available TimeSlots</p>";
+		}
+	}
+
 	public function checkAppointment(){
 		$id = $_POST['doctor'];
 		$d = $_POST['day'];
