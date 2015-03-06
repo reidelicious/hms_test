@@ -189,8 +189,7 @@ class Patient extends CI_Controller {
 	
 		
 		   // $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
-			$data["results"] = $this->model_users->
-				fetch_doctors($config['per_page'], $page );
+			$data["results"] = $this->model_users->fetch_doctors($config['per_page'], $page );
 			$data["links"] = $this->pagination->create_links();
 		}else{
 			$data["results"] = $this->model_users->fetch_doctors_alpha($this->uri->segment(4));
@@ -425,7 +424,7 @@ class Patient extends CI_Controller {
 	public function datatable_rejectedAppointments_Patients(){
 		$this->datatables->select('appointments.date, appointments.time, users.lname, appointments.message')
 			->unset_column('appointments.message')
-			->add_column('action', getbutton_rejected('$1'), 'appointments.message')
+			->edit_column('users.lname', "<strong>Dr. $2 :</strong> $1", 'appointments.message, users.lname')
 			->where('appointments.status', "Reject")
 			->where('patient_id', $this->session->userdata('p_id'))
 			->from('appointments')
@@ -438,7 +437,6 @@ class Patient extends CI_Controller {
 	public function datatable_history_Patients(){
 		$this->datatables->select('appointments.date, appointments.time, users.lname, appointments.message')
 			->unset_column('appointments.message')
-			->add_column('action', '')
 			->where('date <', "CURDATE()", FALSE)
 			->where('patient_id', $this->session->userdata('p_id'))
 			->from('appointments')
@@ -449,11 +447,9 @@ class Patient extends CI_Controller {
 	}
 
 	public function datatable_upcoming_Patients(){
-		$fivedays = Date("Y-m-d", strtotime("+5 days"));
 		$this->datatables->select('appointments.date, appointments.time, users.lname, appointments.message')
 			->unset_column('appointments.message')
-			->add_column('action', '')
-			->where('date >=', $fivedays)
+			->where('date >', 'CURDATE()', FALSE)
 			->where('patient_id', $this->session->userdata('p_id'))
 			->from('appointments')
 			->join('doctors', 'doctors.d_id = appointments.doctor_id ', 'inner')
@@ -467,7 +463,7 @@ class Patient extends CI_Controller {
 		if($this->session->userdata('usertype') == "USER"){
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
-			$this->table->set_heading('Date', 'Time', 'Doctor', 'Action');
+			$this->table->set_heading('Date', 'Time', 'Doctor');
 			
 			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/header_patient');

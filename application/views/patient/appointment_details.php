@@ -96,12 +96,12 @@
     <tbody>
         <?php foreach($appointment as $row): ?>
             <tr>
-                <td class="text-center"><?php echo $row->time; ?></td>
+                <td class="text-center"><?php echo $row->appoint_time; ?></td>
                 <td class="text-center">Dr. <?php echo ucfirst($row->lname) ." (".$row->specialist.")"; ?></td>
                 <td class="text-center"><?php echo ucfirst($row->clinic_name); ?></td>
                 <td class="text-center"><?php echo $row->status; ?></td>
-                <?php if($app->date > date("Y-m-d") && $app->status != "Cancelled"){ ?>
-                    <td class="text-center"><button id="cancel" rowid="<?php echo $app->appoint_id; ?>"  class="small warning">Cancel Appointment</button></td>
+                <?php if($row->date > date("Y-m-d") && $row->status != "Cancelled"){ ?>
+                    <td class="text-center"><button id="cancel" rowid="<?php echo $row->appoint_id; ?>"  class="small warning">Cancel Appointment</button></td>
                 <?php }else{ ?>
                     <td class="text-center"></td>
                 <?php } ?>

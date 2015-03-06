@@ -103,11 +103,13 @@ $(document).ready(function(){
 	    rules: {
 	      fname: {
 	        minlength: 2,
-	        required: true
+	        required: true,
+	        lettersonly: true
 	      },
 	      lname: {
 	         minlength: 2,
-	         required: true
+	         required: true,
+	        lettersonly: true
 	      },
 	      email: {
 	      	minlength: 2,
@@ -131,7 +133,8 @@ $(document).ready(function(){
 	      },
 		   address: {
 	        minlength: 2,
-	        required: true
+	        required: true,
+	        alphanumeric: true
 	      }
 		  
 	    },

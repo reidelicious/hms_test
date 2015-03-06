@@ -221,8 +221,8 @@ class Main extends CI_Controller {
 		
 		return"<script>var not = $.Notify({
 						style: {background: 'green', color: 'white'},
-						caption: 'update info ',
-						content: 'update info SUCCESS!!!',
+						caption: 'Update Info ',
+						content: 'Update Info SUCCESS',
 						timeout: 10000 // 10 seconds
 							});
 						
@@ -244,8 +244,8 @@ class Main extends CI_Controller {
 		
 		return"<script>var not = $.Notify({
 						style: {background: 'red', color: 'white'},
-						caption: 'update info ',
-						content: 'update info fail!!!',
+						caption: 'Update Info ',
+						content: 'Update info FAILED!',
 						timeout: 10000 // 10 seconds
 							});
 						
@@ -435,8 +435,8 @@ class Main extends CI_Controller {
 	public function upload_notif_succ(){
 		return"<script>var not = $.Notify({
 						style: {background: 'green', color: 'white'},
-						caption: 'avatar ',
-						content: 'Avatar successfully changed',
+						caption: 'AVATAR ',
+						content: 'Avatar Successfully Changed',
 						timeout: 10000 // 10 seconds
 							});
 						
@@ -446,7 +446,7 @@ class Main extends CI_Controller {
 	public function upload_notif_error(){	
 		$retval = "<script>var not = $.Notify({
 						style: {background: 'red', color: 'white'},
-						caption: 'avatar ', 
+						caption: 'AVATAR ', 
 						timeout: 10000 ,
 						content: 'FAIL!!' 
 					});
@@ -504,9 +504,10 @@ public function do_upload()
 	}
 	public function makeAnnouncement_validation(){
 		$this->load->library('form_validation');		
+		$arr = $_POST['arr'];
 		$type = $this->session->userdata('clinic_id')? $this->session->userdata('clinic_id') : 0;
 			$this->load->model('model_users');
-			if($this->model_users->addAnnouncement($type)){
+			if($this->model_users->addAnnouncement($type, $arr)){
 				echo "Success";
 			}else{
 				echo "Fail";
@@ -531,8 +532,8 @@ public function do_upload()
 	public function ret_success_notif(){	
 		return "<script>var not = $.Notify({
 				 	style: {background: 'green', color: 'white'},
-    				caption: 'DATABASE',
-       				content: 'add to database success!!!',
+    				caption: 'SUCCESS',
+       				content: 'Added to Database Successfully!',
       			  	timeout: 10000 // 10 seconds
 						});
 					
@@ -544,7 +545,7 @@ public function do_upload()
 		return "<script>var not = $.Notify({
 				 	style: {background: 'red', color: 'white'},
     				caption: 'MAIL FAIL',
-       				content: 'SEND to EMAIL  FAIL!!!',
+       				content: 'SEND to EMAIL FAIL!',
       			  	timeout: 10000 // 10 seconds
 						});
 					
@@ -555,7 +556,7 @@ public function do_upload()
 	 return "<script>var not = $.Notify({
 				 	style: {background: '#4390df', color: 'white'},
     				caption: 'MAIL SUCCESS',
-       				content: 'SEND to EMAIL  SUCCESS!!!',
+       				content: 'SEND to EMAIL SUCCESS!',
       			  	timeout: 10000 // 10 seconds
 						});
 					

@@ -604,12 +604,12 @@ class Model_users extends CI_Model{
 	}
 
 
-	public function addAnnouncement($type){
+	public function addAnnouncement($type, $arr){
 		
 
 		$data = array(
-			'announcement_subject' => $this->input->post('subject'),
-			'announcement_details' => $this->input->post('details'),
+			'announcement_subject' => $arr[0],
+			'announcement_details' => $arr[1],
 			'fk_clinic_id' => $type
 		);	
 
@@ -659,6 +659,7 @@ class Model_users extends CI_Model{
 	$this->db->select('*');
 	$this->db->from('users');
 	$this->db->join('doctors','users.id = doctors.u_id');
+	$this->db->join('clinic', 'clinic.clinic_id = doctors.clinic');
 	$this->db->join('medical_specialist','medical_specialist.specialist_id =  doctors.specialization ');
 	$query = $this->db->get();	
 

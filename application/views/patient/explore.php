@@ -67,7 +67,8 @@
                                         <input  type="hidden" id="lname" value="<?php echo $data->lname;?>"/>
                                         <input  type="hidden" id="avatar" value="<?php echo $data->avatar; ?>"/>
                                         <input  type="hidden" id="specialization" value="<?php echo $data->specialist; ?>"/>
-                                        <input  type="hidden" id="room_num" value="<?php echo $data->contact_num; ?>"/>                        
+                                        <input  type="hidden" id="contact_num" value="<?php echo $data->contact_num; ?>"/>                        
+                                        <input  type="hidden" id="room_num" value="<?php echo $data->room_num; ?>"/>                        
                                     </div>
                                 </div>
                             </div>                      
@@ -116,8 +117,8 @@ $( document ).ready(function() {
 		var fname = $(this).siblings('#fname').val();
 		var id = $(this).siblings('#id').val();
 		var specialization = $(this).siblings('#specialization').val();
-		var Cnum = $(this).siblings('#room_num').val();
-		var Rnum = $(this).siblings('#cont_num').val();
+		var Cnum = $(this).siblings('#contact_num').val();
+		var Rnum = $(this).siblings('#room_num').val();
 		var avatar = $(this).siblings('#avatar').val();
 		var currentdate = new Date(); 
 var date = currentdate.getFullYear() + "-" 
@@ -134,38 +135,21 @@ var date = currentdate.getFullYear() + "-"
 									'<h4 class="modal-title" id="myModalLabel">Doctor </h4>'+
 								'</div>'+
 								'<div class="modal-body">'+
-									'<div class="thumb" style="margin: 0 auto;"><img  class="scale" src = "<?php echo base_url()?>'+avatar+'" ></div>'+
+									'<div class="thumb" style="margin: 0 auto;"><img  class="scale" src = "<?php echo base_url()?>'+avatar+'" ></div><br/>'+
 										'<dl class="horizontal" style="margin: 0 auto;">'+
-											'<dt>Name:</dt>'+
-												'<dd>'+ fname+'  '+lname+'</dd>'+
-											'<dt>Specialization:</dt>'+
-												'<dd>'+specialization+'</dd>'+
-											'<dt>Contact num:</dt>'+
-												'<dd>'+Cnum+'</dd>'+
-											'<dt>Room num:</dt>'+
-												'<dd>'+Rnum+'</dd>'+
-											'<dt></dt>'+
-												'<dd><button class="default makeAppointment">Make an Appointment</button></dd>'+
+											'<dt class="text-info">Name:</dt>'+
+												'<dd class="readable-text">'+ lname+'  '+fname+'</dd>'+
+											'<dt class="text-info">Specialization:</dt>'+
+												'<dd class="readable-text">'+specialization+'</dd>'+
+											'<dt class="text-info">Contact num:</dt>'+
+												'<dd class="readable-text">'+Cnum+'</dd>'+
+											'<dt class="text-info">Room num:</dt>'+
+												'<dd class="readable-text">'+Rnum+'</dd>'+
 										'</dl>'+			
-										'<form action="<?php echo base_url('patient/makeAppointmentFromExplore'); ?>" method="POST"  class="appointmentForm" hidden="hidden">' +
-											'<label>Date</label>' +
-											'<div class="input-control text" id="datepicker" data-role="datepicker"  data-format="yyyy-mm-dd" data-effect="fade">'+
-                                               ' <input type="text" name="date" placeholder="please enter date" >'+
-                                               ' <button class="btn-date"></button>'+
-                                          '  </div> '+
-											'<label>Time</label>' +
-											'<div class="input-control text"><input type="time"  value= "" name="time" required>'+
-                                            '<input type="hidden" value='+id+' name="doctorid" required>'+
-											'</div> ' +
-									      '<button type="submit" class="primary">Make an Appointment</button>'+
-										'</form>'+
-									'</div>'+
-									'<div class="modal-footer appointmentForm" hidden="hidden">'+
-										'<button type="button" class=" closemdl default" data-dismiss="modal">Close</button>'+
-										
 									'</div>'+
 								'</div>'+
 							'</div>'+
+						'</div>' +
 						'</div>';
 
 		$( "#modal_cont" ).html(cont);

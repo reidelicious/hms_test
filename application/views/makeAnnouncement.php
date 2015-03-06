@@ -87,9 +87,13 @@ function confirmAnnouncement(){
     return false;
 }
 window.saveAnnouncement = function(){
+    var arr = [];
+    arr.push($('#sub').val());
+    arr.push($('#dets').val());
     $.ajax({
         type: "POST",
         url: "<?php echo base_url(); ?>main/makeAnnouncement_validation",
+        data: {arr:arr},
         success:function(msg){
           if(msg == "Success"){
             var not = $.Notify({
