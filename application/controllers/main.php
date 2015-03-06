@@ -187,7 +187,7 @@ class Main extends CI_Controller {
 		if($this->model_users->can_log_in()){
 			return true;
 		}else{
-			$this->form_validation->set_message('validate_credentials', 'Incorrect username/password.');
+			$this->form_validation->set_message('validate_credentials', '<center><p class="code-text text-alert">Incorrect Username or Password.</p></center>');
 			return false;
 		}
 	}

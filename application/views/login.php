@@ -36,8 +36,8 @@ width: 100%;
           <div class="row">
             <div class="span5 offset1">
               </br></br></br></br>
-              <strong><h2>Welcome to Doctor's Appointment System.</h2></strong>
-              <p>Make and Schedule your appointment to a Doctor -- Know your doctor and many more.</p>
+              <h2 class="text-info">Welcome to <br/><strong>Doctor's Appointment System.</strong></h2><br/>
+              <h3 class="readable-text">Make and Schedule your appointment to a Doctor -- Know your doctor and many more.</h3>
             </div>
             <div class="span4 offset1">
               <center><img src = "<?php echo base_url('assets/images/hms-logo.png'); ?>" style="width:120px; height: 120px; border-radius:10px;"></center>
@@ -46,8 +46,9 @@ width: 100%;
                // echo form_open('main/login_validation'); 
                 echo validation_errors();
 			         ?>  
+               <br/>
              <fieldset>
-              </br>
+                <p class="readable-text">Sign in to your account.</p>
                 <div class="input-control text" data-role="input-control">
                    
                     <input type="email" name="email" placeholder="enter your email" value="<?php echo $this->input->post('email');?>" required>
@@ -67,7 +68,7 @@ width: 100%;
                </form>
               <?php //echo form_close(); ?>
               <hr class="style-eight">
-              <a href="<?php echo base_url('new_user/signup ')?>"><button  class="large default btn-block">Create New Account</button></a>
+              <a href="<?php echo base_url('new_user/signup ')?>"><button  class="large default btn-block">Create Account</button></a>
             </div>
           </div>
     </div>

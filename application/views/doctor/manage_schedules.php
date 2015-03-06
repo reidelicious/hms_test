@@ -79,15 +79,20 @@ hr.verticalLine {
                         <button type="submit" id="add" class="large default place-right"><i class="icon-clock"></i></button>
                     </form>
             </div>
-
             <div class="span6 verticalLine">
-                <div class="input-control switch">
-                    <label class="text-info">
-                        <a data-hint="Hint|Shows past schedules if turn off" data-hint-position="bottom">Switch</a>
-                        <input id="change" type="checkbox" checked/>
-                        <span class="check"></span>
-                    </label>
-                </div><br/>
+                <div class="input-control select">
+                      <span class="text-warning" style="font-family:verdana; font-size:14px;">SHOW: 
+                          <select style="margin-top:10px;" onChange="location = this.options[this.selectedIndex].value">
+                              <?php if(!$this->input->get('show')) { ?>
+                                  <option selected value="<?php echo base_url(); ?>manage_schedules">Active Schedules</option>
+                                  <option value="<?php echo base_url(); ?>manage_schedules?show=1">Inactive(Past) Schedules</option>
+                              <?php }if($this->input->get('show') == '1'){ ?>
+                                  <option selected value="<?php echo base_url(); ?>manage_schedules">Active Schedules</option>
+                                  <option <?php echo $_GET['show'] == '1' ? 'selected' : ''?> value="<?php echo base_url(); ?>manage_schedules?show=1">Inactive(Past) Schedules</option>
+                              <?php } ?>
+                           </select>
+                      </span>
+                  </div><br/>
                 <?php echo $this->table->generate(); ?>        
             </div>
         </div>
@@ -97,90 +102,61 @@ hr.verticalLine {
 
 
 <div id="bla"></div>
-	
+<input type="hidden" value="<?php echo $this->input->get('show'); ?>" id="filter" />
 
 <script>
 
 $(document).ready(function(){
-    var filter = 1; // turned on or checked
-
-    oTable = $('#dataTables-1').dataTable({
-    "bProcessing": true,
-    "bServerSide": true,
-    "sAjaxSource": '<?php echo base_url('doctor/datatable_ActiveSchedulesDoctor'); ?>',
-                
-                "sPaginationType": "full_numbers",
-           
-         
-        "fnInitComplete": function() {
-                //oTable.fnAdjustColumnSizing();
-         },
-                'fnServerData': function(sSource, aoData, fnCallback)
-            {
-              $.ajax
-              ({
-                'dataType': 'json',
-                'type'    : 'POST',
-                'url'     : sSource,
-                'data'    : aoData,
-                'success' : fnCallback
-              });
-            }
-    });
-
-    $('#change').change(function(){
-        if(filter == 0){ // turned off
-            oTable = $('#dataTables-1').dataTable({
-            "bProcessing": true,
-            "bServerSide": true,
-            "sAjaxSource": '<?php echo base_url('doctor/datatable_ActiveSchedulesDoctor'); ?>',
-                        
-                        "sPaginationType": "full_numbers",
-                   
-                 
-                "fnInitComplete": function() {
-                        //oTable.fnAdjustColumnSizing();
-                 },
-                        'fnServerData': function(sSource, aoData, fnCallback)
-                    {
-                      $.ajax
-                      ({
-                        'dataType': 'json',
-                        'type'    : 'POST',
-                        'url'     : sSource,
-                        'data'    : aoData,
-                        'success' : fnCallback
-                      });
-                    }
-            });
-            filter = 1;
-        }else{
-            oTable = $('#dataTables-1').dataTable({
-                        "bProcessing": true,
-                        "bServerSide": true,
-                        "sAjaxSource": '<?php echo base_url('doctor/datatable_InactiveSchedulesDoctor'); ?>',
-                        
-                        "sPaginationType": "full_numbers",
-                   
-                 
-                        "fnInitComplete": function() {
-                                //oTable.fnAdjustColumnSizing();
-                         },
-                        'fnServerData': function(sSource, aoData, fnCallback)
-                    {
-                      $.ajax
-                      ({
-                        'dataType': 'json',
-                        'type'    : 'POST',
-                        'url'     : sSource,
-                        'data'    : aoData,
-                        'success' : fnCallback
-                      });
-                    }
-            });
-            filter = 0;
-        }
-    })
+    
+    if($('#filter').val() == 1){ // turned off
+        oTable = $('#dataTables-1').dataTable({
+        "bProcessing": true,
+        "bServerSide": true,
+        "sAjaxSource": '<?php echo base_url('doctor/datatable_InActiveSchedulesDoctor'); ?>',
+                    
+                    "sPaginationType": "full_numbers",
+               
+             
+            "fnInitComplete": function() {
+                    //oTable.fnAdjustColumnSizing();
+             },
+                    'fnServerData': function(sSource, aoData, fnCallback)
+                {
+                  $.ajax
+                  ({
+                    'dataType': 'json',
+                    'type'    : 'POST',
+                    'url'     : sSource,
+                    'data'    : aoData,
+                    'success' : fnCallback
+                  });
+                }
+        });
+    }else{
+        oTable = $('#dataTables-1').dataTable({
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "sAjaxSource": '<?php echo base_url('doctor/datatable_ActiveSchedulesDoctor'); ?>',
+                    
+                    "sPaginationType": "full_numbers",
+               
+             
+                    "fnInitComplete": function() {
+                            //oTable.fnAdjustColumnSizing();
+                     },
+                    'fnServerData': function(sSource, aoData, fnCallback)
+                {
+                  $.ajax
+                  ({
+                    'dataType': 'json',
+                    'type'    : 'POST',
+                    'url'     : sSource,
+                    'data'    : aoData,
+                    'success' : fnCallback
+                  });
+                }
+        });
+    }
 
 
 
