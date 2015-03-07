@@ -504,31 +504,13 @@ public function do_upload()
 	}
 	public function makeAnnouncement_validation(){
 		$this->load->library('form_validation');		
-		$this->form_validation->set_rules('subject','Subject','required|trim');
-		$this->form_validation->set_rules('details','Details','required|trim');
 		$type = $this->session->userdata('clinic_id')? $this->session->userdata('clinic_id') : 0;
-		if($this->form_validation->run()){
 			$this->load->model('model_users');
 			if($this->model_users->addAnnouncement($type)){
-				$data['success'] = $this->ret_success_notif();
-				$data['title'] = "Announcement";
-				if($this->session->userdata('usertype') == "DOCTOR"){
-					$this->load->view('templates/header/header_all', $data);
-					$this->load->view('templates/header/header_doctor');
-					$this->load->view('makeAnnouncement', $data);
-				}
-				else if($this->session->userdata('usertype') == "ADMIN"){
-					$this->load->view('templates/header/header_all',$data);	
-					$this->load->view('templates/header/navbar_admin');
-					$this->load->view('makeAnnouncement');
-					$this->load->view('templates/footer/footer_admin');
-				}
+				echo "Success";
+			}else{
+				echo "Fail";
 			}
-		}
-		else{
-			
-			$this->makeAnnouncement();
-		}
 	}
 	public function announcement_details(){
 		$id = $_POST['id'];

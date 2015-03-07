@@ -72,8 +72,7 @@ $(document).on('click','.editInfo', function(){
                ' <button class="btn-clear"></button></div> ' +
 			          '<label>Details</label>' +
                 '<textarea name="details" style="display:block; width:100%; max-width:100%;" required>'+details+'</textarea>'+
-               ' <button class="btn-clear"></button></div> ' +
-			  
+        
                 '<div class="form-actions">' +
                 '<button class="button primary" onclick="$.Dialog.close()">EDIT</button> '+
                 '<button class="button" type="button" onclick="$.Dialog.close()">Cancel</button> '+
