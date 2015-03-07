@@ -137,21 +137,9 @@ $(document).ready(function() {
 	 }else{
 		  $( ".addelem" ).empty();	 
 	 }
-	 });
-
-  $(document).on('change','#specialist', function(){
-    alert($('#specialist').val());
-    $.ajax({
-        type: "POST",
-        url: "<?php echo base_url(); ?>admin/build_drop_clinic",
-        data: {specialist:$('#specialist').val()},
-        success: function(clinic){
-            $('#clinic').html(clinic);
-        }
-    });
-  });
-
-  $('#AdduserForm').validate({
+	 
+	 
+	 $('#AdduserForm').validate({
         rules: {
           fname: {
             minlength: 2,
@@ -212,6 +200,21 @@ $(document).ready(function() {
              cPassword:{equalTo: "The Confirm Password field does not match the Password field"}
             }
       });
+	 });
+
+  $(document).on('change','#specialist', function(){
+    alert($('#specialist').val());
+    $.ajax({
+        type: "POST",
+        url: "<?php echo base_url(); ?>admin/build_drop_clinic",
+        data: {specialist:$('#specialist').val()},
+        success: function(clinic){
+            $('#clinic').html(clinic);
+        }
+    });
+  });
+
+  
 	
 	
 });

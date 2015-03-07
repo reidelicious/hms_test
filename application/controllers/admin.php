@@ -11,7 +11,7 @@ public function add_user(){
 		$data['mail'] = '';
 		$data['success'] = '';
 		$data['specialists'] = $this->model_users->get_Specialists();
-		$data['clinic'] = $this->model_users->get_Clinic();
+
 		if($this->session->userdata('usertype') == "ADMIN"){
 			$this->load->view('templates/header/header_all',$data);	
 			$this->load->view('templates/header/navbar_admin');
@@ -253,13 +253,10 @@ public function add_user(){
 	public function addUser_validation(){
 		$data['title'] = 'Add User';
 		$this->load->library('form_validation');	
-			$config = array(
-					'mailtype' => 'html',
-				);		
-				
+	
 		$data['mail'] = ' ';
 		$data['success'] = ' ';
-		$this->load->library('email', $config);
+		$this->load->library('email');
 		$this->load->model('model_users');	
 		
 
@@ -321,7 +318,7 @@ public function add_user(){
 				$this->email->message($message);
 				
 					//send mail to the user
-				if($this->model_users->admin_addUser()){
+				if($this->model_users->admin_addAdmin()){
 					$data['success'] = $this->ret_success_notif();
 					if (!$this->email->send()){
 						$data['mail'] = $this->ret_failmail_notif();
@@ -337,9 +334,13 @@ public function add_user(){
 		
 			}			
 		}
-		$this->load->view('templates/header/header_all',$data);	
-		$this->load->view('templates/header/navbar_admin');
-		$this->load->view('admin/admin',$data);
+		$data['specialists'] = $this->model_users->get_Specialists();
+		
+		
+			$this->load->view('templates/header/header_all',$data);	
+			$this->load->view('templates/header/navbar_admin');
+			$this->load->view('admin/add_user',$data);
+			$this->load->view('templates/footer/footer_admin');
 	}// end of adduservalidation
 	
 	public function makeAnnouncement(){
