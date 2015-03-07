@@ -92,6 +92,22 @@ public function add_user(){
 		$this->load->view('templates/header/navbar_admin');
 		$this->load->view('admin/add_clinic',$data);
 	}
+
+	public function build_drop_clinic(){
+		$id = $_POST['specialist'];
+		$this->load->model('model_users');
+		$data['clinic'] = $this->model_users->getClinicByCategory($id);
+        
+       $output = null;
+       $output .= "<option value=''<?php echo set_select('utype', '', TRUE); ?> disabled='disabled'> Assigned Clinic</option>";
+        foreach ($data['clinic'] as $s)
+        {
+            $output .= "<option value='".$s->clinic_id."'>".$s->clinic_name."</option>";
+        }
+        $output .= "<option value='others'>Others</option>";
+
+        echo  $output;
+	}
 	
 	public function datatable(){
 		

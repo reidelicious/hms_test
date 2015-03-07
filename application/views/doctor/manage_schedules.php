@@ -1,21 +1,37 @@
- 
+<style type="text/css">
+
+/* Glyph, by Harry Roberts */
+        
+hr.style-eight {
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+hr.verticalLine {
+    border-left: thick double #333;
+    
+    color: #333;
+}
+</style>
     <div class = "container">
-    <h2 id="_default"><i class="icon-accessibility on-left"></i>Add Schedules</h2>
+    <h2 id="_default"><i class="icon-accessibility on-left"></i>Schedules</h2>
 	<div class="grid fluid">
     	<div class="row">
         	<div class="span3">
             	 <div class="calendar" id="component_id"></div>
             </div>
-            <div class="span7 offset 4">
-                <div id="calendar-output" class="header"></div><br/>
-                <div id="selectTime" class="span6 offset 1 display-none">
-                    <form id="timeform" method="post" role="form">
-                        <p class="subheader-secondary">Time Start:</p>
+            <div class="span3">
+                <p id="onegai" class="subheader-secondary"><sup class="text-alert">*</sup>Please select a date to begin. <i class="icon-smiley"></i></p>
+                <p id="label" class="subheader-secondary" style="display:none;">Set a Schedule on</p>
+                <div id="calendar-output" class="subheader text-success"></div>
+                    <form id="timeform" method="post" role="form" style="display:none;">
+                        <hr class="style-eight">
+                        <p class="item-title">Time Start:</p>
                         <div class="input-control select" data-role="input-control" required>
                             <select id="start_time" name="timestart" required>
                                 <option value="" disabled default selected class="display-none">Time Start</option>
-                                <option value="08:00">08:00 AM</option>
-                                <option value="08:30">08:30 AM</option>
                                 <option value="09:00">09:00 AM</option>
                                 <option value="09:30">09:30 AM</option>
                                 <option value="10:00">10:00 AM</option>
@@ -34,7 +50,8 @@
                                 <option value="16:30">04:30 PM</option>
                             </select>
                         </div>
-                        <p class="subheader-secondary">Time End: </p>
+                        <hr class="style-eight">
+                        <p class="item-title">Time End: </p>
                         <div class="input-control select" data-role="input-control" required>
                             <select id="end_time" name="timeend" required>
                                 <option value="" disabled default selected class="display-none">Time End</option>
@@ -59,9 +76,19 @@
                                 <option value="18:00">06:00 PM</option>
                             </select>
                         </div>
-                        <button type="submit" id="add" class="large default">GO</button>
+                        <button type="submit" id="add" class="large default place-right"><i class="icon-clock"></i></button>
                     </form>
-                </div>
+            </div>
+
+            <div class="span6 verticalLine">
+                <div class="input-control switch">
+                    <label class="text-info">
+                        <a data-hint="Hint|Shows past schedules if turn off" data-hint-position="bottom">Switch</a>
+                        <input id="change" type="checkbox" checked/>
+                        <span class="check"></span>
+                    </label>
+                </div><br/>
+                <?php echo $this->table->generate(); ?>        
             </div>
         </div>
     </div>
@@ -75,6 +102,88 @@
 <script>
 
 $(document).ready(function(){
+    var filter = 1; // turned on or checked
+
+    oTable = $('#dataTables-1').dataTable({
+    "bProcessing": true,
+    "bServerSide": true,
+    "sAjaxSource": '<?php echo base_url('doctor/datatable_ActiveSchedulesDoctor'); ?>',
+                
+                "sPaginationType": "full_numbers",
+           
+         
+        "fnInitComplete": function() {
+                //oTable.fnAdjustColumnSizing();
+         },
+                'fnServerData': function(sSource, aoData, fnCallback)
+            {
+              $.ajax
+              ({
+                'dataType': 'json',
+                'type'    : 'POST',
+                'url'     : sSource,
+                'data'    : aoData,
+                'success' : fnCallback
+              });
+            }
+    });
+
+    $('#change').change(function(){
+        if(filter == 0){ // turned off
+            oTable = $('#dataTables-1').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": '<?php echo base_url('doctor/datatable_ActiveSchedulesDoctor'); ?>',
+                        
+                        "sPaginationType": "full_numbers",
+                   
+                 
+                "fnInitComplete": function() {
+                        //oTable.fnAdjustColumnSizing();
+                 },
+                        'fnServerData': function(sSource, aoData, fnCallback)
+                    {
+                      $.ajax
+                      ({
+                        'dataType': 'json',
+                        'type'    : 'POST',
+                        'url'     : sSource,
+                        'data'    : aoData,
+                        'success' : fnCallback
+                      });
+                    }
+            });
+            filter = 1;
+        }else{
+            oTable = $('#dataTables-1').dataTable({
+                        "bProcessing": true,
+                        "bServerSide": true,
+                        "sAjaxSource": '<?php echo base_url('doctor/datatable_InactiveSchedulesDoctor'); ?>',
+                        
+                        "sPaginationType": "full_numbers",
+                   
+                 
+                        "fnInitComplete": function() {
+                                //oTable.fnAdjustColumnSizing();
+                         },
+                        'fnServerData': function(sSource, aoData, fnCallback)
+                    {
+                      $.ajax
+                      ({
+                        'dataType': 'json',
+                        'type'    : 'POST',
+                        'url'     : sSource,
+                        'data'    : aoData,
+                        'success' : fnCallback
+                      });
+                    }
+            });
+            filter = 0;
+        }
+    })
+
+
+
     var day = '';
 	
 	var today = new Date();
@@ -113,6 +222,9 @@ $(document).ready(function(){
         */
         click: function(d){
                 var out = $("#calendar-output").html("");
+                $('#label').show();
+                $('#onegai').hide();
+                $('#timeform').show();
                 out.html(d);
                 day = d;
 
@@ -165,14 +277,14 @@ $(document).ready(function(){
                                 var content = '<div>This date already have a schedule. Do you want to overwrite it? </div></br>' +
                                               '<div class="grid fluid">'+
                                               '<div class="row">'+
-                                              '<div class="span8 offset2"> <button class="btn-close" onclick="$.Dialog.close()"><i class="icon-cancel-2 on-left"></i>Cancel</button> '+
-                                              '<button class="confirmOverwrite" id="overwrite" onclick="$.Dialog.close();overWriteSchedule(); "><i class="icon-floppy on-left"></i>Overwrite</button>'+
+                                              '<div class="span8 offset2"> <button class="warning btn-close" onclick="$.Dialog.close()"><i class="icon-cancel-2 on-left"></i>   Cancel</button> '+
+                                              '<button class="danger confirmOverwrite" id="overwrite" onclick="$.Dialog.close();overWriteSchedule(); "><i class="icon-floppy on-left"></i>  Overwrite</button>'+
                                               '</div>'+
                                               '</div>'+
                                             '</div> ';
                                             
                      
-                                $.Dialog.title("Overwrite User ");
+                                $.Dialog.title("Overwrite Schedule ");
                                 $.Dialog.content(content);
                                 $.Metro.initInputs();
                             }
@@ -196,7 +308,7 @@ $(document).ready(function(){
                                        });
                         });
 							setCalendar(arr[0]);
-						
+						oTable.fnDraw();
 						
                     }
                 });
@@ -218,6 +330,7 @@ $(document).ready(function(){
                         timeout: 10000 // 10 seconds
                     });        
         }
+        oTable.fnDraw();
         return false;            
     });
     
@@ -235,6 +348,8 @@ $(document).ready(function(){
                             content: "Schedule is overwritten to the database",
                             timeout: 10000 // 10 seconds
                            });
+                cal.calendar('setDate', arr[0]);
+                oTable.fnDraw();
             });
     };
 	
@@ -249,13 +364,13 @@ $(document).ready(function(){
 				   setCalendar(data[k].date);
 				}
 				  cal.calendar('unsetDate', today);
-			  
+			     oTable.fnDraw();
 		 });
 
 function setCalendar(d){
 		
 		 cal.calendar('setDate', d);
-		 
+		 oTable.fnDraw();
 }
 
 

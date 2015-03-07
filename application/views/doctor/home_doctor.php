@@ -12,13 +12,12 @@ hr.style-eight {
 </style>
 <title>Hospital Management System</title>
 	<div class="container">
-		<div class="grid">
+		<div class="grid fluid">
 			<div class="row">
-			<div class="span12">
 				<div class="span3">
 					<br/><br/>
 					<center>
-						<?php echo img($this->session->userdata('avatar')); ?><br/>
+						<img class="rounded polaroid <?php echo $this->session->userdata('timeline'); ?> bd-white shadow" src="<?php echo $this->session->userdata('avatar') ?>" ><br/>
 						<h4><?php echo ucfirst($this->session->userdata('lname')) .", ". ucfirst($this->session->userdata('fname')); ?></h4>
 						<a href="<?php echo base_url("main/settings") ?>" id="editProfile">Edit Profile</a><br/>
 					</center>
@@ -31,10 +30,9 @@ hr.style-eight {
 					<h4>Rejected Appointments: </h4>
 					<p class="header readable-text text-warning" ><?php echo $countRejApp; ?></p><br/>
 				</div>
-				<div class="span9 offset 6">
-						<header>
-							<legend><h1>Announcements</h1></legend>
-						</header><br/>
+				<div class="span6">
+								<h1 class="subheader">Announcements
+								<span class="place-right"><a href="<?php echo base_url('doctor/makeAnnouncement') ?>"><button class="default"><i class="icon-pencil on-center"></i></button></a></span></h1>
 						<?php foreach($announcements as $row): ?>
 							<hr class="style-eight">
 								<div class="panel">
@@ -54,7 +52,25 @@ hr.style-eight {
 								</div>
 						<?php endforeach; ?>	
 				</div>
-			</div>
+				<div class="span3">
+						<h1 class="subheader text-center">Update</h1>
+						<hr class="style-eight">
+							<div id="greetings" class="subheader readable-text  text-success"></div><br/>
+                        	<?php if($appoint){?>
+                        			<p class="subheader-secondary readable-text"> You have <strong><?php echo $countAppoint; ?></strong> Appointment(s) for this day, Doctor. <i class="icon-smiley"></i><br/><br/><strong>Patients: </strong></p>
+                        			<?php foreach($appoint as $ment): ?>
+                        					<blockquote>
+                        						<p class="readable-text"><?php echo ucfirst($ment->lname) .", ". ucfirst($ment->fname); ?></p>
+                        					</blockquote>	
+                        			<?php endforeach; ?>
+                        			<form action="<?php echo base_url('doctor/generateToDoc'); ?>" method="POST">
+								        <input type="hidden" name="deyt" id="d" value="<?php echo date('Y-m-d'); ?>">
+								        <button type="submit" id="gen" class="primary place-right"><i class="icon-file-word"></i>	Get a Copy!</button>
+								    </form>
+							<?php }else{ ?>
+									<p class="subheader-secondary readable-text" >You have NO Appointments for this day.</p>
+							<?php } ?>
+					</div>
 			</div>
 		</div>
 	</div>
@@ -76,6 +92,19 @@ hr.style-eight {
 	</div><!-- /.modal -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+			var now = new Date();
+			var hrs = now.getHours();
+			var msg = "";
+			
+			if (hrs >  0) msg = "Mornin' Doc! How's your sleep?"; // REALLY early
+			if (hrs >  6) msg = "Good Morning Doc!";      // After 6am
+			if (hrs > 12) msg = "Good Afternoon Doc!";    // After 12pm
+			if (hrs > 17) msg = "Good Evening Doc!";      // After 5pm
+
+			$('#greetings').empty();
+			$('#greetings').append(msg);
+
+
 			$(document).on('click', '#show', function(){
 				var id = $(this).attr('rowid');
 				$.ajax({

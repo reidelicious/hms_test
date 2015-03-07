@@ -12,13 +12,12 @@ hr.style-eight {
 </style>
 <title>Hospital Management System</title>
 	<div class="container">
-		<div class="grid">
+		<div class="grid fluid">
 			<div class="row">
-				<div class="span12">
 					<div class="span3">
 						<br/><br/>
 						<center>
-							<?php echo img($this->session->userdata('avatar')); ?><br/>
+							<img class="rounded polaroid <?php echo $this->session->userdata('timeline'); ?> bd-white shadow" src="<?php echo $this->session->userdata('avatar') ?>" ><br/>
 							<h4><?php echo ucfirst($this->session->userdata('lname')) .", ". ucfirst($this->session->userdata('fname')); ?></h4>
 							<a href="<?php echo base_url()."main/settings" ?>" id="editProfile">Edit Profile</a><br/>
 						</center>
@@ -30,11 +29,11 @@ hr.style-eight {
 						<p class="header readable-text text-warning" ><?php echo $countOKApp; ?></p><br/>
 						<h4>Rejected Appointments: </h4>
 						<p class="header readable-text text-warning" ><?php echo $countRejApp; ?></p><br/>
+						<h4>Cancelled Appointments: </h4>
+						<p class="header readable-text text-warning" ><?php echo $countCanApp; ?></p><br/>
 					</div>
 					<div class="span6">
-							<header>
-								<legend><h1>Announcements</h1></legend>
-							</header><br/>
+								<h1 class="subheader text-center">Announcements</h1>
 							<?php foreach($announcements as $row): ?>
 								<hr class="style-eight">
 								<div class="panel">
@@ -55,47 +54,38 @@ hr.style-eight {
 								</div>
 							<?php endforeach; ?>	
 					</div>
-					<div class="span3"><br/>
-						<header>
-							<legend><h3>Update</h3></legend>
-						</header>
-                        	<?php if($update){?>
-							<div class="notice marker-on-top <?php if($update[0]->status == "Approved"){ ?>bg-green<?php }else if($update[0]->status == "Reject"){ ?> bg-red <?php }else if($update[0]->status == "Pending"){ ?> bg-amber <?php } ?>">
-								Appointment on <br/><?php echo $update[0]->date ." ". $update[0]->time ?><br/><br/>
-								<p>
-									Your appointment for <br/><strong>Dr. <?php echo ucfirst($update[0]->lname); ?></strong>
-									<?php if($update[0]->status == "Approved"){ ?>
-										has already been <strong>APPROVED</strong>!
-									<?php } ?>
-									<?php if($update[0]->status == "Reject"){ ?>
-										has been <strong>REJECTED</strong><br/>
-										<br/><button id="show" class="small default"  data-toggle="modal" data-target="#myModals" >Show Message from the Secretary</button>
-										<div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										  <div class="modal-dialog">
-										    <div class="modal-content">
-										      <div class="modal-header">
-										        <button type="button" class="danger close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										        <h4 class="modal-title">Message from the Secretary</h4>
-										      </div>
-										      <div class="modal-body">
-												<?php echo $update[0]->message; ?>	        
-										      </div>
-										      <div class="modal-footer">
-										        <button type="button" class="default" data-dismiss="modal">Close</button>
-										       
-										      </div>
-										    </div><!-- /.modal-content -->
-										  </div><!-- /.modal-dialog -->
-										</div><!-- /.modal -->
-									<?php } ?>
-									<?php if($update[0]->status == "Pending"){ ?>
-										is still <strong>PENDING</strong>.
-									<?php } }?>
-								</p>
-							</div>
+					<div class="span3">
+						<h1 class="subheader text-center">Update</h1>
+						<hr class="style-eight">
+							<div id="greetings" class="subheader readable-text  text-success"></div><br/>
+							<?php if($appointtoday){?>
+                        			<p class="subheader-secondary readable-text"> Appointments for Today! <i class="icon-smiley"></i></p>
+                        			<small class="text-muted">(Hint: Mouseover Doctor's Name for Location of a Clinic)</small>
+                        			<?php foreach($appointtoday as $ment): ?>
+                        					<blockquote>
+                        						<p class="readable-text"><?php echo "<a data-hint='Clinic|" .ucfirst($ment->clinic_name) ." at ". ucfirst($ment->room_num) ."' data-hint-position='bottom'>Dr. " .ucfirst($ment->lname) ." (". ucfirst($ment->specialist) .")</a> on ". date("g:i a", strtotime($ment->time)); ?></p>
+                        						<small>Clinic: <?php echo ucfirst($ment->clinic_name) ." at ". ucfirst($ment->room_num); ?></small>
+                        					</blockquote>	
+                        			<?php endforeach; ?><br/>
+                        			<hr class="style-eight">
+                        	<?php }if($appointupcoming){ ?>
+                        			<p class="subheader-secondary readable-text"> Appointment(s) Updates! 	<i class="icon-smiley"></i></p>
+                        			<small class="text-muted">(Hint: Mouseover Doctor's Name for Location of a Clinic and For Date also, for Time of Appointment)</small>
+                        			<?php foreach($appointupcoming as $ment): ?>
+                        					<?php 
+                        						$d = Date("m-d-y", strtotime($ment->date));
+                        						$dateObj = DateTime::createFromFormat('m-d-Y', $d);
+                        					?>
+                        					<hr class="style-eight">
+                        					<blockquote class="success">
+                        						<p class="readable-text"><?php echo "<a data-hint='Clinic|" .ucfirst($ment->clinic_name) ." at ". ucfirst($ment->room_num)."' data-hint-position='bottom'>Dr. " .ucfirst($ment->lname) ." (". ucfirst($ment->specialist) .")</a> on <a data-hint='Time|" .date("g:i a", strtotime($ment->time))."' data-hint-position='bottom'>".$dateObj->format('D - M d ')."</a>"; ?></p>
+                        						<p class="item-text text-warning">Status: <?php echo $ment->status; ?></p>
+                        					</blockquote>
+                        					
+                        			<?php endforeach; ?><br/>
+							<?php } ?>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 	<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -116,6 +106,18 @@ hr.style-eight {
 	</div><!-- /.modal -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+			var now = new Date();
+			var hrs = now.getHours();
+			var msg = "";
+			
+			if (hrs >  0) msg = "Mornin'! How's your sleep?"; // REALLY early
+			if (hrs >  6) msg = "Good Morning!";      // After 6am
+			if (hrs > 12) msg = "Good Afternoon!";    // After 12pm
+			if (hrs > 17) msg = "Good Evening!";      // After 5pm
+
+			$('#greetings').empty();
+			$('#greetings').append(msg);
+
 			$(document).on('click', '#show', function(){
 				var id = $(this).attr('rowid');
 				$.ajax({

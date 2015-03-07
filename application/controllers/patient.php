@@ -9,8 +9,10 @@ class Patient extends CI_Controller {
 			$data['countPenApp'] = $this->model_users->countAppointments(1);
 			$data['countOKApp'] = $this->model_users->countAppointments(2);
 			$data['countRejApp'] = $this->model_users->countAppointments(3);
+			$data['countCanApp'] = $this->model_users->countAppointments(4);
 			$data['announcements'] = $this->model_users->fetchAnnouncements();
-			$data['update'] = $this->model_users->fetchAppointments();
+			$data['appointtoday'] = $this->model_users->getAppointmentsForToday_Patient();
+			$data['appointupcoming'] = $this->model_users->getAppointmentsForUpcoming_Patient();
 			$this->load->view('templates/header/header_all',$data);
 			$this->load->view('templates/header/header_patient');
 			$this->load->view('patient/home', $data);
@@ -480,14 +482,18 @@ class Patient extends CI_Controller {
 		$this->load->model('model_users');
 		if($this->model_users->patient_isDoneAppointment($arr)){
 			if($this->model_users->patient_isAppointmentTwice($arr)){ 
-				if($this->model_users->checkAvailableAppointments($arr)){
-					if($this->model_users->patient_addAppointment($arr)){
-						echo "Success";
+				if($this->model_users->patient_isAppointmentConflict($arr)){
+					if($this->model_users->checkAvailableAppointments($arr)){
+						if($this->model_users->patient_addAppointment($arr)){
+							echo "Success";
+						}else{
+							echo "Fail";
+						}
 					}else{
-						echo "Fail";
+						echo "Not Available";
 					}
 				}else{
-					echo "Not Available";
+					echo "Conflict";
 				}
 			}else{
 				echo "Twice";

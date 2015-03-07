@@ -30,8 +30,14 @@
                             $forDoc = Date("y-m-d", strtotime("+".$i." days"));
                             $dateObj = DateTime::createFromFormat('m-d-Y', $d);
                          ?>
-                         <div class="stream-title"><?php echo $dateObj->format('M d'); ?></div>
-                         <div class="stream-number"><input type="button" id="gen" class="small primary" style="display:none;">Generate into .docx</div>
+                         <div class="stream-title text-center"><?php echo $dateObj->format('D - M d '); ?></div>
+                        <form action="<?php echo base_url('doctor/generateToDoc'); ?>" method="POST">
+                            <div class="stream-number">
+                            <input type="hidden" name="deyt" id="d" value="<?php echo $forDoc ?>">
+                            <button type="submit" id="gen" class="small primary"><i class="icon-file-word"></i>   Get a Copy!</button>
+                            </div>
+                        </form>
+                        
                     </div>
                 <?php } ?>
             </div>

@@ -4,7 +4,7 @@
 
   <div class="grid fluid">   
     <div class="row"> 
-        <?php echo $this->table->generate();    ?>
+            <?php echo $this->table->generate();    ?>
     </div>
   </div>
 </div>

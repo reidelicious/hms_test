@@ -37,18 +37,18 @@
                                                 <label for="datesched">Schedule an Appointment on : </label>
                                                 <div id="calendar-output2" class="subheader-secondary readable-text text-warning"></div><br/>
                                                 <p class="subheader ">Find a Doctor:</p>
-                                                <label for="category">Specialization : </label>
-                                                <select id="category" class="input-control" name="category" required="required">
+                                                <label for="category"><sup class="text-alert">*</sup>Specialization : </label>
+                                                <select id="category" class="input-control" style="width:100%" name="category" required="required">
                                                   <option value="" disabled default selected class="display-none">Select Specialization</option>
                                                   <?php foreach($specialization as $s):?>
                                                     <option value="<?php echo $s->specialist_id;?>"><?php echo $s->specialist;?></option> 
                                                   <?php endforeach;?>                              
                                                 </select>
                                                 <label for="clinic">Clinic : </label>
-                                                <select id="clinic" class="input-control" name="clinic">
+                                                <select id="clinic" class="input-control" style="width:100%" name="clinic">
                                                 </select> 
-                                                <label for="doctor">Doctors : </label>
-                                                <select id="doctor" class="input-control" name="doctor" required="required">
+                                                <label for="doctor"><sup class="text-alert">*</sup>Doctors : </label>
+                                                <select id="doctor" class="input-control" name="doctor" style="width:100%" required="required">
                                                 </select> 
                                             </div>
                                             <div id="availsched" class="span3" style="display:none;">
@@ -357,7 +357,15 @@ $(document).ready(function(){
                           content: "You've already made an appointment on this day with this doctor.",
                           timeout: 10000 // 10 seconds
                       }); 
+                }else if(data == "Conflict"){
+                  var not = $.Notify({
+                          style: {background: 'red', color: 'white'}, 
+                          caption: 'CONFLICT APPOINTMENT!',
+                          content: "You've already made an appointment on that time. Please try again.",
+                          timeout: 10000 // 10 seconds
+                      }); 
                 }
+
               }
             });
             return false;

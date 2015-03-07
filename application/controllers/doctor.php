@@ -9,6 +9,8 @@ class Doctor extends CI_Controller {
 		$data['countOKApp'] = $this->model_users->countDoctorAppointments(2);
 		$data['countRejApp'] = $this->model_users->countDoctorAppointments(3);
 		$data['announcements'] = $this->model_users->fetchAnnouncements();
+		$data['appoint'] = $this->model_users->getAppointmentsForToday_Doctor();
+		$data['countAppoint'] = $this->model_users->countAppointmentsForToday_Doctor();
 		if($this->session->userdata('is_logged_in')){
 			$this->load->view('templates/header/header_all', $data);
 			$this->load->view('templates/header/header_doctor');
@@ -33,9 +35,16 @@ class Doctor extends CI_Controller {
 		$data['success'] = '';
 		//$data['appointments'] = $this->model_users->doctor_calendar_app();
 		$data['title'] = 'Manage Schedules';
-		$this->load->view('templates/header/header_all',$data);	
-		$this->load->view('templates/header/header_doctor');
-		$this->load->view('doctor/manage_schedules', $data);	
+		if($this->session->userdata('is_logged_in') == 1){
+			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
+			$this->table->set_template($tmpl);
+			$this->table->set_heading('Date', 'Time Start', 'Time End');
+
+			$this->load->view('templates/header/header_all',$data);	
+			$this->load->view('templates/header/header_doctor');
+			$this->load->view('doctor/manage_schedules', $data);	
+		}
+		
 	}
 	
 	public function doc_calendar_app(){
@@ -63,6 +72,22 @@ class Doctor extends CI_Controller {
 			echo '0';
 	}
 
+	public function datatable_ActiveSchedulesDoctor(){
+			$this->datatables->select('date, time_start, time_end')
+							->where('date >=', 'CURDATE()', FALSE)
+							->where('d_id', $this->session->userdata('d_id'))
+							->from('doctor_schedule');
+		echo $this->datatables->generate();
+	}
+
+	public function datatable_InactiveSchedulesDoctor(){
+			$this->datatables->select('date, time_start, time_end')
+							->where('date <', 'CURDATE()', FALSE)
+							->where('d_id', $this->session->userdata('d_id'))
+							->from('doctor_schedule');
+		echo $this->datatables->generate();
+	}
+
 	public function datatable_activeAppointments(){
 			$this->datatables->select('appointments.appoint_id, appointments.date, appointments.time, users.lname, users.fname, appointments.appointment_made')
 							->unset_column('appointments.appoint_id')
@@ -74,7 +99,6 @@ class Doctor extends CI_Controller {
 							->join('patients', 'patients.p_id = appointments.patient_id ', 'inner')
 							->join('users', 'users.id = patients.u_id', 'inner');
 		echo $this->datatables->generate();
-		
 	}
 
 	public function datatable_inactiveAppointments(){
@@ -193,8 +217,7 @@ class Doctor extends CI_Controller {
 			$tmpl = array('table_open' => '<table class="table striped hovered dataTable" id="dataTables-1">');
 			$this->table->set_template($tmpl);
 			$this->table->set_heading('Date', 'Time', 'Last Name', 'First Name', 'Appointment Made', 'Actions');
-			
-
+				
 			$this->load->view('templates/header/header_all', $data);
 			$this->load->view('templates/header/header_doctor');
 			$this->load->view('doctor/manage_appointmentv2', $data);
@@ -290,6 +313,9 @@ class Doctor extends CI_Controller {
 		//our docx will have 'portrait' paper orientation
 		$section = $this->word->createSection(array('orientation'=>'portrait'));
 		
+		$section->addImage('../assets/images/hms-logo');
+		$section->addTextBreak(2);
+
 		// Add text elements		
 		$this->word->addFontStyle('rStyle', array('bold'=>true, 'italic'=>true, 'size'=>16));
 		$this->word->addParagraphStyle('pStyle', array('align'=>'center', 'spaceAfter'=>100));
@@ -326,10 +352,10 @@ class Doctor extends CI_Controller {
 		if(is_array($data['app'])){
 			foreach($data['app'] as $rows):
 				$table->addRow();
-				$table->addCell(2000)->addText($rows->time);
-				$table->addCell(2000)->addText(ucfirst($rows->lname) ." ". ucfirst($rows->fname));
-				$table->addCell(2000)->addText($rows->p_gender);
-				$table->addCell(2000)->addText($rows->email);
+				$table->addCell(2000)->addText(htmlspecialchars($rows->time));
+				$table->addCell(2000)->addText(htmlspecialchars(ucfirst($rows->lname) ." ". ucfirst($rows->fname)));
+				$table->addCell(2000)->addText(htmlspecialchars($rows->p_gender));
+				$table->addCell(2000)->addText(htmlspecialchars($rows->email));
 				$table->addCell(5000)->addText('');
 			endforeach;
 			$filename=$this->input->post('deyt').".docx"; //save our document as this file name

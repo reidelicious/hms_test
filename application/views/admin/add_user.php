@@ -30,7 +30,7 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
     	
     	<label>Password </label>
         <div class="input-control password" data-role="input-control">
-        	<?php $data = array( 'name'=> 'password', 'placeholder'=>'enter your password', 'required'=>'required');?>
+        	<?php $data = array( 'name'=> 'password', 'id' => 'pass', 'placeholder'=>'enter your password', 'required'=>'required');?>
         	<?php echo form_password($data);  ?>
         	<button class="btn-reveal" tabindex="-1"></button>
         </div>
@@ -65,10 +65,6 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
 <?php echo form_close();?>
     
 
-
-
-
-
 </div>
 
 
@@ -96,30 +92,28 @@ $attributes = array( 'enctype' => 'multipart/form-data', 'id'=> 'AdduserForm');
         </div>
 </div>
 <div id="2" style="visibility:hidden;">
+        <label>Contact Number </label>
+        <div class="input-control text" data-role="input-control">
+            <?php $data = array( 'name'=> 'C_num', 'placeholder'=>'enter contact number','required'=>'required');?>
+            <?php echo form_input($data, $this->input->post('C_num')); ?>
+            <button class="btn-clear" tabindex="-1"></button>
+        </div>
+
 
 		<label>Specialization  </label>
     	<div class="input-control select">
-            <select name="Specialization" id="Specialization"  required>
-                <option value=''<?php echo set_select('utype', '', TRUE); ?> disabled="disabled"> select specialization</option>
+            <select name="Specialization" id="specialist"  required>
+                <option value='' default selected disabled="disabled"> select specialization</option>
             	<?php foreach($specialists as $row): ?>
 					<option value="<?php echo $row->specialist_id; ?>"> <?php echo $row->specialist; ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
- 		<label>Contact Number </label>
-    	<div class="input-control text" data-role="input-control">
-        	<?php $data = array( 'name'=> 'C_num', 'placeholder'=>'enter contact number','required'=>'required');?>
-         	<?php echo form_input($data, $this->input->post('C_num')); ?>
-    		<button class="btn-clear" tabindex="-1"></button>
-    	</div>
+ 		
         	
         <label>Clinic  </label>
         <div class="input-control select">
             <select name="clinic" id="clinic"  required>
-                <option value=''<?php echo set_select('utype', '', TRUE); ?> disabled="disabled"> Assigned Clinic</option>
-                <?php foreach($clinic as $row): ?>
-                    <option value="<?php echo $row->clinic_id; ?>"> <?php echo $row->clinic_name; ?></option>
-                <?php endforeach; ?>
             </select>
         </div>
 
@@ -144,6 +138,80 @@ $(document).ready(function() {
 		  $( ".addelem" ).empty();	 
 	 }
 	 });
+
+  $('#specialist').on('change', function(){
+    alert($('#specialist').val());/*
+    $.ajax({
+        type: "POST",
+        url: "<?php echo base_url(); ?>admin/build_drop_clinic",
+        data: {specialist:$('#specialist').val()},
+        success: function(clinic){
+            $('#Specialization').html(clinic);
+        }
+    });*/
+  });
+
+  $('#AdduserForm').validate({
+        rules: {
+          fname: {
+            minlength: 2,
+            required: true,
+            lettersonly :true
+          },
+          lname: {
+             minlength: 2,
+             required: true,
+             lettersonly :true
+          },
+          email: {
+            minlength: 2,
+            required: true
+          },
+          password: {
+            minlength: 6,
+            required: true
+          },
+          cPassword: {
+            minlength: 6,
+            required: true,
+             equalTo: "#pass"
+
+          },
+          age: {
+            minlength: 1,
+            required: true,
+            number: true,
+            maxlength: 2
+          },
+           address: {
+            minlength: 2,
+            required: true
+          },
+          C_num:{
+              minlength: 7,
+              number:true,
+              required: true
+              
+          }
+          
+        },
+            highlight: function(element) {
+                $(element).closest('.input-control').removeClass('success-state').addClass('error-state');
+            },
+            success: function(element) {
+                element
+                    .closest('.input-control').removeClass('error-state').addClass('success-state');
+            },
+            
+            messages: {
+              name: "Please specify your name",
+              email: {
+                  required: "We need your email address to contact you",
+                  email: "Your email address must be in the format of name@domain.com"
+              },
+             cPassword:{equalTo: "The Confirm Password field does not match the Password field"}
+            }
+      });
 	
 	
 });
@@ -151,7 +219,7 @@ $(document).ready(function() {
   <?php echo $success;
   		echo $mail;
    ?>
-  
+  <!---
 <script type="text/javascript">
 $(document).ready(function(){
 
@@ -224,6 +292,6 @@ $(document).ready(function(){
 
 }); // end document.ready
 
-</script>
+</script> -->
 </body>
 </html>

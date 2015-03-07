@@ -534,7 +534,16 @@ public function do_upload()
 		$id = $_POST['id'];
 		$this->load->model('model_users');
 		$data['details'] = $this->model_users->fetchAnnouncementsByID($id);
-		echo $data['details'][0]->announcement_details;
+		echo 
+			"
+			<span class='place-right'>".$data['details'][0]->announcement_datetime_made."</span>
+			<em>".$data['details'][0]->clinic_name."</em>
+			<dl class='horizontal'>
+				<dt>Subject</dt>
+				<dd>".$data['details'][0]->announcement_subject."</dd>
+				<dt>Details</dt>
+				<dd>".$data['details'][0]->announcement_details."</dd>
+			</dl>";
 	}
 
 	public function ret_success_notif(){	

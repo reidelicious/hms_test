@@ -1,5 +1,6 @@
 <div class="input-control switch place-right">
-    <label>
+    <label class="text-info">
+        Switch
         <input id="change" type="checkbox" />
         <span class="check"></span>
     </label>
@@ -45,7 +46,7 @@
                                     <?php }else if($app->status == "Reject"){ ?>
                                             <div class="title text-alert">
                                     <?php }else{ ?>
-                                            <div class="title text-primary">
+                                            <div class="title text-info">
                                     <?php } ?>
                                                 <?php echo $app->status; ?>
                                             </div>
@@ -82,11 +83,11 @@
     </div>
 </div>
 
-<table class="striped" id="showTable" style="display:none;">
+<table class="table striped" id="showTable" style="display:none;">
     <thead>
         <tr>
             <th class="text-center">Time</th>
-            <th class="text-center">Doctor</th>
+            <th class="text-center">Doctor (Specialist)</th>
             <th class="text-center">Clinic</th>
             <th class="text-center">Status</th>
             <th class="text-center">Action</th>
@@ -94,14 +95,14 @@
     </thead>
     <tbody>
         <?php foreach($appointment as $row): ?>
-            <td><?php echo $row->time; ?></td>
-            <td><?php echo ucfirst($row->lname) ."(".$row->specialist.")"; ?></td>
-            <td><?php echo ucfirst($row->clinic_name); ?></td>
-            <td><?php echo $row->status; ?></td>
+            <td class="text-center"><?php echo $row->time; ?></td>
+            <td class="text-center">Dr. <?php echo ucfirst($row->lname) ." (".$row->specialist.")"; ?></td>
+            <td class="text-center"><?php echo ucfirst($row->clinic_name); ?></td>
+            <td class="text-center"><?php echo $row->status; ?></td>
             <?php if($app->date > date("Y-m-d") && $app->status != "Cancelled"){ ?>
-                <td><button id="cancel" rowid="<?php echo $app->appoint_id; ?>"  class="small warning">Cancel Appointment</button></td>
+                <td class="text-center"><button id="cancel" rowid="<?php echo $app->appoint_id; ?>"  class="small warning">Cancel Appointment</button></td>
             <?php }else{ ?>
-                <td></td>
+                <td class="text-center"></td>
             <?php } ?>
         <?php endforeach; ?>
     </tbody>
@@ -123,7 +124,6 @@ $(document).ready(function(){
     });
 
     window.confirmCancel = function(id){
-        alert(id);
         $.ajax({
             type: "POST",
             url: "<?php echo base_url('patient/cancelappointment/')?>/"+id,
@@ -152,7 +152,6 @@ $(document).ready(function(){
 
     $(document).on('click','#cancel', function(){
         var id = $(this).attr('rowid');
-        alert(id);
         $.Dialog({
             overlay: true,
             shadow: true,
@@ -167,8 +166,8 @@ $(document).ready(function(){
                 var content = '<div>Are you sure you want to Cancel this Appointment? </div></br>' +
                               '<div class="grid fluid">'+
                               '<div class="row">'+
-                              '<div class="span8 offset2"> <button class="warning large btn-close" onclick="$.Dialog.close()"><i class="icon-cancel-2 on-center"></i></button> '+
-                              '<button class="danger large confirmDelete" value="'+id+'" onclick="$.Dialog.close();confirmCancel(this.value); "><i class="icon-thumbs-up on-center"></i></button>'+
+                              '<div class="span8 offset2"> <button class="warning large btn-close" onclick="$.Dialog.close()"><i class="icon-cancel-2 on-center">   No</i></button> '+
+                              '<button class="danger large confirmDelete" value="'+id+'" onclick="$.Dialog.close();confirmCancel(this.value); "><i class="icon-thumbs-up on-center"></i>    Yes</button>'+
                               '</div>'+
                               '</div>'+
                             '</div> ';

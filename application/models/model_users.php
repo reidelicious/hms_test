@@ -236,8 +236,32 @@ class Model_users extends CI_Model{
 		$data = array('status' => 2);
 		$this->db->where('appoint_id', $id);
 		$query = $this->db->update('appointments', $data);
-		if($query)
-			return true;
+		if($query){
+			$dt = $this->db->where('appoint_id', $id)->get('appointments')->result();	
+			$data2 = array('status' => 4);
+			$this->db->where('date', $dt[0]->date);
+			$this->db->where('time', $dt[0]->time);
+			//$this->db->where('doctor_id', $this->session->userdata('d_id'));
+			$this->db->where('status', "Pending");
+			$query = $this->db->update('appointments', $data2);
+			if($this->db->affected_rows() > 0){
+				$data3 = array('status' => "Pending");
+				$this->db->where('date', $dt[0]->date);
+				$this->db->where('time', $dt[0]->time);
+				$this->db->where('doctor_id !=', $this->session->userdata('d_id'));
+				$this->db->where('patient_id !=', $dt[0]->patient_id);
+				$this->db->where('status', "Cancelled");
+				$query = $this->db->update('appointments', $data3);
+				
+				if($this->db->affected_rows() > 0)
+					return true;
+				else
+					return false;
+					//return true;
+			}	
+			else
+				return false;
+		}
 		else
 			return false;
 	}
@@ -262,6 +286,55 @@ class Model_users extends CI_Model{
 		else
 			return false;
 	}
+	public function getAppointmentsForToday_Doctor(){
+		$this->db->where('doctor_id', $this->session->userdata('d_id'));
+		$this->db->where('date = CURDATE()');
+		$this->db->where('status', "Approved");
+		$this->db->from('appointments');
+		$this->db->join('patients', 'appointments.patient_id = patients.p_id');
+		$this->db->join('users', 'patients.u_id = users.id');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function countAppointmentsForToday_Doctor(){
+		$this->db->where('doctor_id', $this->session->userdata('d_id'));
+		$this->db->where('date = CURDATE()');
+		$this->db->where('status', "Approved");
+		$this->db->from('appointments');
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
+	public function getAppointmentsForToday_Patient(){
+		$this->db->where('patient_id', $this->session->userdata('p_id'));
+		$this->db->where('date = CURDATE()');
+		$this->db->where('status', "Approved");
+		$this->db->from('appointments');
+		$this->db->join('doctors', 'appointments.doctor_id = doctors.d_id');
+		$this->db->join('users', 'doctors.u_id = users.id');
+		$this->db->join('clinic', 'doctors.clinic = clinic.clinic_id');
+		$this->db->join('medical_specialist', 'doctors.specialization = medical_specialist.specialist_id');
+		$this->db->order_by('time');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getAppointmentsForUpcoming_Patient(){
+		$this->db->where('patient_id', $this->session->userdata('p_id'));
+		$this->db->where('date >= CURDATE()');
+		$this->db->from('appointments');
+		$this->db->join('doctors', 'appointments.doctor_id = doctors.d_id');
+		$this->db->join('users', 'doctors.u_id = users.id');
+		$this->db->join('clinic', 'doctors.clinic = clinic.clinic_id');
+		$this->db->join('medical_specialist', 'doctors.specialization = medical_specialist.specialist_id');
+		$this->db->order_by('date');
+		$this->db->limit(5);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+
 	public function countAppointmentsForToday(){
 		$this->db->where('patient_id', $this->session->userdata('p_id'));
 		$this->db->where('appointment_made = CURDATE()');
@@ -272,15 +345,8 @@ class Model_users extends CI_Model{
 
 	public function countAppointments($flag){
 		$this->db->where('patient_id', $this->session->userdata('p_id'));
-		if($flag == 1){
-			$this->db->where('status', 1);	
-		} // Pending
-		if($flag == 2){
-			$this->db->where('status', 2);	
-		} // Pending
-		if($flag == 3){
-			$this->db->where('status', 3);	
-		} // Pending
+		if($flag != 0)
+			$this->db->where('status', $flag);	
 		$query = $this->db->get('appointments');
 		return $query->num_rows();
 	}
@@ -308,8 +374,8 @@ class Model_users extends CI_Model{
 		return $query->result();
 	}
 	public function fetchAnnouncementsByID($id){
-		$this->db->select('announcement_details');
 		$this->db->from('announcement');
+		$this->db->join('clinic', 'clinic_id = announcement.fk_clinic_id','left');
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->result();
@@ -360,6 +426,20 @@ class Model_users extends CI_Model{
 		else
 			return false;
 	}
+	public function patient_isAppointmentConflict($arr){
+		$this->db->where('date', $arr[0]);
+		$this->db->where('time', $arr[1]);
+		$this->db->where('patient_id', $this->session->userdata('p_id'));
+		$this->db->where('status', "Approved")	;
+		$this->db->from('appointments');
+		$query = $this->db->get();
+		if($query->num_rows() == 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	public function checkAvailableAppointments($arr){
 		$this->db->where('doctor_id', $arr[2]);
 		$this->db->where('date', $arr[0]);

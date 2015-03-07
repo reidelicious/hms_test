@@ -82,15 +82,116 @@ else{
   } );
 }
 	 
-				   
+var hybridID;			   
  				
 $(document).on('click', '#refresh', function(){
   oTable.fnDraw();
 });
 
 
+$(document).on('click', '.approve', function(){
+  var bla = $(this).parents('td').prev();
+  hybridID = $(this).siblings('input').val();
+  var fname = bla.prev();
+  var lname = fname.prev();
+  var time = lname.prev();
+  var date = time.prev();
+  $.Dialog({
+        overlay: true,
+        shadow: true,
+        flat: true,
+        draggable: true,
+        icon: '<img src="images/excel2013icon.png">',
+        title: 'Approving Appointment',
+        width: 300,
+        content: '',
+        padding: 10,
+        onShow: function(_dialog){
+            var content =     '<p class="readable-text">Requesting for an appointment<p/>' +
+                              '<dl class="horizontal">' + 
+                              '<dt>Patient Name: </dt>' + 
+                              '<dd>' + lname.text() + ", " + fname.text() +'</dd>' +
+                               
+                              '<dt>Date: </dt>' + 
+                              '<dd>' + date.text() + "</dd>" + 
+                              '<dt>Time: </dt>' +
+                              '<dd>' + time.text() + '</dd>' +
+                              '</dl><center><div class="readable-text">Are you sure you want to approve this appointment?</div>' +
+                              '<div class="grid fluid">'+
+                              '<div class="row">'+
+                              '<div class="span8 offset2"> <button class="danger btn-close" onclick="$.Dialog.close()"><i class="icon-cancel-2 on-left"></i>   NO</button> '+
+                              '<button class="primary confirmOverwrite" id="overwrite" onclick="$.Dialog.close();approveAppointment()"><i class="icon-thumbs-up on-left"></i>  YES</button>'+
+                              '</div>'+
+                              '</div></center>'+
+                            '</div> ';
+            
+ 
+            $.Dialog.title("Approving Appointment");
+            $.Dialog.content(content);
+            $.Metro.initInputs();
+        }
+    });
+});
+
+window.approveAppointment = function(){
+        flag = 1;
+        
+        $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>doctor/changeStat_appointmentToApprove",
+                data: {id:hybridID},
+                success:function(msg){
+                  if(msg == "Success"){
+                    var not = $.Notify({
+                      style: {background: 'green', color: 'white'},
+                      caption: "Approved Appointment!",
+                      content: "Approving of Appointment is Successful!",
+                      timeout: 10000 // 10 seconds
+                     });
+                  }else{
+                    var not = $.Notify({
+                      style: {background: 'red', color: 'white'},
+                      caption: "Error!",
+                      content: "Approving of Appointment Errored!",
+                      timeout: 10000 // 10 seconds
+                    });
+                  }
+                }
+            }).done(function(){
+                oTable.fnDraw();
+            });
+    };
+
+    window.rejectAppointment = function(){
+          $.Dialog({
+                overlay: true,
+                shadow: true,
+                flat: true,
+                draggable: true,
+                icon: '<img src="<?php echo base_url('assets/images/Windows-8-Logo.png')?>">',
+                title: 'Flat window',
+                content: '',
+                width: 500,
+                padding: 10,
+                onShow: function(_dialog){
+                    var content = '<form action="<?php echo base_url('doctor/changeStat_appointmentToReject'); ?>" method="POST" id="editform">' +
+                        '<label class="readable-text">Send a message to the Patient</label>'+
+                        '<textarea style="margin: 0px; height:200px; width: 100%; max-width: 100%;" name="message"  required></textarea>'+
+                       '<div class="input-control text"><input type="hidden" name="appointid" value="'+hybridID+'" required>'+
+                        '<div class="form-actions">' +
+                        '<button type="submit" class="button primary" onclick="$.Dialog.close();">Send</button> '+
+                        '<button class="button" type="button" onclick="$.Dialog.close()">Cancel</button> '+
+                        '</div>'+
+                        '</form>';
+                    $.Dialog.title("Send a message to the Patient");
+                    $.Dialog.content(content);
+                    $.Metro.initInputs();
+                }
+            });
+    }
 
 					
+/*
 $(document).on('click','.approve', function(){
 	   if(confirm("Are you sure you want to approve this appointment?")){
             var id = $(this).siblings('input').val();
@@ -113,9 +214,53 @@ $(document).on('click','.approve', function(){
               oTable.fnDraw();
             })
         }
-});						
+});			*/			
 
 $(document).on('click','.reject', function(){
+  var bla = $(this).parents('td').prev();
+  hybridID = $(this).siblings('input').val();
+  
+  var fname = bla.prev();
+  var lname = fname.prev();
+  var time = lname.prev();
+  var date = time.prev();
+    $.Dialog({
+        overlay: true,
+        shadow: true,
+        flat: true,
+        draggable: true,
+        icon: '<img src="images/excel2013icon.png">',
+        title: 'Rejecting Appointment',
+        width: 300,
+        content: '',
+        padding: 10,
+        onShow: function(_dialog){
+            var content =     '<p class="readable-text">Requesting for an appointment<p/>' +
+                              '<dl class="horizontal">' + 
+                              '<dt>Patient Name: </dt>' + 
+                              '<dd>' + lname.text() + ", " + fname.text() +'</dd>' +
+                               
+                              '<dt>Date: </dt>' + 
+                              '<dd>' + date.text() + "</dd>" + 
+                              '<dt>Time: </dt>' +
+                              '<dd>' + time.text() + '</dd>' +
+                              '</dl><center><div class="readable-text">Are you sure you want to reject this appointment?</div>' +
+                              '<div class="grid fluid">'+
+                              '<div class="row">'+
+                              '<div class="span8 offset2"> <button class="danger btn-close" onclick="$.Dialog.close()"><i class="icon-cancel-2 on-left"></i>   NO</button> '+
+                              '<button class="primary confirmOverwrite" id="overwrite" onclick="$.Dialog.close();rejectAppointment(); "><i class="icon-thumbs-up on-left"></i>  YES</button>'+
+                              '</div>'+
+                              '</div></center>'+
+                            '</div> ';
+ 
+            $.Dialog.title("Rejecting Appointment");
+            $.Dialog.content(content);
+            $.Metro.initInputs();
+        }
+    });
+
+/*
+
 	 if(confirm("Are you sure you want to reject this appointment?")){
             var id = $(this).siblings('input').val();
             var flag = 1;
@@ -145,7 +290,7 @@ $(document).on('click','.reject', function(){
             });
         }
 	
-
+*/
 });	
 
 $(document).on('submit','#editform', function(e){
@@ -158,11 +303,17 @@ $(document).on('submit','#editform', function(e){
         data : postData,
         success:function(msg){ 
           if(msg == "success"){
-            alert('Successfully Rejected Appointment');
+            var not = $.Notify({
+                    style: {background: 'red', color: 'white'},
+                    caption: "Rejected Appointment",
+                    content: "Rejecting of Appointment is Successful!",
+                    timeout: 10000 // 10 seconds
+                 });
   		    }else{
     			 	var not = $.Notify({
 				 	          style: {background: 'red', color: 'white'},
-    				        caption: "Error on Rejecting Appointment",
+    				        caption: "Error!",
+                    content: "Rejecting of Appointment Errors!",
       			  	    timeout: 10000 // 10 seconds
 			           });
   		    }  
@@ -180,33 +331,7 @@ $(document).on('submit','#editform', function(e){
 			
 });//ready end
 					
-function  confirmDeleteFunc(id){
-$.ajax({
-		type: "POST",
-		url: "<?php echo base_url('admin/deleteAnnouncement/')?>/"+id,
-			
-	}).done(function(msg){
-		if(msg=="success"){
-			 var not = $.Notify({
-				 	style: {background: 'green', color: 'white'},
-    				caption: "Delete",
-       				content: "Deletion of Announcement is successful!!!",
-      			  	timeout: 10000 // 10 seconds
-   			 });
-		 oTable.fnDraw();
-		}else if(msg=="fail"){
 
-      var not = $.Notify({
-          style: {background: 'red', color: 'white'},
-            caption: "Delete FAIL",
-              content: "Deletion of Announcement Failed!!",
-                timeout: 10000 // 10 seconds
-         });
-    }
-				//alert(msg);
-	});
-
-}
 
 					
 
