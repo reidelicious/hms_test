@@ -161,7 +161,9 @@ $(document).on('click','.deleteUser', function(){
 $(document).on('submit','#editform', function(e){
     var postData = $(this).serializeArray();
 	var formURL = $(this).attr("action");
+	var r = confirm('are you sure?');
 	
+	if( r == true){
      $.ajax({
         url : formURL,
         type: "POST",
@@ -188,7 +190,7 @@ $(document).on('submit','#editform', function(e){
         },
        
     });
-
+	}else{}
   	
     e.preventDefault(); //STOP default action
     e.unbind(); //unbind. to stop multiple form submit.

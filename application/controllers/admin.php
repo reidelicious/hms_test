@@ -99,7 +99,7 @@ public function add_user(){
 		$data['clinic'] = $this->model_users->getClinicByCategory($id);
         
        $output = null;
-       $output .= "<option value=''<?php echo set_select('utype', '', TRUE); ?> disabled='disabled'> Assigned Clinic</option>";
+       $output .= "<option value=''set_select('clinic', '', TRUE); disabled='disabled'> Assigned Clinic</option>";
         foreach ($data['clinic'] as $s)
         {
             $output .= "<option value='".$s->clinic_id."'>".$s->clinic_name."</option>";

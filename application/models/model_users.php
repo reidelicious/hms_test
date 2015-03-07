@@ -244,7 +244,7 @@ class Model_users extends CI_Model{
 			//$this->db->where('doctor_id', $this->session->userdata('d_id'));
 			$this->db->where('status', "Pending");
 			$query = $this->db->update('appointments', $data2);
-			if($this->db->affected_rows() > 0){
+			if($query){
 				$data3 = array('status' => "Pending");
 				$this->db->where('date', $dt[0]->date);
 				$this->db->where('time', $dt[0]->time);
@@ -253,7 +253,7 @@ class Model_users extends CI_Model{
 				$this->db->where('status', "Cancelled");
 				$query = $this->db->update('appointments', $data3);
 				
-				if($this->db->affected_rows() > 0)
+				if($query)
 					return true;
 				else
 					return false;

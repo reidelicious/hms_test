@@ -139,16 +139,16 @@ $(document).ready(function() {
 	 }
 	 });
 
-  $('#specialist').on('change', function(){
-    alert($('#specialist').val());/*
+  $(document).on('change','#specialist', function(){
+    alert($('#specialist').val());
     $.ajax({
         type: "POST",
         url: "<?php echo base_url(); ?>admin/build_drop_clinic",
         data: {specialist:$('#specialist').val()},
         success: function(clinic){
-            $('#Specialization').html(clinic);
+            $('#clinic').html(clinic);
         }
-    });*/
+    });
   });
 
   $('#AdduserForm').validate({

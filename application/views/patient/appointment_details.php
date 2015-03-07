@@ -96,7 +96,7 @@
     <tbody>
         <?php foreach($appointment as $row): ?>
             <tr>
-                <td class="text-center"><?php echo $row->appoint_time; ?></td>
+                <td class="text-center"><?php echo date('h:i A', strtotime($row->time)); ?></td>
                 <td class="text-center">Dr. <?php echo ucfirst($row->lname) ." (".$row->specialist.")"; ?></td>
                 <td class="text-center"><?php echo ucfirst($row->clinic_name); ?></td>
                 <td class="text-center"><?php echo $row->status; ?></td>

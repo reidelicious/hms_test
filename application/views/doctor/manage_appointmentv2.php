@@ -304,7 +304,7 @@ $(document).on('submit','#editform', function(e){
         success:function(msg){ 
           if(msg == "success"){
             var not = $.Notify({
-                    style: {background: 'red', color: 'white'},
+                    style: {background: 'green', color: 'white'},
                     caption: "Rejected Appointment",
                     content: "Rejecting of Appointment is Successful!",
                     timeout: 10000 // 10 seconds

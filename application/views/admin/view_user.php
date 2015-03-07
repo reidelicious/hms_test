@@ -84,7 +84,7 @@ $(document).on('click','.editInfo', function(){
 			   
 			  
                 '<div class="form-actions">' +
-                '<button class="button primary" onclick="$.Dialog.close();">EDIT</button> '+
+                '<button class="button primary" onclick = "return confirm("are you sure?")">EDIT</button> '+
                 '<button class="button" type="button" onclick="$.Dialog.close()">Cancel</button> '+
                 '</div>'+
                 '</form>';
@@ -94,7 +94,8 @@ $(document).on('click','.editInfo', function(){
             $.Metro.initInputs();
         }
     });
-    
+   
+	
      $('#editform').validate({
         rules: {
           fname: {
@@ -158,7 +159,9 @@ $(document).on('click','.deleteUser', function(){
 $(document).on('submit','#editform', function(e){
     var postData = $(this).serializeArray();
 	var formURL = $(this).attr("action");
+	var r = confirm('are you sure?');
 	
+	if( r == true){
      $.ajax({
         url : formURL,
         type: "POST",
@@ -180,11 +183,13 @@ $(document).on('submit','#editform', function(e){
        				content: "Update of User has Failed!!!",
       			  	timeout: 10000 // 10 seconds
 			});
-		  }  
+		  } 
+		   
 		  
-        },
-       
+        }
+	 
     });
+	}else{}
 
   	
     e.preventDefault(); //STOP default action
