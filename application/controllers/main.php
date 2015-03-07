@@ -25,7 +25,7 @@ class Main extends CI_Controller {
 	
 	//loginpage
 	public function login(){
-		$data['title'] = "HMS";
+		$data['title'] = "DAS";
 	
 		if($this->session->userdata('is_logged_in') == 1){
 			if($this->session->userdata('usertype') == "USER"){
@@ -43,7 +43,7 @@ class Main extends CI_Controller {
 
 	//signup page
 	public function signup(){
-		$data['title'] = "sign up";
+		$data['title'] = "Signing Up!";
 		$data['mail'] = ' ';
 		$data['notif'] = ' ';
 		$data['success'] = ' ';
@@ -60,7 +60,7 @@ class Main extends CI_Controller {
 	
 	//login validation
 	public function login_validation(){
-		$data['title'] = "HMS";
+		$data['title'] = "DAS";
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|xss_clean|callback_validate_credentials');
 		//callback_validate_credentials will call validate_credentials() and return true or false

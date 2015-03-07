@@ -67,7 +67,8 @@
                             <button class="btn-clear" tabindex="-1"></button>
 						</div>
 						</br></br>
-						<?php echo form_submit('signup_submit','Create Account','class="large info"'); 
+						<button type="submit" class="large info" name="signup_submit">Create Account</button> | <a href="<?php echo base_url('main');  ?>"><button type="button" class="warning large">Cancel</button></a>
+						<?php 
 						$data = array(
               				'usertype'  => '1'
             			);

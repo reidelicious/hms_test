@@ -313,8 +313,6 @@ class Doctor extends CI_Controller {
 		//our docx will have 'portrait' paper orientation
 		$section = $this->word->createSection(array('orientation'=>'portrait'));
 		
-		$section->addImage('../assets/images/hms-logo');
-		$section->addTextBreak(2);
 
 		// Add text elements		
 		$this->word->addFontStyle('rStyle', array('bold'=>true, 'italic'=>true, 'size'=>16));
