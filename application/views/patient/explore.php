@@ -80,7 +80,7 @@
                             	<span class="price"><?php echo $data->specialist ?> </span> 
                             </section>
                         </li>                    
-                    <?php }}else{ echo "no doctor here";} ?>              
+                    <?php }}else{ echo "No Doctor(s) here";} ?>              
                     </ul>
                     <footer>   
                     	<br />                 

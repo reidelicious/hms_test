@@ -48,7 +48,7 @@ class Patient extends CI_Controller {
 				  $data['output'] .=  '<input type="hidden" id="clinic_id" value ="'.$i->clinic_id.'"> ';
           		  $data['output'].='	<div class="list-content">';
           		  $data['output'].='		<span class="list-title" id="clinic_name"> '.$i->clinic_name.'</span>';
-          		  $data['output'].='		<span class="list-subtitle">room number here</span>';
+          		  $data['output'].='		<span class="list-subtitle">'.$i->room_num.'</span>';
            		  $data['output'].='		<span class="list-remark" id="d_count">There are '.$dcount.' doctors in this clinic</span>';
            		  $data['output'].='	</div>';
              	  $data['output'].='</a>';	
@@ -107,7 +107,7 @@ class Patient extends CI_Controller {
 											<dt>Contact num:</dt>
 												<dd>'.$cd->contact_num.'</dd>
 											<dt>Room num:</dt>
-												<dd>N/A</dd>
+												<dd>'.$cd->room_num.'</dd>
 											<dt></dt>
 												
 										</dl>		
@@ -155,7 +155,7 @@ class Patient extends CI_Controller {
 		$config = array();
 		$config['base_url'] = base_url('patient/doctors/page/');
 		$config["total_rows"] = $this->model_users->doctor_count();
-        $config['per_page'] = 1;
+        $config['per_page'] = 10;
         $config["uri_segment"] = '4';
 		$config['use_page_numbers'] = TRUE;				
 		$config['full_tag_open'] = '<ul>';
@@ -184,7 +184,7 @@ class Patient extends CI_Controller {
 		
 		if($this->uri->segment(3) == "page" ||$this->uri->segment(3) === FALSE){
 			if($this->uri->segment(4)){		
-				$page = ( $this->uri->segment(4)* $config['per_page'])-1;
+				$page = ( $this->uri->segment(4)* $config['per_page'])-10;
 			}else{ $page = 0;}
 	
 		
@@ -317,7 +317,7 @@ class Patient extends CI_Controller {
 		$timex = array();
 		$temptime = $row[0]->time_start;
 		$temptime = date("H:i", strtotime($temptime));
-		while($temptime <= $row[0]->time_end){
+		while($temptime <= date("H:i", strtotime("-30 minutes", strtotime($row[0]->time_end)))){
 			if($this->model_users->is_AvailableSched($d, $temptime, $id)){
 				array_push($timex, $temptime);
 			}
